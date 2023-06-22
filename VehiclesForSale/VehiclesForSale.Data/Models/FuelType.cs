@@ -3,7 +3,7 @@ using static VehiclesForSale.Common.Validations.EntityValidationConstants.TypesV
 
 namespace VehiclesForSale.Data.Models
 {
-    internal class FuelType
+    public class FuelType
     {
         [Key]
         public int Id { get; set; }
