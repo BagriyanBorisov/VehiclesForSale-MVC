@@ -15,4 +15,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VehiclesForSale.Core\VehiclesForSale.Core.csproj" />
+    <ProjectReference Include="..\VehiclesForSale.Data\VehiclesForSale.Data.csproj" />
+  </ItemGroup>
+
 </Project>

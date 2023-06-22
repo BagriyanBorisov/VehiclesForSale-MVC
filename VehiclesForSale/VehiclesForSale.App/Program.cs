@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using VehiclesForSale.App.Data;
+using VehiclesForSale.Data;
 
 namespace VehiclesForSale.App
 {
