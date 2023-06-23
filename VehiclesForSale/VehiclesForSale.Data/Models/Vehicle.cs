@@ -23,6 +23,9 @@ namespace VehiclesForSale.Data.Models
         public decimal Price {get; set; }
 
         [Required]
+        public int CubicCapacity { get; set; }
+
+        [Required]
         public DateTime Year {get; set; }
 
         [Required]
@@ -66,6 +69,13 @@ namespace VehiclesForSale.Data.Models
 
         [ForeignKey(nameof(ColorId))]
         public Color Color { get; set; } = null!;
+
+
+        [Required]
+        public int CategoryTypeId { get; set; }
+
+        [ForeignKey(nameof(CategoryTypeId))]
+        public CategoryType CategoryType { get; set; } = null!;
 
         public ICollection<Image> Images { get; set; }
 

@@ -23,6 +23,7 @@
             public const int ImageUrlMaxLength = 2048;
             public const int TransmissionMaxLength = 20;
             public const int ColorMaxLength = 25;
+            public const int CategoryMaxLength = 30;
         }
     }
 }
