@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using static VehiclesForSale.Common.Validations.EntityValidationConstants.TypesValidations;
 
-namespace VehiclesForSale.Data.Models
+namespace VehiclesForSale.Data.Models.VehicleModel
 {
     public class Image
     {
@@ -14,9 +14,9 @@ namespace VehiclesForSale.Data.Models
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        public int VehicleId {get; set; }
+        public int VehicleId { get; set; }
 
-        [ForeignKey(nameof(VehicleId))] 
+        [ForeignKey(nameof(VehicleId))]
         public Vehicle Vehicle { get; set; } = null!;
     }
 }

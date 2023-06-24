@@ -25,5 +25,9 @@
             public const int ColorMaxLength = 25;
             public const int CategoryMaxLength = 30;
         }
+        public static class ExtrasValidations
+        {
+            public const int NameMaxLength = 255;
+        }
     }
 }

@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static VehiclesForSale.Common.Validations.EntityValidationConstants.TypesValidations;
-
-namespace VehiclesForSale.Data.Models
+namespace VehiclesForSale.Data.Models.VehicleModel
 {
-    public class FuelType
+    public class Color
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(FuelMaxLength)]
+        [MaxLength(ColorMaxLength)]
         public string Name { get; set; } = null!;
 
     }

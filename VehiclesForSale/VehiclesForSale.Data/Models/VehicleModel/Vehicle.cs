@@ -1,38 +1,42 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using VehiclesForSale.Data.Models.VehicleModel.Extras;
 using static VehiclesForSale.Common.Validations.EntityValidationConstants.VehicleValidations;
 
 
-namespace VehiclesForSale.Data.Models
+namespace VehiclesForSale.Data.Models.VehicleModel
 {
     public class Vehicle
     {
         public Vehicle()
         {
-            this.Images = new HashSet<Image>();
+            ImageCollection = new HashSet<Image>();
+            FavoriteVehicleApplicationUsers = new HashSet<FavoriteVehicleApplicationUser>();
         }
 
         [Key]
         public int Id { get; set; }
 
-        [Required] 
+        [Required]
         [MaxLength(TitleMaxLength)]
         public string Title { get; set; } = null!;
 
         [Required]
-        public decimal Price {get; set; }
+        public decimal Price { get; set; }
 
         [Required]
         public int CubicCapacity { get; set; }
 
         [Required]
-        public DateTime Year {get; set; }
+        public DateTime Year { get; set; }
 
         [Required]
         public long Mileage { get; set; }
 
         [Required]
         public int HorsePower { get; set; }
+
+        public string? Location { get; set; }
 
 
         //Relations
@@ -77,7 +81,21 @@ namespace VehiclesForSale.Data.Models
         [ForeignKey(nameof(CategoryTypeId))]
         public CategoryType CategoryType { get; set; } = null!;
 
-        public ICollection<Image> Images { get; set; }
+        [Required]
+        public int ExtraId { get; set; }
+
+        [ForeignKey(nameof(ExtraId))]
+        public Extra Extra { get; set; } = null!;
+
+        [Required]
+        public string OwnerId { get; set; } = null!;
+
+        [ForeignKey(nameof(OwnerId))]
+        public ApplicationUser Owner { get; set; } = null!;
+
+        public ICollection<FavoriteVehicleApplicationUser> FavoriteVehicleApplicationUsers { get; set; }
+
+        public ICollection<Image> ImageCollection { get; set; }
 
     }
 }

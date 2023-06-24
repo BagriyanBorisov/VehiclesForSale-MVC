@@ -1,17 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static VehiclesForSale.Common.Validations.EntityValidationConstants.TypesValidations;
 
-namespace VehiclesForSale.Data.Models
+namespace VehiclesForSale.Data.Models.VehicleModel
 {
-    public class TransmissionType
+    public class CategoryType
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        [StringLength(TransmissionMaxLength)] 
+        [MaxLength(CategoryMaxLength)]
         public string Name { get; set; } = null!;
-
-
     }
 }

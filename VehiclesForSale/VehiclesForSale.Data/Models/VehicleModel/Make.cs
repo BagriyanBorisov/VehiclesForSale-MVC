@@ -1,4 +1,4 @@
-﻿namespace VehiclesForSale.Data.Models
+﻿namespace VehiclesForSale.Data.Models.VehicleModel
 {
     using System.ComponentModel.DataAnnotations;
     using static Common.Validations.EntityValidationConstants.MakeValidations;
@@ -6,7 +6,7 @@
     {
         public Make()
         {
-            this.Models = new HashSet<Model>();
+            Models = new HashSet<Model>();
         }
 
         [Key]

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesForSale.Data;
 
@@ -11,9 +12,10 @@ using VehiclesForSale.Data;
 namespace VehiclesForSale.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230624184553_addedTablesForVehicleAndExtendedFuncOfUser")]
+    partial class addedTablesForVehicleAndExtendedFuncOfUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,7 +241,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CategoryTypes", (string)null);
+                    b.ToTable("CategoryTypes");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Color", b =>
@@ -257,7 +259,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors", (string)null);
+                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.ComfortExtra", b =>
@@ -280,7 +282,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("ComfortExtras", (string)null);
+                    b.ToTable("ComfortExtras");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.ExteriorExtra", b =>
@@ -303,7 +305,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("ExteriorExtras", (string)null);
+                    b.ToTable("ExteriorExtras");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.Extra", b =>
@@ -316,7 +318,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Extras", (string)null);
+                    b.ToTable("Extras");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.InteriorExtra", b =>
@@ -339,7 +341,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("InteriorExtras", (string)null);
+                    b.ToTable("InteriorExtras");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.OtherExtra", b =>
@@ -362,7 +364,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("OtherExtras", (string)null);
+                    b.ToTable("OtherExtras");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.SafetyExtra", b =>
@@ -385,7 +387,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("SafetyExtras", (string)null);
+                    b.ToTable("SafetyExtras");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.FavoriteVehicleApplicationUser", b =>
@@ -400,7 +402,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("FavoriteVehicleApplicationUsers", (string)null);
+                    b.ToTable("FavoriteVehicleApplicationUsers");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.FuelType", b =>
@@ -418,7 +420,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FuelTypes", (string)null);
+                    b.ToTable("FuelTypes");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Image", b =>
@@ -441,7 +443,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Make", b =>
@@ -459,7 +461,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Makes", (string)null);
+                    b.ToTable("Makes");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Model", b =>
@@ -482,7 +484,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("MakeId");
 
-                    b.ToTable("Models", (string)null);
+                    b.ToTable("Models");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.TransmissionType", b =>
@@ -500,7 +502,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransmissionTypes", (string)null);
+                    b.ToTable("TransmissionTypes");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Vehicle", b =>
@@ -577,7 +579,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("TransmissionTypeId");
 
-                    b.ToTable("Vehicles", (string)null);
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -691,13 +693,13 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasOne("VehiclesForSale.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("FavoriteVehicleApplicationUsers")
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("VehiclesForSale.Data.Models.VehicleModel.Vehicle", "Vehicle")
                         .WithMany("FavoriteVehicleApplicationUsers")
                         .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -762,7 +764,7 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasOne("VehiclesForSale.Data.Models.VehicleModel.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("VehiclesForSale.Data.Models.ApplicationUser", "Owner")
