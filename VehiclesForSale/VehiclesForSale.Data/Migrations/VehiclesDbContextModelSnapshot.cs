@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesForSale.Data;
 
@@ -11,11 +10,10 @@ using VehiclesForSale.Data;
 
 namespace VehiclesForSale.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230624184553_addedTablesForVehicleAndExtendedFuncOfUser")]
-    partial class addedTablesForVehicleAndExtendedFuncOfUser
+    [DbContext(typeof(VehiclesDbContext))]
+    partial class VehiclesDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -395,8 +393,8 @@ namespace VehiclesForSale.Data.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ApplicationUserId", "VehicleId");
 
@@ -436,8 +434,8 @@ namespace VehiclesForSale.Data.Migrations
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -507,11 +505,9 @@ namespace VehiclesForSale.Data.Migrations
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Vehicle", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CategoryTypeId")
                         .HasColumnType("int");
@@ -693,13 +689,13 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasOne("VehiclesForSale.Data.Models.ApplicationUser", "ApplicationUser")
                         .WithMany("FavoriteVehicleApplicationUsers")
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("VehiclesForSale.Data.Models.VehicleModel.Vehicle", "Vehicle")
                         .WithMany("FavoriteVehicleApplicationUsers")
                         .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -762,9 +758,9 @@ namespace VehiclesForSale.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("VehiclesForSale.Data.Models.VehicleModel.Model", "Model")
-                        .WithMany()
+                        .WithMany("VehiclesFromModel")
                         .HasForeignKey("ModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("VehiclesForSale.Data.Models.ApplicationUser", "Owner")
@@ -819,6 +815,11 @@ namespace VehiclesForSale.Data.Migrations
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Make", b =>
                 {
                     b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Model", b =>
+                {
+                    b.Navigation("VehiclesFromModel");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Vehicle", b =>

@@ -5,7 +5,7 @@ namespace VehiclesForSale.Data.Models.VehicleModel
     public class FavoriteVehicleApplicationUser
     {
         public string ApplicationUserId { get; set; } = null!;
-        public int VehicleId { get; set; }
+        public Guid VehicleId { get; set; }
 
         [ForeignKey(nameof(VehicleId))]
         public Vehicle Vehicle { get; set; } = null!;

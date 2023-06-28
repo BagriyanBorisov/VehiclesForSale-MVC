@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-using VehiclesForSale.Data.Models;
-using VehiclesForSale.Data.Models.VehicleModel;
-using VehiclesForSale.Data.Models.VehicleModel.Extras;
-
-namespace VehiclesForSale.Data
+﻿namespace VehiclesForSale.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
+
+    using Models;
+    using Models.VehicleModel;
+    using Models.VehicleModel.Extras;
+    public class VehiclesDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public VehiclesDbContext(DbContextOptions<VehiclesDbContext> options)
             : base(options)
         {
         }
@@ -32,16 +31,21 @@ namespace VehiclesForSale.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Vehicle>()
-                .HasOne(v => v.Owner)
-                .WithMany(ap => ap.VehiclesCollectionForSale)
-                .HasForeignKey(v => v.OwnerId);
+            modelBuilder.Entity<FavoriteVehicleApplicationUser>()
+                .HasKey(kvp => new {kvp.ApplicationUserId,kvp.VehicleId});
 
-            modelBuilder.Entity<ApplicationUser>().HasMany(ap => ap.VehiclesCollectionForSale).WithOne(v => v.Owner);
+            modelBuilder.Entity<Vehicle>().HasOne(v => v.Model)
+                .WithMany(m => m.VehiclesFromModel)
+                .HasForeignKey(v => v.ModelId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<FavoriteVehicleApplicationUser>().HasKey(kvp => new {kvp.ApplicationUserId,kvp.VehicleId});
+            modelBuilder.Entity<FavoriteVehicleApplicationUser>()
+                .HasOne(v=>v.ApplicationUser)
+                .WithMany(v => v.FavoriteVehicleApplicationUsers).OnDelete(DeleteBehavior.Restrict);
 
-
+            modelBuilder.Entity<FavoriteVehicleApplicationUser>()
+                .HasOne(v => v.Vehicle)
+                .WithMany(v => v.FavoriteVehicleApplicationUsers).OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }

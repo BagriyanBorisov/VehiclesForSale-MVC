@@ -6,6 +6,11 @@ namespace VehiclesForSale.Data.Models.VehicleModel
 {
     public class Model
     {
+        public Model()
+        {
+            this.VehiclesFromModel = new HashSet<Vehicle>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -19,5 +24,7 @@ namespace VehiclesForSale.Data.Models.VehicleModel
 
         [ForeignKey(nameof(MakeId))]
         public Make Make { get; set; } = null!;
+
+        public ICollection<Vehicle> VehiclesFromModel { get; set; }
     }
 }

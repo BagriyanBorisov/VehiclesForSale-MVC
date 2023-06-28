@@ -12,10 +12,11 @@ namespace VehiclesForSale.Data.Models.VehicleModel
         {
             ImageCollection = new HashSet<Image>();
             FavoriteVehicleApplicationUsers = new HashSet<FavoriteVehicleApplicationUser>();
+            Id = Guid.NewGuid();
         }
 
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(TitleMaxLength)]

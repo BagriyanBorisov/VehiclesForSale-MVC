@@ -14,7 +14,7 @@ namespace VehiclesForSale.Data.Models.VehicleModel
         public string ImageUrl { get; set; } = null!;
 
         [Required]
-        public int VehicleId { get; set; }
+        public Guid VehicleId { get; set; }
 
         [ForeignKey(nameof(VehicleId))]
         public Vehicle Vehicle { get; set; } = null!;
