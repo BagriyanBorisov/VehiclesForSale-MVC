@@ -1,4 +1,6 @@
-﻿namespace VehiclesForSale.Data
+﻿using VehiclesForSale.Data.Configurations;
+
+namespace VehiclesForSale.Data
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
@@ -6,6 +8,8 @@
     using Models;
     using Models.VehicleModel;
     using Models.VehicleModel.Extras;
+    using System.Reflection;
+
     public class VehiclesDbContext : IdentityDbContext<ApplicationUser>
     {
         public VehiclesDbContext(DbContextOptions<VehiclesDbContext> options)
@@ -46,6 +50,9 @@
             modelBuilder.Entity<FavoriteVehicleApplicationUser>()
                 .HasOne(v => v.Vehicle)
                 .WithMany(v => v.FavoriteVehicleApplicationUsers).OnDelete(DeleteBehavior.Restrict);
+
+            Assembly configAssembly = Assembly.GetAssembly(typeof(VehiclesDbContext)) ?? Assembly.GetExecutingAssembly();
+            modelBuilder.ApplyConfigurationsFromAssembly(configAssembly);
 
             base.OnModelCreating(modelBuilder);
         }

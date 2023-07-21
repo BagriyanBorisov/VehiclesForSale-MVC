@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using VehiclesForSale.Data.Models.VehicleModel.Extras;
-using static VehiclesForSale.Common.Validations.EntityValidationConstants.VehicleValidations;
-
-
-namespace VehiclesForSale.Data.Models.VehicleModel
+﻿namespace VehiclesForSale.Data.Models.VehicleModel
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    using Extras;
+    using static Common.Validations.EntityValidationConstants.VehicleValidations;
+
+
     public class Vehicle
     {
         public Vehicle()

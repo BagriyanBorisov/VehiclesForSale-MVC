@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesForSale.Data;
 
@@ -11,9 +12,10 @@ using VehiclesForSale.Data;
 namespace VehiclesForSale.Data.Migrations
 {
     [DbContext(typeof(VehiclesDbContext))]
-    partial class VehiclesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721100357_ConfigAndSeedMakesModelsTransmissionTables")]
+    partial class ConfigAndSeedMakesModelsTransmissionTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,43 +242,6 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CategoryTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Hatchback"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Sedan"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "SUV"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "MUV"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Coupe"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Convertible"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Pickup Truck"
-                        });
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Color", b =>
@@ -295,73 +260,6 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "White"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Black"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Gray"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Silver"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Blue"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Red"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Name = "Brown"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Name = "Green"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Name = "Orange"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Name = "Beige"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Name = "Purple"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Name = "Gold"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Name = "Yellow"
-                        });
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.ComfortExtra", b =>
@@ -523,38 +421,6 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("FuelTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Gasoline"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Diesel"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Electric"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Hybrid(D/E)"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Hybrid(G/E)"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "LPG"
-                        });
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Image", b =>
