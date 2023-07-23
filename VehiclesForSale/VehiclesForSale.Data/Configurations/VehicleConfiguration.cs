@@ -14,5 +14,27 @@ namespace VehiclesForSale.Data.Configurations
                 .HasForeignKey(v => v.ModelId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
+
+        private IEnumerable<Vehicle> Seed()
+        {
+            List<Vehicle> vehicles = new List<Vehicle>
+            {
+                new Vehicle { 
+                    Title = "Mercedes-Benz E class 320CDI",
+                    CategoryTypeId = 2, Price = 10000,
+                    CubicCapacity = 3224, 
+                    Year = DateTime.Today.AddYears(-14),
+                    Mileage = 300000,HorsePower = 224, MakeId = 1,
+                    ModelId = 1,
+                    TransmissionTypeId = 2,
+                    FuelTypeId = 2,
+                    ColorId = 5,
+                    ExtraId = 1,
+                    OwnerId = "8e445865-a24d-4543-a6c6-9443d048cdb9" }
+
+                };
+
+            return vehicles;
+        }
     }
 }

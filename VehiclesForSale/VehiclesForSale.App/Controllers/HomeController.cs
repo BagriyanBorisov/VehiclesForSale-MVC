@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using VehiclesForSale.Web.Models;
 
 namespace VehiclesForSale.Web.Controllers
@@ -28,5 +29,13 @@ namespace VehiclesForSale.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [Authorize]
+        public IActionResult Extras()
+        {
+            
+            return View();
+        }
+
     }
 }
