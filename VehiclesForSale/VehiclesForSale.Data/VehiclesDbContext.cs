@@ -1,14 +1,15 @@
-﻿using VehiclesForSale.Data.Configurations;
-
-namespace VehiclesForSale.Data
+﻿namespace VehiclesForSale.Data
 {
+    using System.Reflection;
+
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
     using Models;
     using Models.VehicleModel;
     using Models.VehicleModel.Extras;
-    using System.Reflection;
+    using Configurations;
+   
 
     public class VehiclesDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -35,22 +36,7 @@ namespace VehiclesForSale.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FavoriteVehicleApplicationUser>()
-                .HasKey(kvp => new {kvp.ApplicationUserId,kvp.VehicleId});
-
-            modelBuilder.Entity<Vehicle>().HasOne(v => v.Model)
-                .WithMany(m => m.VehiclesFromModel)
-                .HasForeignKey(v => v.ModelId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<FavoriteVehicleApplicationUser>()
-                .HasOne(v=>v.ApplicationUser)
-                .WithMany(v => v.FavoriteVehicleApplicationUsers).OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<FavoriteVehicleApplicationUser>()
-                .HasOne(v => v.Vehicle)
-                .WithMany(v => v.FavoriteVehicleApplicationUsers).OnDelete(DeleteBehavior.Restrict);
-
+        
             Assembly configAssembly = Assembly.GetAssembly(typeof(VehiclesDbContext)) ?? Assembly.GetExecutingAssembly();
             modelBuilder.ApplyConfigurationsFromAssembly(configAssembly);
 

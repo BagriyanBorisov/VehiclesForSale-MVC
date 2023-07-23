@@ -4,6 +4,7 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     using Extras;
+
     using static Common.Validations.EntityValidationConstants.VehicleValidations;
 
 

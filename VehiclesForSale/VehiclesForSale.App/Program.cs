@@ -1,4 +1,4 @@
-namespace VehiclesForSale.App
+namespace VehiclesForSale.Web
 {
     using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +23,7 @@ namespace VehiclesForSale.App
 
             builder.Services.ConfigureApplicationCookie(opt =>
             {
-                opt.LoginPath = "/Identity/Account/Login";
+                opt.LoginPath = "/Account/Login";
             });
 
             builder.Services.AddControllersWithViews();

@@ -1,4 +1,4 @@
-namespace VehiclesForSale.App.Models
+namespace VehiclesForSale.Web.Models
 {
     public class ErrorViewModel
     {
