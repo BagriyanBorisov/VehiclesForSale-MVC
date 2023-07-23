@@ -5,6 +5,14 @@
         public static class VehicleValidations
         {
             public const int TitleMaxLength = 60;
+            public const string PriceMax = "2147483647";
+            public const string PriceMin = "50";
+            public const string CubicCapacityMax = "11000";
+            public const string CubicCapacityMin = "40";
+            public const string MileageMax = "3500000";
+            public const string MileageMin = "0";
+            public const string HorsePowerMax = "1500";
+            public const string HorsePowerMin = "1";
         }
 
         public static class MakeValidations

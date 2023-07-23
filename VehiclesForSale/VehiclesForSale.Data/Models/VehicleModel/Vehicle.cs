@@ -15,6 +15,7 @@
             ImageCollection = new HashSet<Image>();
             FavoriteVehicleApplicationUsers = new HashSet<FavoriteVehicleApplicationUser>();
             Id = Guid.NewGuid();
+            Extra = new Extra();
         }
 
         [Key]
@@ -88,7 +89,7 @@
         public int ExtraId { get; set; }
 
         [ForeignKey(nameof(ExtraId))]
-        public Extra Extra { get; set; } = null!;
+        public Extra Extra { get; set; }
 
         [Required]
         public string OwnerId { get; set; } = null!;

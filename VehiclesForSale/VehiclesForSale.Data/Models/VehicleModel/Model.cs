@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-using static VehiclesForSale.Common.Validations.EntityValidationConstants.ModelValidations;
-
-namespace VehiclesForSale.Data.Models.VehicleModel
+﻿namespace VehiclesForSale.Data.Models.VehicleModel
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.ComponentModel.DataAnnotations;
+    using static Common.Validations.EntityValidationConstants.ModelValidations;
+
     public class Model
     {
         public Model()

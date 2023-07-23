@@ -8,5 +8,10 @@
         {
             return View();
         }
+
+        public async Task<IActionResult> Add()
+        {
+            return View();
+        }
     }
 }
