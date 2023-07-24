@@ -14,10 +14,5 @@ namespace VehiclesForSale.Data.Models.VehicleModel.Extras
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
-        [Required]
-        public int ExtraId { get; set; }
-
-        [ForeignKey(nameof(ExtraId))]
-        public Extra Extra { get; set; } = null!;
     }
 }

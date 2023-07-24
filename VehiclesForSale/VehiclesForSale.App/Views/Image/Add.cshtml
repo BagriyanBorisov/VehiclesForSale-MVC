@@ -1,0 +1,26 @@
+﻿@model ImageFormViewModel
+
+@{
+    ViewData["Title"] = "Add Images";
+}
+
+<h1 class="text-center"> Add Images For @*@Model.Vehicle.Title*@</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" enctype="multipart/form-data" asp-controller="Image">
+            <div class="form-group">
+                <label asp-for="Images" class="control-label">Add an images(you can select multiple)</label>
+                <input asp-for="Images" class="form-control" multiple/>
+                <span asp-validation-for="Images" class="text-danger"></span>
+            </div>
+        </form>
+        <hr />
+        <div class="text-center">
+            <a asp-controller="Extra" asp-action="Add" asp-route-id="" class="btn btn-primary mb-2 wh-100 p-3 fw-bold">Go to add Extras for your vehicle</a>
+        </div>
+    </div>
+</div>
+

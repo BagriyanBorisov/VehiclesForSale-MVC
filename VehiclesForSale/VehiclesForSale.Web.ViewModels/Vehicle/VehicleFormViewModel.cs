@@ -7,6 +7,7 @@
     {
         public VehicleFormViewModel()
         {
+            this.Id = Guid.NewGuid();
             this.Makes = new HashSet<MakeFormVehicleViewModel>();
             this.Models = new HashSet<ModelFormVehicleViewModel>();
             this.TransmissionTypes = new HashSet<TransmissionTypeFormVehicleViewModel>();
@@ -14,6 +15,8 @@
             this.FuelTypes = new HashSet<FuelTypeFormVehicleViewModel>();
             this.Categories = new HashSet<CategoryFormVehicleViewModel>();
         }
+
+        public Guid Id { get; set; }
 
         [Required]
         [MaxLength(TitleMaxLength)]
@@ -64,9 +67,6 @@
         public ICollection<TransmissionTypeFormVehicleViewModel> TransmissionTypes {get; set; } 
         public ICollection<FuelTypeFormVehicleViewModel> FuelTypes {get; set; }
         public ICollection<ColorFormVehicleViewModel> Colors {get; set; }
-        public ICollection<CategoryFormVehicleViewModel> Categories {get; set; } 
-
-
-
+        public ICollection<CategoryFormVehicleViewModel> Categories {get; set; }
     }
 }

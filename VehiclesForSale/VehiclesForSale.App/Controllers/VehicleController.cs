@@ -2,6 +2,8 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
+    using ViewModels.Vehicle;
+
     public class VehicleController : Controller
     {
         public IActionResult Index()
@@ -11,7 +13,17 @@
 
         public async Task<IActionResult> Add()
         {
-            return View();
+            VehicleFormViewModel vehicleVm = new VehicleFormViewModel()
+            {
+                
+                Categories = new List<CategoryFormVehicleViewModel>(),
+                Makes = new List<MakeFormVehicleViewModel>(),
+                Models = new List<ModelFormVehicleViewModel>(),
+                FuelTypes = new List<FuelTypeFormVehicleViewModel>(),
+                Colors = new List<ColorFormVehicleViewModel>(),
+                TransmissionTypes = new List<TransmissionTypeFormVehicleViewModel>()
+            };
+            return View(vehicleVm);
         }
     }
 }
