@@ -1,6 +1,9 @@
 ﻿namespace VehiclesForSale.Core.Contracts.Vehicle
 {
-    public interface IMakeService
+    using VehiclesForSale.Web.ViewModels.Vehicle;
+
+    public interface IMakeService 
     {
+        public Task<IEnumerable<MakeFormVehicleViewModel>> GetAllAsync();
     }
 }

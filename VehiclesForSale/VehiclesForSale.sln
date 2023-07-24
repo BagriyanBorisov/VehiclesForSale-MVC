@@ -8,10 +8,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesForSale.Data", "VehiclesForSale.Data\VehiclesForSale.Data.csproj", "{2EFC949A-4EF0-4BE4-9C8B-659FC7C21018}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesForSale.Core", "VehiclesForSale.Core\VehiclesForSale.Core.csproj", "{F212E861-DD8D-4FAD-9821-D3EC33B2FCED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3FD7EDA8-A288-4928-8140-F23DD16D0498} = {3FD7EDA8-A288-4928-8140-F23DD16D0498}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesForSale.Common", "VehiclesForSale.Common\VehiclesForSale.Common.csproj", "{F870385D-866A-4AF6-A42A-7A35924D04F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesForSale.Web.ViewModels", "VehiclesForSale.Web.ViewModels\VehiclesForSale.Web.ViewModels.csproj", "{3FD7EDA8-A288-4928-8140-F23DD16D0498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesForSale.Web.ViewModels", "VehiclesForSale.Web.ViewModels\VehiclesForSale.Web.ViewModels.csproj", "{3FD7EDA8-A288-4928-8140-F23DD16D0498}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
