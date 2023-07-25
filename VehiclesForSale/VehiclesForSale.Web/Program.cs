@@ -4,6 +4,8 @@ namespace VehiclesForSale.Web
 
     using Data;
     using Data.Models;
+    using Infrastructure;
+    using Core.Contracts.Vehicle;
     public class Program
     {
         public static void Main(string[] args)
@@ -20,6 +22,8 @@ namespace VehiclesForSale.Web
                     options.SignIn.RequireConfirmedAccount = false;
                 })
                 .AddEntityFrameworkStores<VehiclesDbContext>();
+
+            builder.Services.AddApplicationServices(typeof(ICategoryService));
 
             builder.Services.ConfigureApplicationCookie(opt =>
             {

@@ -4,7 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-VehiclesForSale.App-c9190d2b-7db8-40af-93b8-0f40fb3daf4b</UserSecretsId>
+    <UserSecretsId>aspnet-VehiclesForSale.Web-c9190d2b-7db8-40af-93b8-0f40fb3daf4b</UserSecretsId>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,13 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VehiclesForSale.Common\VehiclesForSale.Common.csproj" />
-    <ProjectReference Include="..\VehiclesForSale.Data\VehiclesForSale.Data.csproj" />
-    <ProjectReference Include="..\VehiclesForSale.Web.ViewModels\VehiclesForSale.Web.ViewModels.csproj" />
+    <Folder Include="Areas\Identity\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Identity\" />
+    <ProjectReference Include="..\VehiclesForSale.Common\VehiclesForSale.Common.csproj" />
+    <ProjectReference Include="..\VehiclesForSale.Core\VehiclesForSale.Core.csproj" />
+    <ProjectReference Include="..\VehiclesForSale.Data\VehiclesForSale.Data.csproj" />
+    <ProjectReference Include="..\VehiclesForSale.Web.Infrastructure\VehiclesForSale.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\VehiclesForSale.Web.ViewModels\VehiclesForSale.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

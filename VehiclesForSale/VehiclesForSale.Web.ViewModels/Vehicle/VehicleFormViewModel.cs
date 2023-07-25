@@ -62,11 +62,11 @@
         [Required]
         public int CategoryTypeId { get; set; }
 
-        public ICollection<MakeFormVehicleViewModel> Makes { get; set; }
-        public ICollection<ModelFormVehicleViewModel> Models {get; set; }
-        public ICollection<TransmissionTypeFormVehicleViewModel> TransmissionTypes {get; set; } 
-        public ICollection<FuelTypeFormVehicleViewModel> FuelTypes {get; set; }
-        public ICollection<ColorFormVehicleViewModel> Colors {get; set; }
-        public ICollection<CategoryFormVehicleViewModel> Categories {get; set; }
+        public IEnumerable<MakeFormVehicleViewModel> Makes { get; set; }
+        public IEnumerable<ModelFormVehicleViewModel> Models {get; set; }
+        public IEnumerable<TransmissionTypeFormVehicleViewModel> TransmissionTypes {get; set; } 
+        public IEnumerable<FuelTypeFormVehicleViewModel> FuelTypes {get; set; }
+        public IEnumerable<ColorFormVehicleViewModel> Colors {get; set; }
+        public IEnumerable<CategoryFormVehicleViewModel> Categories {get; set; }
     }
 }
