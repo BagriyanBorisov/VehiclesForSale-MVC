@@ -6,6 +6,8 @@ namespace VehiclesForSale.Web.ViewModels.Vehicle
     {
         public List<IFormFile> Images { get; set; } = null!;
 
-        public VehicleFormViewModel Vehicle { get; set; } = null!;
+        public string VehicleId { get; set; } = null!;
+
+        public string VehicleName { get; set; } = null!;
     }
 }

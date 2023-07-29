@@ -4,13 +4,13 @@
     ViewData["Title"] = "Add Images";
 }
 
-<h1 class="text-center"> Add Images For @*@Model.Vehicle.Title*@</h1>
+<h1 class="text-center"> Add Images For @Model.VehicleName</h1>
 
 <hr />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Add" enctype="multipart/form-data" asp-controller="Image">
+        <form asp-action="Add" enctype="multipart/form-data" asp-controller="Image" asp-route-id="@Model.VehicleId">
             <div class="form-group">
                 <label asp-for="Images" class="control-label">Add an images(you can select multiple)</label>
                 <input asp-for="Images" class="form-control" multiple/>

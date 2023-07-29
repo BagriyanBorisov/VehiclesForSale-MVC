@@ -7,6 +7,7 @@ namespace VehiclesForSale.Core.Contracts.Vehicle
     public interface IVehicleService
     {
         public Task<VehicleFormViewModel> GetForAddVehicleAsync();
+        public Task<VehicleFormViewModel> GetById(string id);
         public Task<ICollection<VehicleIndexViewModel>> GetAllVehiclesAsync();
 
         public Task AddVehicleAsync(VehicleFormViewModel vehicleVm,string userId);

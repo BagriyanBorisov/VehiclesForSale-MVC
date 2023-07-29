@@ -1,4 +1,5 @@
-﻿using VehiclesForSale.Data.Models.VehicleModel.Extras;
+﻿using VehiclesForSale.Core.Contracts.Image;
+using VehiclesForSale.Data.Models.VehicleModel.Extras;
 
 namespace VehiclesForSale.Core.Services.Vehicle
 {
@@ -21,6 +22,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
         private readonly IModelService modelService;
         private readonly ITransmissionTypeService transmissionService;
         private readonly IExtraService extraService;
+        private readonly IImageService imageService;
 
         public VehicleService(
             VehiclesDbContext context,
@@ -30,7 +32,8 @@ namespace VehiclesForSale.Core.Services.Vehicle
             IMakeService makeService,
             IModelService modelService,
             ITransmissionTypeService transmissionService,
-            IExtraService extraService)
+            IExtraService extraService,
+            IImageService imageService)
         {
             this.context = context;
             this.categoryService = categoryService;
@@ -40,6 +43,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
             this.modelService = modelService;
             this.transmissionService = transmissionService;
             this.extraService = extraService;
+            this.imageService = imageService;
         }
 
         public async Task AddVehicleAsync(VehicleFormViewModel vehicleVm, string userId)
@@ -129,7 +133,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 .Include(v=> v.TransmissionType)
                 .AsNoTracking()
                 .Select(v => new VehicleIndexViewModel()
-            {
+                {
                 Title = v.Title,
                 Price = v.Price.ToString(),
                 CategoryType = v.CategoryType.Name,
@@ -137,20 +141,49 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 CubicCapacity = v.CubicCapacity,
                 FuelType = v.FuelType.Name,
                 HorsePower = v.HorsePower,
-                Id = v.Id,
+                Id = v.Id.ToString(),
                 Location = v.Location,
-                MainImage = v.ImageCollection
-                    .Where(img => img.VehicleId == v.Id && img.ImageUrl.StartsWith(v.Id.ToString()))
-                    .Take(1)
-                    .ToString(),
                 Year = v.Year.ToString(),
                 Mileage = v.Mileage,
                 Make = v.Make.Name,
                 Model = v.Model.Name,
-                Transmission = v.TransmissionType.Name
-            }).ToListAsync();
+                Transmission = v.TransmissionType.Name,
+                 }).ToListAsync();
+
+            foreach (var model in models)
+            {
+                model.MainImage = await imageService.GetPathById(model.Id);
+            }
 
             return models;
+        }
+
+        public async Task<VehicleFormViewModel> GetById(string id)
+        {
+            var vehicle = await context.Vehicles.FirstOrDefaultAsync(x => x.Id.ToString() == id);
+
+            if (vehicle == null)
+            {
+                throw new NullReferenceException("This vehicle does not exist");
+            }
+
+            return new VehicleFormViewModel()
+            {
+                Id = vehicle.Id,
+                CategoryTypeId = vehicle.CategoryTypeId,
+                ColorId = vehicle.ColorId,
+                CubicCapacity = vehicle.CubicCapacity,
+                FuelTypeId = vehicle.FuelTypeId,
+                MakeId = vehicle.MakeId,
+                Title = vehicle.Title,
+                ModelId = vehicle.ModelId,
+                Year = vehicle.Year,
+                Mileage = vehicle.Mileage,
+                Price = vehicle.Price.ToString(),
+                HorsePower = vehicle.HorsePower,
+                TransmissionTypeId = vehicle.TransmissionTypeId
+            };
+
         }
 
         public async Task<VehicleFormViewModel> GetForAddVehicleAsync()
