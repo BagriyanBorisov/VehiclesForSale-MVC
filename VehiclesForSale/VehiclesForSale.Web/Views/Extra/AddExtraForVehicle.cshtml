@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Add a vehicle for selling";
+}
+
+<h1 class="text-center">Add extras to your vehicle</h1>
+<form asp-action="AddExtraForVehicle" asp-controller="Extra">
+    <tbody class="align-content-center">
+        <tr>
+            <td class="form-control mb-2">
+                <label class="extra_cat" style="font-size: 12px">Безопасност</label><br><label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="GPS система за проследяване" name="f35">GPS система за проследяване</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'AYC, ASC, TRC, SH-AWD');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Автоматичен контрол на стабилността" name="f36">Автоматичен контрол на стабилността<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'AFL');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Адаптивни предни светлини" name="f37">Адаптивни предни светлини<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'ABS');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Антиблокираща система" name="f38">Антиблокираща система<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Въздушни възглавници - Задни" name="f39">Въздушни възглавници - Задни</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Въздушни възглавници - Предни" name="f40">Въздушни възглавници - Предни</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Въздушни възглавници - Странични" name="f41">Въздушни възглавници - Странични</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'EBD');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Ел. разпределяне на спирачното усилие" name="f42">Ел. разпределяне на спирачното усилие<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'ESP, ESC, DSC, VDIM, VDS, VSA, VSC, DSTC, DTC, PSM');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Електронна програма за стабилизиране" name="f43">Електронна програма за стабилизиране<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'TPMS, SmarTire');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Контрол на налягането на гумите" name="f44">Контрол на налягането на гумите<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'PDC, APS, Park Assist, Park pilot и др.');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Парктроник" name="f45">Парктроник<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система ISOFIX" name="f46">Система ISOFIX</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'DSA');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за динамична устойчивост" name="f47">Система за динамична устойчивост<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'ASR, TCS, EDL, TCL');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за защита от пробуксуване" name="f48">Система за защита от пробуксуване<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'dry brakes system – DBS');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за изсушаване на накладките" name="f49">Система за изсушаване на накладките<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'Distronic');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за контрол на дистанцията" name="f50">Система за контрол на дистанцията<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'HDC (Hill Descent Control), DCS,  GRC');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за контрол на спускането" name="f51">Система за контрол на спускането<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'Brake Assist, BAS, CBC');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за подпомагане на спирането" name="f52">Система за подпомагане на спирането<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+            </td>
+            <td class="form-control mb-2">
+                <label class="extra_cat" style="font-size: 12px">Комфорт</label><br><label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'ASS, ISG');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Auto Start Stop function" name="f53">Auto Start Stop function<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Bluetooth \ handsfree система" name="f54">Bluetooth \ handsfree система</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="DVD, TV" name="f55">DVD, TV</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Steptronic, Tiptronic" name="f56">Steptronic, Tiptronic</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="USB, audio\video, IN\AUX изводи" name="f57">USB, audio\video, IN\AUX изводи</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,' Airmatic');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Адаптивно въздушно окачване" name="f58">Адаптивно въздушно окачване<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Безключово палене " name="f59">Безключово палене </label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Блокаж на диференциала" name="f60">Блокаж на диференциала</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Бордкомпютър" name="f61">Бордкомпютър</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Бързи \ бавни скорости" name="f62">Бързи \ бавни скорости</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Датчик за светлина" name="f63">Датчик за светлина</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Ел. Огледала" name="f64">Ел. Огледала</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Ел. Стъкла" name="f65">Ел. Стъкла</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Ел. регулиране на окачването" name="f66">Ел. регулиране на окачването</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Ел. регулиране на седалките" name="f67">Ел. регулиране на седалките</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'EPS (Electric Power Steering)');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Ел. усилвател на волана" name="f68">Ел. усилвател на волана<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Климатик" name="f69" id="klimatik" onclick="javascript:HideShowKlima('klimatronik');">Климатик</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'ACC, ECC, Climatecontrol, Climatronic');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Климатроник" name="f70" id="klimatronik" onclick="javascript:HideShowKlima('klimatik');">Климатроник<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Мултифункционален волан" name="f71">Мултифункционален волан</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Навигация" name="f72">Навигация</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Отопление на волана" name="f73">Отопление на волана</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Печка" name="f74">Печка</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Подгряване на предното стъкло" name="f75">Подгряване на предното стъкло</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Подгряване на седалките" name="f76">Подгряване на седалките</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Регулиране на волана" name="f77">Регулиране на волана</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Сензор за дъжд" name="f78">Сензор за дъжд</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Серво усилвател на волана" name="f79">Серво усилвател на волана</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за измиване на фаровете" name="f80">Система за измиване на фаровете</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'ACC, Cruise Control, Tempomat');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Система за контрол на скоростта (автопилот)" name="f81">Система за контрол на скоростта (автопилот)<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Стерео уредба" name="f82">Стерео уредба</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Термопомпа" name="f83">Термопомпа</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Хладилна жабка" name="f84">Хладилна жабка</label><br>
+            </td>
+            <td class="form-control mb-2">
+                <label class="extra_cat" style="font-size: 12px">Други</label><br><label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="4x4" name="f85">4x4</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="7 места" name="f86">7 места</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Buy back" name="f87">Buy back</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Бартер" name="f88">Бартер</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Газова уредба" name="f89">Газова уредба</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Дълга база" name="f90">Дълга база</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Капариран\Продаден" name="f91">Капариран\Продаден</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Катастрофирал" name="f92">Катастрофирал</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Къса база" name="f93">Къса база</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Лизинг" name="f94">Лизинг</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Метанова уредба" name="f95">Метанова уредба</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="На части" name="f96">На части</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Напълно обслужен" name="f97">Напълно обслужен</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Нов внос" name="f98">Нов внос</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="С регистрация" name="f99">С регистрация</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Сервизна книжка" name="f100">Сервизна книжка</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Тунинг" name="f101">Тунинг</label><br>
+                <label class="extra_cat" style="font-size: 12px">Екстериор</label><br><label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="2(3) Врати" name="f102">2(3) Врати</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="4(5) Врати" name="f103">4(5) Врати</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="LED фарове" name="f104">LED фарове</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Ксенонови фарове" name="f105">Ксенонови фарове</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Лети джанти" name="f106">Лети джанти</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Металик" name="f107">Металик</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Панорамен люк" name="f108">Панорамен люк</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Рейлинг на покрива" name="f109">Рейлинг на покрива</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Спойлери" name="f110">Спойлери</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Теглич" name="f111">Теглич</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Халогенни фарове" name="f112">Халогенни фарове</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Шибедах" name="f113">Шибедах</label><br>
+            </td>
+            <td class="form-control mb-2">
+                <label class="extra_cat" style="font-size: 12px">Защита</label><br><label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="OFFROAD пакет" name="f114">OFFROAD пакет</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Аларма" name="f115">Аларма</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Брониран" name="f116">Брониран</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Каско" name="f117">Каско</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Лебедка" name="f118">Лебедка</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Централно заключване" name="f119">Централно заключване</label><br>
+                <label class="extra_cat" style="font-size: 12px">Интериор</label><br><label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Велурен салон" name="f120">Велурен салон</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Десен волан" name="f121">Десен волан</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Кожен салон" name="f122">Кожен салон</label><br>
+                <label class="extra_cat" style="font-size: 12px">Специализирани</label><br><label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="TAXI" name="f123">TAXI</label><br>
+                <label class="pubBoxes" onmouseover="javascript:ShowExtriDescription(this,'Инвалиден');" onmouseout="javascript:HideExtriDescription();" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="За хора с увреждания" name="f124">За хора с увреждания<img src="//www.mobile.bg/images/picturess/info.svg" width="16" height="16" style="margin: -2px 0 -2px 0;"></label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Катафалка" name="f125">Катафалка</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Линейка" name="f126">Линейка</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Учебен" name="f127">Учебен</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Хладилен" name="f128">Хладилен</label><br>
+                <label class="pubBoxes" style="padding: 3px 0; font-size: 11px;"><input type="checkbox" value="Хомологация N1" name="f129">Хомологация N1</label><br>
+            </td>
+        </tr>
+    </tbody>
+    <div class="mb-3">
+        <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add Extra For Vehicle" />
+    </div>
+</form>

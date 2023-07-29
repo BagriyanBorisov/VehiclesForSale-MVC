@@ -16,11 +16,11 @@
                 <input asp-for="Images" class="form-control" multiple/>
                 <span asp-validation-for="Images" class="text-danger"></span>
             </div>
+            <hr />
+            <div class="mb-3">
+                <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+            </div>
         </form>
-        <hr />
-        <div class="text-center">
-            <a asp-controller="Extra" asp-action="Add" asp-route-id="" class="btn btn-primary mb-2 wh-100 p-3 fw-bold">Go to add Extras for your vehicle</a>
-        </div>
     </div>
 </div>
 

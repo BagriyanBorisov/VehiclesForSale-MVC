@@ -7,23 +7,24 @@
     public class MakeService :  IMakeService
     {
         private readonly VehiclesDbContext context;
+        private readonly IModelService modelService;
 
-        public MakeService(VehiclesDbContext context)
+        public MakeService(VehiclesDbContext context, IModelService modelService)
         {
             this.context = context;
+            this.modelService = modelService;
         }
 
         public async Task<IEnumerable<MakeFormVehicleViewModel>> GetAllAsync()
         {
-            var models =
+            var makes =
                 await context.Makes
                     .Select(e => new MakeFormVehicleViewModel()
                     {
                         Id = e.Id,
                         Name = e.Name
                     }).ToListAsync();
-
-            return models;
+            return makes;
         }
     }
 }

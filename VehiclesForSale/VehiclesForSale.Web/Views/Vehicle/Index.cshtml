@@ -1,1 +1,53 @@
-﻿
+﻿@model ICollection<VehicleIndexViewModel>
+
+@{
+    int modelCount = Model.Count();
+    int skip = 0;
+    int take = 3;
+}
+
+@while (modelCount != 0)
+{
+    <div class="row">
+    @foreach(var car in Model.Skip(skip).Take(take))
+    {
+        <div class="col-md-4">
+            <div class="container" style="margin-top: 50px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-sl">
+                            <div class="card-image">
+                                <img
+                                    src="https://images.pexels.com/photos/1149831/pexels-photo-1149831.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"/>
+                            </div>
+
+                            <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
+                            <div class="card-heading">
+                                @car.Make @car.Model
+                            </div>
+                            <div class="card-text">
+                                @car.Title
+                            </div>
+                            <div class="card-text">
+                                $@car.Price
+                            </div>
+                            <a href="#" class="card-button"> Check Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (true)
+        {
+            modelCount--;
+        }
+    }  
+    </div>
+    @if (true)
+    {
+        skip += 3;
+    }
+}
+
+
+

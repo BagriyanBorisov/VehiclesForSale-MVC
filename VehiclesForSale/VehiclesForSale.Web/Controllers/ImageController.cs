@@ -6,12 +6,13 @@
 
     public class ImageController : Controller
     {
-        public IActionResult Add()
+        public IActionResult Add(string id)
         {
             ImageFormViewModel imageForm = new ImageFormViewModel()
             {
                 
             };
+
             return View(imageForm);
         }
     }
