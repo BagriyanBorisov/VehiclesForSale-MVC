@@ -9,6 +9,10 @@
     {
         public void Configure(EntityTypeBuilder<ComfortExtra> builder)
         {
+            builder
+                .HasOne(v => v.Extra)
+                .WithMany(v => v.ComfortExtras)
+                .OnDelete(DeleteBehavior.Restrict);
             builder.HasData(Seed());
         }
 

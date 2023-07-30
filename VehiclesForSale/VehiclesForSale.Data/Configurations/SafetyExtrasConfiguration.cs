@@ -9,6 +9,11 @@
     {
         public void Configure(EntityTypeBuilder<SafetyExtra> builder)
         {
+            builder
+                .HasOne(v => v.Extra)
+                .WithMany(v => v.SafetyExtras)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasData(Seed());
         }
 

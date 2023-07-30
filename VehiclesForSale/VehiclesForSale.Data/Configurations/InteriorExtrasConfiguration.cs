@@ -9,6 +9,11 @@
     {
         public void Configure(EntityTypeBuilder<InteriorExtra> builder)
         {
+            builder
+                .HasOne(v => v.Extra)
+                .WithMany(v => v.InteriorExtras)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasData(Seed());
         }
 

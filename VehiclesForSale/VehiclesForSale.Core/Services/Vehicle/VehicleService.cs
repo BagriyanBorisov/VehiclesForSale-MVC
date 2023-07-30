@@ -67,12 +67,12 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 TransmissionTypeId = vehicleVm.TransmissionTypeId
             };
 
-            foreach (var extra in vehicleVm.SafetyExtras)
+            foreach (var extra in vehicleVm.SafetyExtras.Where(s => s.IsChecked == true))
             {
                 SafetyExtra safeExtra = new SafetyExtra
                 {
-                    Id = extra.Id,
-                    Name = extra.Name
+                    Name = extra.Name,
+                    Extra = vehicleToAdd.Extra
                 };
                 vehicleToAdd.Extra.SafetyExtras.Add(safeExtra);
             }
@@ -81,8 +81,8 @@ namespace VehiclesForSale.Core.Services.Vehicle
             {
                 ComfortExtra comfExtra = new ComfortExtra
                 {
-                    Id = extra.Id,
-                    Name = extra.Name
+                    Name = extra.Name,
+                    Extra = vehicleToAdd.Extra
                 };
                 vehicleToAdd.Extra.ComfortExtras.Add(comfExtra);
             }
@@ -91,8 +91,8 @@ namespace VehiclesForSale.Core.Services.Vehicle
             {
                 InteriorExtra inExtra = new InteriorExtra
                 {
-                    Id = extra.Id,
-                    Name = extra.Name
+                    Name = extra.Name,
+                    Extra = vehicleToAdd.Extra
                 };
                 vehicleToAdd.Extra.InteriorExtras.Add(inExtra);
             }
@@ -101,8 +101,8 @@ namespace VehiclesForSale.Core.Services.Vehicle
             {
                 ExteriorExtra exExtra = new ExteriorExtra
                 {
-                    Id = extra.Id,
-                    Name = extra.Name
+                    Name = extra.Name,
+                    Extra = vehicleToAdd.Extra
                 };
                 vehicleToAdd.Extra.ExteriorExtras.Add(exExtra);
             }
@@ -111,13 +111,14 @@ namespace VehiclesForSale.Core.Services.Vehicle
             {
                 OtherExtra otherExtra = new OtherExtra
                 {
-                    Id = extra.Id,
-                    Name = extra.Name
+                    Name = extra.Name,
+                    Extra = vehicleToAdd.Extra
                 };
                 vehicleToAdd.Extra.OtherExtras.Add(otherExtra);
             }
 
             await context.Vehicles.AddAsync(vehicleToAdd);
+            await context.Extras.AddAsync(vehicleToAdd.Extra);
             await context.SaveChangesAsync();
         }
 
@@ -154,6 +155,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
             {
                 model.MainImage = await imageService.GetPathById(model.Id);
             }
+
 
             return models;
         }

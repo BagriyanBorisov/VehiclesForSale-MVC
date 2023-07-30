@@ -5,11 +5,12 @@
     int skip = 0;
     int take = 3;
 }
-
+<h2 class="text-center mb-3">Latest vehicles added</h2>
+<hr/>
 @while (modelCount != 0)
 {
     <div class="row">
-    @foreach(var car in Model.Skip(skip).Take(take))
+    @foreach(var car in Model.Reverse().Skip(skip).Take(take))
     {
         <div class="col-md-4">
             <div class="container" style="margin-top: 50px;">
