@@ -15,9 +15,9 @@
             this.imageService = imageService;
         }
 
-        public async Task<IActionResult> Add(string id)
+        public IActionResult Add(string id)
         {
-            var imageForm = await imageService.GetImageWithVehicle(id);
+            var imageForm =imageService.GetImageWithVehicle(id);
             
             return View(imageForm);
         }

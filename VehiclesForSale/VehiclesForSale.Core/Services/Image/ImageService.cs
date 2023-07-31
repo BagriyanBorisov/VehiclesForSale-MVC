@@ -6,11 +6,13 @@ namespace VehiclesForSale.Core.Services.Image
     using Microsoft.AspNetCore.Http;
 
     using VehiclesForSale.Core.Contracts.Image;
-    using VehiclesForSale.Core.Contracts.Vehicle;
 
     using Data;
     using VehiclesForSale.Web.ViewModels.Vehicle;
     using Image = Data.Models.VehicleModel.Image;
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Hosting.Server;
+
     public class ImageService : IImageService
     {
      
@@ -23,15 +25,13 @@ namespace VehiclesForSale.Core.Services.Image
             this.context = context;
         }
 
-        public async Task<ImageFormViewModel> GetImageWithVehicle(string vehicleId)
+        public ImageFormViewModel GetImageWithVehicle(string vehicleId)
         {
             var imageForm = new ImageFormViewModel()
             {
                 VehicleId = vehicleId,
                 VehicleName = "Nz brat"
             };
-
-
             return imageForm;
         }
 
@@ -81,6 +81,20 @@ namespace VehiclesForSale.Core.Services.Image
             }
 
             return image?.ImageUrl!;
+        }
+
+        public async Task DeleteImage(ICollection<Image> imagesCollection, string vehicleId)
+        {
+            foreach (var image in imagesCollection)
+            {
+                var filePath = Path.Combine(webHostEnvironment.WebRootPath, "Uploads") + "/" + image.ImageUrl;
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            }
+            context.Images.RemoveRange(imagesCollection);
+            await context.SaveChangesAsync();
         }
     }
 }

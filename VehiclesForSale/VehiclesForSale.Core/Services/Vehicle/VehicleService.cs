@@ -122,6 +122,21 @@ namespace VehiclesForSale.Core.Services.Vehicle
             await context.SaveChangesAsync();
         }
 
+        public async Task DeleteVehicleAsync(string vehicleId, string userId)
+        {
+            var vehicleToDel = await context.Vehicles.Where(v => v.Id.ToString() == vehicleId && v.OwnerId == userId).Include(v => v.ImageCollection).AsNoTracking().FirstOrDefaultAsync();
+
+            if (vehicleToDel != null)
+            {
+                var imageCollection = vehicleToDel.ImageCollection;
+                await imageService.DeleteImage(imageCollection, vehicleId);
+
+
+                context.Vehicles.Remove(vehicleToDel);
+                await context.SaveChangesAsync();
+            }
+        }
+
         public async Task<ICollection<VehicleIndexViewModel>> GetAllVehiclesAsync()
         {
             var models = await context.Vehicles
@@ -236,6 +251,44 @@ namespace VehiclesForSale.Core.Services.Vehicle
 
 
             return vehicleVm;
+        }
+
+        public async Task<ICollection<VehicleIndexViewModel>> GetUserVehiclesAsync(string userId)
+        {
+            var models = await context.Vehicles.Where(v => v.OwnerId == userId)
+                .Include(v => v.CategoryType)
+                .Include(v => v.Make)
+                .Include(v => v.Model)
+                .Include(v => v.FuelType)
+                .Include(v => v.ImageCollection)
+                .Include(v => v.Color)
+                .Include(v => v.TransmissionType)
+                .AsNoTracking()
+                .Select(v => new VehicleIndexViewModel()
+                {
+                    Title = v.Title,
+                    Price = v.Price.ToString(),
+                    CategoryType = v.CategoryType.Name,
+                    Color = v.Color.Name,
+                    CubicCapacity = v.CubicCapacity,
+                    FuelType = v.FuelType.Name,
+                    HorsePower = v.HorsePower,
+                    Id = v.Id.ToString(),
+                    Location = v.Location,
+                    Year = v.Year.ToString(),
+                    Mileage = v.Mileage,
+                    Make = v.Make.Name,
+                    Model = v.Model.Name,
+                    Transmission = v.TransmissionType.Name,
+                }).ToListAsync();
+
+            foreach (var model in models)
+            {
+                model.MainImage = await imageService.GetPathById(model.Id);
+            }
+
+
+            return models;
         }
 
         private async Task<VehicleFormViewModel> GetModels(VehicleFormViewModel vehicleVm)

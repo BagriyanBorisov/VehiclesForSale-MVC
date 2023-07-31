@@ -9,6 +9,8 @@ namespace VehiclesForSale.Core.Contracts.Vehicle
         public Task<VehicleFormViewModel> GetForAddVehicleAsync();
         public Task<VehicleFormViewModel> GetById(string id);
         public Task<ICollection<VehicleIndexViewModel>> GetAllVehiclesAsync();
+        public Task<ICollection<VehicleIndexViewModel>> GetUserVehiclesAsync(string userId);
+        public Task DeleteVehicleAsync(string vehicleId,string userId);
 
         public Task AddVehicleAsync(VehicleFormViewModel vehicleVm,string userId);
     }
