@@ -1,0 +1,120 @@
+﻿@model ExtraFormViewModel
+
+<div class="row">
+    <div class="col-lg-3">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Comfort Extras</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var comExtra in Model.ComfortExtras)
+                {
+                    <tr>
+
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="@comExtra.Id" name="@comExtra.Name" value="@comExtra.Name" checked="@comExtra.IsChecked">
+                            <label class="form-check-label">@comExtra.Name</label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-3">
+        <table class="table table-bordered ">
+            <thead>
+            <tr>
+                <th scope="col">Safety Extras</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var safetyExtra in Model.SafetyExtras)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox"
+                               name="SafetyExtras[@safetyExtra.Id].Id"
+                               value="@safetyExtra.Id"
+                               @(safetyExtra.IsChecked ? "checked" : "") />
+                        <label>@safetyExtra.Id: @safetyExtra.Name</label>
+
+                        <input type="hidden"
+                               name="SafetyExtras[@safetyExtra.Id].IsChecked"
+                               value="false" />
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-2">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Exterior Extras</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var exExtra in Model.ExteriorExtras)
+                {
+                    <tr>
+
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="@exExtra.Id" name="@exExtra.Name" value="@exExtra.IsChecked" checked="@exExtra.IsChecked">
+                            <label class="form-check-label">@exExtra.Name</label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-2">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Other Extras</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var otherExtra in Model.OtherExtras)
+                {
+                    <tr>
+
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="@otherExtra.Id" name="@otherExtra.Name" value="@otherExtra.Name" checked="@otherExtra.IsChecked">
+                            <label class="form-check-label">@otherExtra.Name</label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-lg-2">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Interior Extras</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var inExtras in Model.InteriorExtras)
+                {
+                    <tr>
+
+                        <td>
+                            <input class="form-check-input" type="checkbox" id="@inExtras.Id" name="@inExtras.Name" value="@inExtras.Name" checked="@inExtras.IsChecked">
+                            <label class="form-check-label">@inExtras.Name</label>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -11,6 +11,7 @@
             this.OtherExtras = new HashSet<OtherExtraFormViewModel>();
         }
 
+        public int ExtraId { get; set; }
         public IEnumerable<InteriorExtraFormViewModel> InteriorExtras { get; set; }
         public IEnumerable<ExteriorExtraFormViewModel> ExteriorExtras { get; set; }
         public IEnumerable<SafetyExtraFormViewModel> SafetyExtras { get; set; }

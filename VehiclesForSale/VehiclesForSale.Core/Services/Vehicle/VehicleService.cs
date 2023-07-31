@@ -21,7 +21,6 @@ namespace VehiclesForSale.Core.Services.Vehicle
         private readonly IMakeService makeService;
         private readonly IModelService modelService;
         private readonly ITransmissionTypeService transmissionService;
-        private readonly IExtraService extraService;
         private readonly IImageService imageService;
 
         public VehicleService(
@@ -32,7 +31,6 @@ namespace VehiclesForSale.Core.Services.Vehicle
             IMakeService makeService,
             IModelService modelService,
             ITransmissionTypeService transmissionService,
-            IExtraService extraService,
             IImageService imageService)
         {
             this.context = context;
@@ -42,7 +40,6 @@ namespace VehiclesForSale.Core.Services.Vehicle
             this.makeService = makeService;
             this.modelService = modelService;
             this.transmissionService = transmissionService;
-            this.extraService = extraService;
             this.imageService = imageService;
         }
 
@@ -61,64 +58,12 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 Mileage = vehicleVm.Mileage,
                 Id = vehicleVm.Id,
                 HorsePower = vehicleVm.HorsePower,
-                Extra = new Extra(),
+                Extra = new Data.Models.VehicleModel.Extras.Extra(),
                 Year = vehicleVm.Year,
                 OwnerId = userId,
                 TransmissionTypeId = vehicleVm.TransmissionTypeId
             };
-
-            foreach (var extra in vehicleVm.SafetyExtras.Where(s => s.IsChecked == true))
-            {
-                SafetyExtra safeExtra = new SafetyExtra
-                {
-                    Name = extra.Name,
-                    Extra = vehicleToAdd.Extra
-                };
-                vehicleToAdd.Extra.SafetyExtras.Add(safeExtra);
-            }
-
-            foreach (var extra in vehicleVm.ComfortExtras)
-            {
-                ComfortExtra comfExtra = new ComfortExtra
-                {
-                    Name = extra.Name,
-                    Extra = vehicleToAdd.Extra
-                };
-                vehicleToAdd.Extra.ComfortExtras.Add(comfExtra);
-            }
-
-            foreach (var extra in vehicleVm.InteriorExtras)
-            {
-                InteriorExtra inExtra = new InteriorExtra
-                {
-                    Name = extra.Name,
-                    Extra = vehicleToAdd.Extra
-                };
-                vehicleToAdd.Extra.InteriorExtras.Add(inExtra);
-            }
-
-            foreach (var extra in vehicleVm.ExteriorExtras)
-            {
-                ExteriorExtra exExtra = new ExteriorExtra
-                {
-                    Name = extra.Name,
-                    Extra = vehicleToAdd.Extra
-                };
-                vehicleToAdd.Extra.ExteriorExtras.Add(exExtra);
-            }
-
-            foreach (var extra in vehicleVm.OtherExtras)
-            {
-                OtherExtra otherExtra = new OtherExtra
-                {
-                    Name = extra.Name,
-                    Extra = vehicleToAdd.Extra
-                };
-                vehicleToAdd.Extra.OtherExtras.Add(otherExtra);
-            }
-
             await context.Vehicles.AddAsync(vehicleToAdd);
-            await context.Extras.AddAsync(vehicleToAdd.Extra);
             await context.SaveChangesAsync();
         }
 
@@ -212,45 +157,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 vehicleVm.Makes = await makeService.GetAllAsync();
                 vehicleVm.TransmissionTypes = await transmissionService.GetAllAsync();
                 vehicleVm.Models = await modelService.GetAllAsync(1);
-
-                vehicleVm.SafetyExtras = await context.SafetyExtras.Select(se => new SafetyExtraFormViewModel
-            {
-                Id = se.Id,
-                Name = se.Name,
-                IsChecked = false
-            }).ToListAsync();
-
-                vehicleVm.ComfortExtras = await context.ComfortExtras.Select(se => new ComfortExtraFormViewModel
-            {
-                Id = se.Id,
-                Name = se.Name,
-                IsChecked = false
-            }).ToListAsync();
-
-
-                vehicleVm.InteriorExtras = await context.InteriorExtras.Select(se => new InteriorExtraFormViewModel()
-            {
-                Id = se.Id,
-                Name = se.Name,
-                IsChecked = false
-            }).ToListAsync();
-
-                vehicleVm.ExteriorExtras = await context.ExteriorExtras.Select(se => new ExteriorExtraFormViewModel()
-            {
-                Id = se.Id,
-                Name = se.Name,
-                IsChecked = false
-            }).ToListAsync();
-
-                vehicleVm.OtherExtras = await context.OtherExtras.Select(se => new OtherExtraFormViewModel()
-            {
-                Id = se.Id,
-                Name = se.Name,
-                IsChecked = false
-            }).ToListAsync();
-
-
-            return vehicleVm;
+                return vehicleVm;
         }
 
         public async Task<ICollection<VehicleIndexViewModel>> GetUserVehiclesAsync(string userId)

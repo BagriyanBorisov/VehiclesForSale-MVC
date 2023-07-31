@@ -4,6 +4,7 @@
 
     using Core.Contracts.Image;
     using ViewModels.Vehicle;
+    using VehiclesForSale.Data.Models.VehicleModel;
 
     public class ImageController : Controller
     {
@@ -27,7 +28,7 @@
         {
             await imageService.CreateImages(id, imageVm);
 
-            return RedirectToAction("Index", "Vehicle");
+            return RedirectToAction("AddExtraForVehicle", "Extra", new { id = id });
         }
     }
 }
