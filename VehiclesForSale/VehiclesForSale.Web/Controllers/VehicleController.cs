@@ -11,6 +11,7 @@
     public class VehicleController : Controller
     {
         private readonly IVehicleService vehicleService;
+        
 
         public VehicleController(IVehicleService vehicleService)
         {
@@ -76,6 +77,14 @@
 
             return RedirectToAction("YourVehicles", "Vehicle");
 
+        }
+
+        [HttpPost]
+        public async Task<IEnumerable<ModelFormVehicleViewModel>> GetModelValues(string id)
+        {
+            
+            var modelsForMake = await vehicleService.GetModels(id);
+            return modelsForMake;
         }
 
         private string? GetUserId()

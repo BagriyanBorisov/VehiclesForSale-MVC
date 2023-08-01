@@ -10,6 +10,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
     using Data.Models.VehicleModel;
     using System.Collections.Generic;
     using VehiclesForSale.Web.ViewModels.Vehicle.Index;
+    using VehiclesForSale.Data.Models.VehicleModel.Enums;
 
     public class VehicleService : IVehicleService
     {
@@ -45,6 +46,13 @@ namespace VehiclesForSale.Core.Services.Vehicle
 
         public async Task AddVehicleAsync(VehicleFormViewModel vehicleVm, string userId)
         {
+            var dateId = await context.Dates
+                .Where(d => 
+                    d.Year == vehicleVm.SelectedYear && 
+                    d.Month == (Month)Enum.Parse(typeof(Month), vehicleVm.SelectedMonth, true))
+                .Select(a => a.Id)
+                .FirstOrDefaultAsync();
+
             var vehicleToAdd = new Vehicle
             {
                 Title = vehicleVm.Title,
@@ -59,7 +67,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 Id = vehicleVm.Id,
                 HorsePower = vehicleVm.HorsePower,
                 Extra = new Data.Models.VehicleModel.Extras.Extra(),
-                Year = vehicleVm.Year,
+                DateId = dateId,
                 OwnerId = userId,
                 TransmissionTypeId = vehicleVm.TransmissionTypeId
             };
@@ -92,6 +100,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 .Include(v=> v.ImageCollection)
                 .Include(v=>v.Color)
                 .Include(v=> v.TransmissionType)
+                .Include(v => v.Date)
                 .AsNoTracking()
                 .Select(v => new VehicleIndexViewModel()
                 {
@@ -104,7 +113,8 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 HorsePower = v.HorsePower,
                 Id = v.Id.ToString(),
                 Location = v.Location,
-                Year = v.Year.ToString(),
+                Year = v.Date.Year.ToString(),
+                Month = v.Date.Month.ToString(),
                 Mileage = v.Mileage,
                 Make = v.Make.Name,
                 Model = v.Model.Name,
@@ -128,7 +138,6 @@ namespace VehiclesForSale.Core.Services.Vehicle
             {
                 throw new NullReferenceException("This vehicle does not exist");
             }
-
             return new VehicleFormViewModel()
             {
                 Id = vehicle.Id,
@@ -139,7 +148,8 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 MakeId = vehicle.MakeId,
                 Title = vehicle.Title,
                 ModelId = vehicle.ModelId,
-                Year = vehicle.Year,
+                SelectedYear = vehicle.Date.Year,
+                SelectedMonth = vehicle.Date.Month.ToString(),
                 Mileage = vehicle.Mileage,
                 Price = vehicle.Price.ToString(),
                 HorsePower = vehicle.HorsePower,
@@ -157,7 +167,14 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 vehicleVm.Makes = await makeService.GetAllAsync();
                 vehicleVm.TransmissionTypes = await transmissionService.GetAllAsync();
                 vehicleVm.Models = await modelService.GetAllAsync(1);
-                return vehicleVm;
+                vehicleVm.Months = Enum.GetNames(typeof(Month));
+                vehicleVm.Years = await context.Dates
+                    .Where(date => date.Year >= 1930 && date.Year <= 2023)
+                    .Select(date => date.Year)
+                    .Distinct()
+                    .OrderByDescending(d => d)
+                    .ToArrayAsync();
+            return vehicleVm;
         }
 
         public async Task<ICollection<VehicleIndexViewModel>> GetUserVehiclesAsync(string userId)
@@ -170,6 +187,7 @@ namespace VehiclesForSale.Core.Services.Vehicle
                 .Include(v => v.ImageCollection)
                 .Include(v => v.Color)
                 .Include(v => v.TransmissionType)
+                .Include(v => v.Date)
                 .AsNoTracking()
                 .Select(v => new VehicleIndexViewModel()
                 {
@@ -182,7 +200,8 @@ namespace VehiclesForSale.Core.Services.Vehicle
                     HorsePower = v.HorsePower,
                     Id = v.Id.ToString(),
                     Location = v.Location,
-                    Year = v.Year.ToString(),
+                    Year = v.Date.Year.ToString(),
+                    Month = v.Date.Month.ToString(),
                     Mileage = v.Mileage,
                     Make = v.Make.Name,
                     Model = v.Model.Name,
@@ -198,11 +217,10 @@ namespace VehiclesForSale.Core.Services.Vehicle
             return models;
         }
 
-        private async Task<VehicleFormViewModel> GetModels(VehicleFormViewModel vehicleVm)
+        public async Task<IEnumerable<ModelFormVehicleViewModel>> GetModels(string id)
         {
-            vehicleVm.Models = await modelService.GetAllAsync(vehicleVm.MakeId);
-
-            return vehicleVm;
+            int makeId = Int32.Parse(id);
+            return await modelService.GetAllAsync(makeId);
         }
     }
 }

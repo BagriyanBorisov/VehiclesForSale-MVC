@@ -32,7 +32,10 @@
         public int CubicCapacity { get; set; }
 
         [Required]
-        public DateTime Year { get; set; }
+        [ForeignKey(nameof(Date))]
+        public int DateId { get; set; }
+
+        public Date Date { get; set; } = null!;
 
         [Required]
         public long Mileage { get; set; }
@@ -41,6 +44,7 @@
         public int HorsePower { get; set; }
 
         public string? Location { get; set; }
+        public string? Description { get; set; }
 
 
         //Relations

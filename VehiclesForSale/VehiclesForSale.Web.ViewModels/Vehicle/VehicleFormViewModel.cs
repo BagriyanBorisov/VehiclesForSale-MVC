@@ -19,6 +19,8 @@
             this.ExteriorExtras = new HashSet<ExteriorExtraFormViewModel>();
             this.InteriorExtras = new HashSet<InteriorExtraFormViewModel>();
             this.OtherExtras = new HashSet<OtherExtraFormViewModel>();
+            this.Months = new HashSet<string>();
+            this.Years = new HashSet<int>();
         }
 
         public Guid Id { get; set; }
@@ -35,9 +37,6 @@
         [Range(typeof(int), CubicCapacityMin,CubicCapacityMax)]
         public int CubicCapacity { get; set; }
 
-        [Required]
-        [Display(Name = "Date of First Registration:"), DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Year { get; set; }
 
         [Required]
         [Range(typeof(long), MileageMin, MileageMax)]
@@ -67,6 +66,14 @@
         [Required]
         public int CategoryTypeId { get; set; }
 
+        
+        public int SelectedYear { get; set; }
+        public string SelectedMonth { get; set; }
+        
+        public string Description { get; set; }
+
+        public IEnumerable<int> Years { get; set; }
+        public IEnumerable<string> Months { get; set; }
         public IEnumerable<MakeFormVehicleViewModel> Makes { get; set; }
         public IEnumerable<ModelFormVehicleViewModel> Models { get; set; }
         public IEnumerable<TransmissionTypeFormVehicleViewModel> TransmissionTypes {get; set; } 

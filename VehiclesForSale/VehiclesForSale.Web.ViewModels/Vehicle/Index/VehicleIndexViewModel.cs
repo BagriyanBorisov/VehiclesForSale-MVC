@@ -11,9 +11,8 @@
 
         public int CubicCapacity { get; set; }
 
-        [Display(Name = "Date of First Registration:"),
-         DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
         public string Year { get; set; } = null!;
+        public string Month { get; set; } = null!;
 
         public long Mileage { get; set; }
 

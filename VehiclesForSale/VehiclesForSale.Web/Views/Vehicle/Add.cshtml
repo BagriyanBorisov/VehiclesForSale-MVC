@@ -1,4 +1,4 @@
-﻿@model VehicleFormViewModel;
+﻿@model VehicleFormViewModel
 
 @{
     ViewData["Title"] = "Add a vehicle for selling";
@@ -8,17 +8,48 @@
 
 
 <div class="row text-center">
-<div class="text-center mb-lg-3 col-lg-12">
-    <form id="AddVehicleForm" method="post">
-            @await Html.PartialAsync("../Shared/_VehicleFormPartial", Model);
-            <div class="mb-3 col-lg-6 align-content-center offset-lg-3">
-            <input class="btn btn-success mb-2 w-100 p-3 fw-bold" type="submit" value="Add Vehicle and go to add images"/>
-        </div>
-    </form>
-</div>
+    <div class="text-center mb-lg-3 col-lg-12">
+        <partial name="_VehicleFormPartial" />
+    </div>
 </div>
 
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial"/>
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        // Dropdownlist Selectedchange event
+        $("#MakeId").change(function () {
+            var makeId = $(this).val(); // Get the selected makeId
+
+            $("#ModelId").empty(); // Clear the current options in the Model dropdown
+
+            // If no makeId is selected, show a default option in the Model dropdown
+            if (makeId === "") {
+                $("#ModelId").append('<option value="">Select a Model</option>');
+                return;
+            }
+
+            // Make an AJAX POST request to retrieve the models based on the selected makeId
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetModelValues")',
+                dataType: 'json',
+                data: { id: makeId }, // Send the selected makeId as 'id'
+                success: function (models) {
+                    // models contains the JSON formatted list of models returned from the controller
+
+                    $("#ModelId").append('<option value="">Select a Model</option>');
+                    $.each(models, function (i, model) {
+                        $("#ModelId").append('<option value="' + model.id + '">' + model.name + '</option>');
+                    });
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve models: ' + ex);
+                }
+            });
+        });
+    });
+</script>
 }

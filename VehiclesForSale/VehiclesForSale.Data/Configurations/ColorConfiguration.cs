@@ -16,7 +16,7 @@
         {
             List<Color> colors = new List<Color>
             {
-                new Color { Name = "White", Id = 1 },
+                new Color { Name = "Any", Id = 1 },
                 new Color { Name = "Black", Id = 2 },
                 new Color { Name = "Gray", Id = 3 },
                 new Color { Name = "Silver", Id = 4 },
@@ -28,7 +28,8 @@
                 new Color { Name = "Beige", Id = 10 },
                 new Color { Name = "Purple", Id = 11 },
                 new Color { Name = "Gold", Id = 12 },
-                new Color { Name = "Yellow", Id = 13 }
+                new Color { Name = "Yellow", Id = 13 },
+                new Color { Name = "White", Id = 14 }
             };
 
             return colors;
