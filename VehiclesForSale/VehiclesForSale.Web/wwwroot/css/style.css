@@ -227,3 +227,21 @@ a {
         margin-right: 1rem;
     }
 }
+
+
+.btn.btn-primaryDetails {
+    width: 100%;
+    height: 55px;
+    border-radius: 0;
+    padding: 13px 0;
+    background-color: green;
+    font-style: normal;
+    font-size: 16px;
+    border: none;
+    font-weight: 600;
+}
+
+    .btn.btn-primaryDetails:hover .fas {
+        transform: translateX(10px);
+        transition: transform 0.5s ease
+    }
