@@ -4,6 +4,10 @@
 
     public class VehicleIndexViewModel
     {
+        public VehicleIndexViewModel()
+        {
+          
+        }
         public string Id { get; set; } = null!;
         public string Title { get; set; } = null!;
 
@@ -34,5 +38,7 @@
         public string CategoryType { get; set; } = null!;
 
         public string? MainImage { get; set; }
+
+       
     }
 }

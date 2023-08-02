@@ -1,4 +1,6 @@
-﻿namespace VehiclesForSale.Web.Controllers
+﻿using VehiclesForSale.Web.ViewModels.Vehicle.Index;
+
+namespace VehiclesForSale.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -21,8 +23,11 @@
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var models = await vehicleService.GetAllVehiclesAsync();
-            return View(models);
+            var vehicleCollection = new VehicleCollectionViewModel()
+            {
+                Vehicles = await vehicleService.GetAllVehiclesAsync()
+            };
+            return View(vehicleCollection);
         }
 
         [HttpGet]

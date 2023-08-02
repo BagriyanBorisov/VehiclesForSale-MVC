@@ -9,9 +9,11 @@ namespace VehiclesForSale.Core.Services.Image
 
     using Data;
     using VehiclesForSale.Web.ViewModels.Vehicle;
-    using Image = Data.Models.VehicleModel.Image;
     using System.Collections.Generic;
-    using Microsoft.AspNetCore.Hosting.Server;
+    using System.IO;
+    using SixLabors.ImageSharp;
+    using SixLabors.ImageSharp.Processing;
+
 
     public class ImageService : IImageService
     {
@@ -40,7 +42,7 @@ namespace VehiclesForSale.Core.Services.Image
             foreach (var image in imageVm.Images)
             {
                 string imageUrl = await UploadImage(image, id);
-                Image imageModel = new Image()
+                var imageModel = new Data.Models.VehicleModel.Image()
                 {
                     ImageUrl = imageUrl,
                     VehicleId = Guid.Parse((ReadOnlySpan<char>)id)
@@ -52,6 +54,7 @@ namespace VehiclesForSale.Core.Services.Image
             await context.SaveChangesAsync();
         }
 
+       
         private async Task<string> UploadImage(IFormFile image, string vehicleId)
         {
             string fileName = null;
@@ -60,10 +63,18 @@ namespace VehiclesForSale.Core.Services.Image
                 string uploadDir = Path.Combine(webHostEnvironment.WebRootPath, "Uploads");
                 fileName = vehicleId + "_" + image.FileName;
                 string filePath = Path.Combine(uploadDir, fileName);
-                
+
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
-                   await image.CopyToAsync(fileStream);
+                    await image.CopyToAsync(fileStream);
+                }
+
+                // Resize the image after saving
+                using (var originalImage = Image.Load(filePath))
+                using (var resizedImage = ResizeImage(originalImage, 648, 400))
+                {
+                    // Save the resized image, overwriting the original file
+                    resizedImage.Save(filePath);
                 }
             }
 
@@ -83,7 +94,7 @@ namespace VehiclesForSale.Core.Services.Image
             return image?.ImageUrl!;
         }
 
-        public async Task DeleteImage(ICollection<Image> imagesCollection, string vehicleId)
+        public async Task DeleteImage(ICollection<Data.Models.VehicleModel.Image> imagesCollection, string vehicleId)
         {
             foreach (var image in imagesCollection)
             {
@@ -95,6 +106,26 @@ namespace VehiclesForSale.Core.Services.Image
             }
             context.Images.RemoveRange(imagesCollection);
             await context.SaveChangesAsync();
+        }
+
+
+        private Image ResizeImage(Image sourceImage, int newWidth, int newHeight)
+        {
+            using (var ms = new MemoryStream())
+            {
+                // Resize the image
+                sourceImage.Mutate(ctx => ctx.Resize(new ResizeOptions
+                {
+                    Mode = ResizeMode.Crop, // Maintain the aspect ratio and fit within the new size
+                    Size = new Size(newWidth, newHeight)
+                }));
+
+                // Save the resized image to a memory stream
+                sourceImage.Save(ms, new SixLabors.ImageSharp.Formats.Jpeg.JpegEncoder());
+
+                // Create a new Image instance from the memory stream
+                return Image.Load(ms.ToArray());
+            }
         }
     }
 }
