@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Add" enctype="multipart/form-data" asp-controller="Image" asp-route-id="@Model.VehicleId">
+        <form asp-action="Add" enctype="multipart/form-data" asp-controller="Image" asp-route-vehicleId="@Model.VehicleId">
             <div class="form-group">
                 <label asp-for="Images" class="control-label">Add an images(you can select multiple)</label>
                 <input asp-for="Images" class="form-control" multiple/>

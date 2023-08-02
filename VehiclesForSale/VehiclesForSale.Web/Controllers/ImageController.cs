@@ -4,7 +4,6 @@
 
     using Core.Contracts.Image;
     using ViewModels.Vehicle;
-    using VehiclesForSale.Data.Models.VehicleModel;
 
     public class ImageController : Controller
     {
@@ -16,19 +15,19 @@
             this.imageService = imageService;
         }
 
-        public IActionResult Add(string id)
+        public async Task<IActionResult> Add(string id)
         {
-            var imageForm =imageService.GetImageWithVehicle(id);
+            var imageForm = await imageService.GetImageWithVehicle(id);
             
             return View(imageForm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(string id, ImageFormViewModel imageVm)
+        public async Task<IActionResult> Add(string vehicleId, ImageFormViewModel imageVm)
         {
-            await imageService.CreateImages(id, imageVm);
+            await imageService.CreateImages(vehicleId, imageVm);
 
-            return RedirectToAction("AddExtraForVehicle", "Extra", new { id = id });
+            return RedirectToAction("AddExtraForVehicle", "Extra", new { id = vehicleId });
         }
     }
 }
