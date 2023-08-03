@@ -1,5 +1,7 @@
 ﻿@model ExtraFormViewModel
-
+@{
+    int index = 0;
+}
 <div class="row">
     <div class="col-lg-3">
 
@@ -15,8 +17,15 @@
                     <tr>
 
                         <td>
-                            <input class="form-check-input" type="checkbox" id="@comExtra.Id" name="@comExtra.Name" value="@comExtra.Name" checked="@comExtra.IsChecked">
-                            <label class="form-check-label">@comExtra.Name</label>
+                            <input class="form-check-input" 
+                                   type="checkbox" 
+                                   id="comfortExtra_@comExtra.Id" 
+                                   name="ComfortExtrasChecked"
+                                   value="@comExtra.Name"
+                                   checked="@comExtra.IsChecked">
+                            <label class="form-check-label" for="comfortExtra_@comExtra.Id">
+                                @comExtra.Name
+                            </label>
                         </td>
                     </tr>
                 }
@@ -32,19 +41,20 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (var safetyExtra in Model.SafetyExtras)
+            @foreach (var comExtra in Model.SafetyExtras)
             {
                 <tr>
-                    <td>
-                        <input type="checkbox"
-                               name="SafetyExtras[@safetyExtra.Id].Id"
-                               value="@safetyExtra.Id"
-                               @(safetyExtra.IsChecked ? "checked" : "") />
-                        <label>@safetyExtra.Id: @safetyExtra.Name</label>
 
-                        <input type="hidden"
-                               name="SafetyExtras[@safetyExtra.Id].IsChecked"
-                               value="false" />
+                    <td>
+                        <input class="form-check-input" 
+                               type="checkbox" 
+                               id="safetyExtra_@comExtra.Id" 
+                               name="SafetyExtrasChecked" 
+                                   value="@comExtra.Name"
+                               checked="@comExtra.IsChecked">
+                        <label class="form-check-label" for="safetyExtra_@comExtra.Id">
+                            @comExtra.Name
+                        </label>
                     </td>
                 </tr>
             }
@@ -65,8 +75,15 @@
                     <tr>
 
                         <td>
-                            <input class="form-check-input" type="checkbox" id="@exExtra.Id" name="@exExtra.Name" value="@exExtra.IsChecked" checked="@exExtra.IsChecked">
-                            <label class="form-check-label">@exExtra.Name</label>
+                            <input class="form-check-input" 
+                                   type="checkbox"
+                                   id="exteriorExtra_@exExtra.Id"
+                                   name="ExteriorExtrasChecked"
+                                   value="@exExtra.Name"
+                                   checked="@exExtra.IsChecked">
+                            <label class="form-check-label" for="exteriorExtra_@exExtra.Id">
+                                @exExtra.Name
+                            </label>
                         </td>
                     </tr>
                 }
@@ -87,8 +104,15 @@
                     <tr>
 
                         <td>
-                            <input class="form-check-input" type="checkbox" id="@otherExtra.Id" name="@otherExtra.Name" value="@otherExtra.Name" checked="@otherExtra.IsChecked">
-                            <label class="form-check-label">@otherExtra.Name</label>
+                            <input class="form-check-input" 
+                                   type="checkbox"
+                                   id="otherExtra_@otherExtra.Id"
+                                   name="OtherExtrasChecked"
+                                   value="@otherExtra.Name"
+                                   checked="@otherExtra.IsChecked">
+                            <label class="form-check-label" for="otherExtra_@otherExtra.Id">
+                                @otherExtra.Name
+                            </label>
                         </td>
                     </tr>
                 }
@@ -109,8 +133,15 @@
                     <tr>
 
                         <td>
-                            <input class="form-check-input" type="checkbox" id="@inExtras.Id" name="@inExtras.Name" value="@inExtras.Name" checked="@inExtras.IsChecked">
-                            <label class="form-check-label">@inExtras.Name</label>
+                            <input class="form-check-input" 
+                                   type="checkbox"
+                                   id="interiorExtra_@inExtras.Id"
+                                   name="InteriorExtrasChecked"
+                                   value="@inExtras.Name"
+                                   checked="@inExtras.IsChecked">
+                            <label class="form-check-label" for="interiorExtra_@inExtras.Id">
+                                @inExtras.Name
+                            </label>
                         </td>
                     </tr>
                 }

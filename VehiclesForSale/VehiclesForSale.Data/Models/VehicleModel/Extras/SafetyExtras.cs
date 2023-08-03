@@ -14,7 +14,7 @@ namespace VehiclesForSale.Data.Models.VehicleModel.Extras
         public string Name { get; set; } = null!;
 
         [ForeignKey(nameof(Extra))]
-        public int ExtraId { get; set; }
+        public int? ExtraId { get; set; }
 
         public Extra? Extra { get; set; }
 

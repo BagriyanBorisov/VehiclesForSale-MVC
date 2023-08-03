@@ -69,7 +69,9 @@
                 Extra = new Data.Models.VehicleModel.Extras.Extra(),
                 DateId = dateId,
                 OwnerId = userId,
-                TransmissionTypeId = vehicleVm.TransmissionTypeId
+                TransmissionTypeId = vehicleVm.TransmissionTypeId,
+                Description = vehicleVm.Description,
+                Location = vehicleVm.Location
             };
             await context.Vehicles.AddAsync(vehicleToAdd);
             await context.SaveChangesAsync();
@@ -270,7 +272,6 @@
                         .Select(i => i.ImageUrl)
                         .Where(i => i.Contains("_MainImage_") == false)
                         .ToList(),
-                    MainImage = v.ImageCollection.Select(i => i.ImageUrl).Where(i => i.Contains("_MainImage_")).First()
                 }).FirstOrDefaultAsync();
 
             if (vehicle == null)
