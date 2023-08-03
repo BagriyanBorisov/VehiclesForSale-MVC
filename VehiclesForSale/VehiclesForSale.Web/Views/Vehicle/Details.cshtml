@@ -1,5 +1,8 @@
-﻿@model DetailsVehicleViewModel
+﻿@model DetailsViewModel
 
+@{
+    bool isFirst = true;
+}
 
 <div class="container">
     <div class="row m-0">
@@ -8,14 +11,21 @@
                 <div class="col-12 p-5">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="@Model.MainImage" class="d-block w-100">
-                            </div>
-                            @foreach (var img in Model.Images)
+                            @foreach (var img in Model.Vehicle.Images)
                             {
-                                <div class="carousel-item">
-                                    <img src="@img" class="d-block w-100">
-                                </div>
+                                if (isFirst)
+                                {
+                                    <div class="carousel-item active">
+                                        <img src="/Uploads/@img" class="d-block w-100">
+                                    </div>
+                                    @if(true)isFirst=false;
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img src="/Uploads/@img" class="d-block w-100">
+                                    </div>
+                                }
                             }
 
                         </div>
@@ -35,59 +45,59 @@
                     <div class="col-12 px-4">
                         <div class="d-flex align-items-end mt-4 mb-2">
                             <p class="h4 m-0">
-                                <span class="pe-1 fw-bold">@Model.Title</span>
+                                <span class="pe-1 fw-bold">@Model.Vehicle.Title</span>
                             </p>
                         </div>
                         <div class="d-flex justify-content-start mb-3">
                             <div class="align-text-top">
-                                <span class="h4 fw-bold">Price: $@Model.Price</span>
+                                <span class="h4 fw-bold">Price: $@Model.Vehicle.Price</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-md-4 col-6 ps-30 pe-0 my-4">
                         <p class="text-muted">Make:</p>
-                        <p class="h5">@Model.Make</p>
+                        <p class="h5">@Model.Vehicle.Make</p>
                     </div>
                     <div class="col-md-4 col-6  ps-30 my-4">
                         <p class="text-muted">Model:</p>
-                        <p class="h5 m-0">@Model.Model</p>
+                        <p class="h5 m-0">@Model.Vehicle.Model</p>
                     </div>
                     <div class="col-md-4 col-6  ps-30 my-4">
                         <p class="text-muted">Transmission</p>
-                        <p class="h5 m-0">@Model.Transmission</p>
+                        <p class="h5 m-0">@Model.Vehicle.Transmission</p>
                     </div>
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Body:</p>
-                        <p class="h5 m-0">@Model.CategoryType</p>
+                        <p class="h5 m-0">@Model.Vehicle.CategoryType</p>
                     </div>
 
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Cubic Capacity:</p>
-                        <p class="h5 m-0">@Model.CubicCapacity</p>
+                        <p class="h5 m-0">@Model.Vehicle.CubicCapacity</p>
                     </div>
 
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Horse Power:</p>
-                        <p class="h5 m-0">@Model.HorsePower</p>
+                        <p class="h5 m-0">@Model.Vehicle.HorsePower</p>
                     </div>
 
 
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Color:</p>
-                        <p class="h5 m-0">@Model.Color</p>
+                        <p class="h5 m-0">@Model.Vehicle.Color</p>
                     </div>
 
                     <div class="col-md-4 col-6 ps-30 pe-0 my-4">
                         <p class="text-muted">Mileage</p>
                         <p class="h5">
-                            @Model.Mileage<span class="ps-1">Km</span>
+                            @Model.Vehicle.Mileage<span class="ps-1">Km</span>
                         </p>
                     </div>
 
                     <div class="col-md-4 col-6 ps-30 my-4">
                         <p class="text-muted">Manufacture Date:</p>
-                        <p class="h5 m-0">@Model.Month, @Model.Year</p>
+                        <p class="h5 m-0">@Model.Vehicle.Month, @Model.Vehicle.Year</p>
                     </div>
                 </div>
 
@@ -102,7 +112,7 @@
                     <div class="row bg-light m-0">
                         <div class="col-5 px-1 my-4 justify-content-center">
                             <p class="fw-bold">Comfort</p>
-                            @foreach (var comfExtra in Model.ComfortExtras)
+                            @foreach (var comfExtra in Model.Vehicle.ComfortExtras)
                             {
                                 <p class="h6 m-0">@comfExtra</p>
                             }
@@ -110,7 +120,7 @@
 
                         <div class="col-5 px-1 my-4 justify-content-center">
                             <p class="fw-bold">Safety</p>
-                            @foreach (var comfExtra in Model.SafetyExtras)
+                            @foreach (var comfExtra in Model.Vehicle.SafetyExtras)
                             {
                                 <p class="h6 m-0">@comfExtra</p>
                             }
@@ -119,7 +129,7 @@
 
                         <div class="col-2 px-1 my-4">
                             <p class="fw-bold">Other</p>
-                            @foreach (var comfExtra in Model.OtherExtras)
+                            @foreach (var comfExtra in Model.Vehicle.OtherExtras)
                             {
                                 <p class="h6 m-0">@comfExtra</p>
                             }
@@ -127,7 +137,7 @@
 
                         <div class="col-6 px-1 my-4 justify-content-center">
                             <p class="fw-bold">Interior</p>
-                            @foreach (var comfExtra in Model.InteriorExtras)
+                            @foreach (var comfExtra in Model.Vehicle.InteriorExtras)
                             {
                                 <p class="h6 m-0">@comfExtra</p>
                             }
@@ -135,7 +145,7 @@
 
                         <div class="col-6 px-1 my-4">
                             <p class="fw-bold">Exterior</p>
-                            @foreach (var comfExtra in Model.ExteriorExtras)
+                            @foreach (var comfExtra in Model.Vehicle.ExteriorExtras)
                             {
                                 <p class="h6 m-0">@comfExtra</p>
                             }
@@ -151,11 +161,11 @@
                     </div>
                     <div class="col-12 px-4">
                         <div class="d-flex w-100 flex-column mb-4">
-                            <p class="fw-bold">Name: Pesho Peshev</p>
+                            <p class="fw-bold">@Model.Seller.Name</p>
                             <div class=" w-100 d-flex flex-column align-items-start">
-                                <p class="fw-bold">Phone number: 0878123123</p>
-                                <p class="text-muted">Location: Pleven</p>
-                                <p class="text-muted">In VehiclesForSale since: March, 2022</p>
+                                <p class="fw-bold">@Model.Seller.PhoneNumber</p>
+                                <p class="text-muted">@Model.Seller.Location</p>
+                                <p class="text-muted">In VehiclesForSale since: @Model.Seller.RegistrationMade</p>
                             </div>
                         </div>
                         <div class="w-100 d-flex flex-column align-items-center">

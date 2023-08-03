@@ -1,16 +1,16 @@
-﻿using VehiclesForSale.Core.Contracts.Image;
-using VehiclesForSale.Data.Models.VehicleModel.Extras;
-
-namespace VehiclesForSale.Core.Services.Vehicle
+﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
+    using System.Collections.Generic;
+    using Microsoft.EntityFrameworkCore;
+
     using Web.ViewModels.Vehicle;
     using Contracts.Vehicle;
     using Data;
-    using Microsoft.EntityFrameworkCore;
     using Data.Models.VehicleModel;
-    using System.Collections.Generic;
-    using VehiclesForSale.Web.ViewModels.Vehicle.Index;
-    using VehiclesForSale.Data.Models.VehicleModel.Enums;
+    using Web.ViewModels.Vehicle.Index;
+    using Data.Models.VehicleModel.Enums;
+    using Core.Contracts.Image;
+    using Web.ViewModels.Vehicle.Details;
 
     public class VehicleService : IVehicleService
     {
@@ -221,6 +221,80 @@ namespace VehiclesForSale.Core.Services.Vehicle
         {
             int makeId = Int32.Parse(id);
             return await modelService.GetAllAsync(makeId);
+        }
+
+        public async Task<DetailsViewModel> GetForDetailsVehicleAsync(string id)
+        {
+            var vehicle = await context.Vehicles
+                .Where(v => v.Id.ToString() == id)
+                .Include(v => v.CategoryType)
+                .Include(v => v.Make)
+                .Include(v => v.Model)
+                .Include(v => v.FuelType)
+                .Include(v => v.ImageCollection)
+                .Include(v => v.Color)
+                .Include(v => v.TransmissionType)
+                .Include(v => v.Date)
+                .Include(v => v.Extra)
+                .Include(v => v.Extra.ComfortExtras)
+                .Include(v => v.Extra.InteriorExtras)
+                .Include(v => v.Extra.ExteriorExtras)
+                .Include(v => v.Extra.OtherExtras)
+                .Include(v => v.Extra.SafetyExtras)
+                .AsNoTracking()
+                .Select(v => new DetailsVehicleViewModel()
+                {
+                    Title = v.Title,
+                    Price = v.Price.ToString(),
+                    CategoryType = v.CategoryType.Name,
+                    Color = v.Color.Name,
+                    CubicCapacity = v.CubicCapacity.ToString(),
+                    FuelType = v.FuelType.Name,
+                    HorsePower = v.HorsePower.ToString(),
+                    Id = v.Id.ToString(),
+                    Location = v.Location,
+                    Year = v.Date.Year.ToString(),
+                    Month = v.Date.Month.ToString(),
+                    Mileage = v.Mileage.ToString(),
+                    Make = v.Make.Name,
+                    Model = v.Model.Name,
+                    Transmission = v.TransmissionType.Name,
+                    Description = v.Description,
+                    OwnerId = v.OwnerId.ToString(),
+                    ComfortExtras =  v.Extra.ComfortExtras.Select(e => e.Name).ToList(),
+                    SafetyExtras =  v.Extra.SafetyExtras.Select(e => e.Name).ToList(),
+                    InteriorExtras =  v.Extra.InteriorExtras.Select(e => e.Name).ToList(),
+                    ExteriorExtras =  v.Extra.ExteriorExtras.Select(e => e.Name).ToList(),
+                    OtherExtras =  v.Extra.OtherExtras.Select(e => e.Name).ToList(),
+                    Images = v.ImageCollection
+                        .Select(i => i.ImageUrl)
+                        .Where(i => i.Contains("_MainImage_") == false)
+                        .ToList(),
+                    MainImage = v.ImageCollection.Select(i => i.ImageUrl).Where(i => i.Contains("_MainImage_")).First()
+                }).FirstOrDefaultAsync();
+
+            if (vehicle == null)
+            {
+                throw new NullReferenceException("This vehicle does not exist");
+            }
+
+            var owner = await context.Users
+                .FirstOrDefaultAsync(v => v.Id == vehicle.OwnerId);
+
+            var detailsVm = new DetailsViewModel()
+            {
+                Seller = new DetailsSellerViewModel()
+                {
+                    Name = owner!.UserName,
+                    Id = owner!.Id,
+                    Location = "Cherven Bryag",
+                    PhoneNumber = "+359 123 456 987",
+                    RegistrationMade = "March, 2022"
+                },
+                Vehicle = vehicle
+            };
+
+            return detailsVm;
         }
     }
 }

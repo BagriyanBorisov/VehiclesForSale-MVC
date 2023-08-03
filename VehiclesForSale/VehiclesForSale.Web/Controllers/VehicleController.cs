@@ -85,41 +85,11 @@ namespace VehiclesForSale.Web.Controllers
 
         }
 
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
-            DetailsVehicleViewModel viewModel = new DetailsVehicleViewModel()
-            {
-                Id=id,
-                CategoryType = "Sedan",
-                Color = "Gray",
-                ComfortExtras = new List<string>(){"Heated Seats","Heated Steering Wheel"},
-                OtherExtras = new List<string>(){"4x4","LPG"},
-                InteriorExtras = new List<string>(){ "Infotainment System", "Key-less Entry and Push-button Start." },
-                ExteriorExtras = new List<string>(){ "Automatically folding mirrors.", "LED headlights." },
-                SafetyExtras = new List<string>(){"ABS","SOS Call"},
-                Price = "10000",
-                Title = "Mercedes E Klasse 280 CDI",
-                CubicCapacity = "3224",
-                HorsePower = "177",
-                Year = "2005",
-                Month = "January",
-                Location = "Pleven - Bulgaria",
-                Make = "Mercedes-Benz",
-                Model = "W211",
-                Mileage = "320000",
-                Transmission = "Automatic",
-                FuelType = "Diesel",
-                Images = new List<string>()
-                {
-                    "/Uploads/a11b0590-58ca-45cb-9112-a37ec0c74220_Merc1.jpg",
-                    "/Uploads/a11b0590-58ca-45cb-9112-a37ec0c74220_Merc2.jpg",
-                    "/Uploads/a11b0590-58ca-45cb-9112-a37ec0c74220_Merc3.jpg"
-                },
-                Description = "This is Avantgarde coupe with all his classy looks.",
-                MainImage = "/Uploads/a11b0590-58ca-45cb-9112-a37ec0c74220_MainImage_Merc1.jpg"
-            };
+            var detailsVm = await vehicleService.GetForDetailsVehicleAsync(id);
 
-            return View(viewModel);
+            return View(detailsVm);
 
         }
 
