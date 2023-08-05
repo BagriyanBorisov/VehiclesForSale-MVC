@@ -419,5 +419,92 @@
 
             return false;
         }
+
+        public async Task<VehicleFormViewModel> GetForEditVehicleAsync(string vehicleId, string userId)
+        {
+            var vehicle = await context.Vehicles.Where(v => v.Id.ToString() == vehicleId)
+                .Include(v => v.Date)
+                .FirstOrDefaultAsync();
+
+            if (vehicle == null)
+            {
+                throw new NullReferenceException("Getting non existent vehicle for edit");
+            }
+
+            if (vehicle.OwnerId != userId)
+            {
+                throw new NullReferenceException("You are not the owner of the vehicle");
+            }
+
+            var vehicleVm = new VehicleFormViewModel()
+            {
+                Id = vehicle.Id,
+                Title = vehicle.Title,
+                Price = vehicle.Price.ToString(),
+                CategoryTypeId = vehicle.CategoryTypeId,
+                Categories = await categoryService.GetAllAsync(),
+                ColorId = vehicle.ColorId,
+                Colors = await colorService.GetAllAsync(),
+                FuelTypeId = vehicle.FuelTypeId,
+                FuelTypes = await fuelTypeService.GetAllAsync(),
+                MakeId = vehicle.MakeId,
+                ModelId = vehicle.ModelId,
+                Makes = await makeService.GetAllAsync(),
+                Models = await modelService.GetAllAsync(vehicle.MakeId),
+                TransmissionTypeId = vehicle.TransmissionTypeId,
+                TransmissionTypes = await transmissionService.GetAllAsync(),
+                Months = Enum.GetNames(typeof(Month)),
+                Years = await context.Dates
+                    .Where(date => date.Year >= 1930 && date.Year <= 2023)
+                    .Select(date => date.Year)
+                    .Distinct()
+                    .OrderByDescending(d => d)
+                    .ToArrayAsync(),
+                SelectedMonth = vehicle.Date.Month.ToString(),
+                SelectedYear = vehicle.Date.Year,
+                Description = vehicle.Description,
+                Location = vehicle.Location,
+                HorsePower = vehicle.HorsePower,
+                CubicCapacity = vehicle.CubicCapacity,
+                Mileage = vehicle.Mileage
+            };
+
+            return vehicleVm;
+        }
+
+        public async Task EditVehicleAsync(VehicleFormViewModel vehicleVm, string userId)
+        {
+            var vehicleDb = await context.Vehicles.Where(v => v.Id == vehicleVm.Id).FirstOrDefaultAsync();
+
+            var dateId = await context.Dates
+                .Where(d =>
+                    d.Year == vehicleVm.SelectedYear &&
+                    d.Month == (Month)Enum.Parse(typeof(Month), vehicleVm.SelectedMonth, true))
+                .Select(a => a.Id)
+                .FirstOrDefaultAsync();
+
+            if (vehicleDb != null)
+            {
+                vehicleDb.Title = vehicleVm.Title;
+                vehicleDb.Price = Convert.ToDecimal(vehicleVm.Price);
+                vehicleDb.MakeId = vehicleVm.MakeId;
+                vehicleDb.ModelId = vehicleVm.ModelId;
+                vehicleDb.CategoryTypeId = vehicleVm.CategoryTypeId;
+                vehicleDb.CubicCapacity = vehicleVm.CubicCapacity;
+                vehicleDb.ColorId = vehicleVm.ColorId;
+                vehicleDb.FuelTypeId = vehicleVm.FuelTypeId;
+                vehicleDb.Mileage = vehicleVm.Mileage;
+                vehicleDb.HorsePower = vehicleVm.HorsePower;
+                vehicleDb.DateId = dateId;
+                vehicleDb.OwnerId = userId;
+                vehicleDb.TransmissionTypeId = vehicleVm.TransmissionTypeId;
+                vehicleDb.Description = vehicleVm.Description;
+                vehicleDb.Location = vehicleVm.Location;
+
+                context.Vehicles.Update(vehicleDb);
+                await context.SaveChangesAsync();
+            }
+        }
+      
     }
 }

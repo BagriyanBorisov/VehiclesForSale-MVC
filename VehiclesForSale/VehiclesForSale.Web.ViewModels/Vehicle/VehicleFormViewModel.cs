@@ -70,7 +70,7 @@
         public int SelectedYear { get; set; }
         public string SelectedMonth { get; set; }
         
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public IEnumerable<int> Years { get; set; }
         public IEnumerable<string> Months { get; set; }

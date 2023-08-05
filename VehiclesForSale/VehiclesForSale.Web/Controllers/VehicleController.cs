@@ -7,6 +7,7 @@
     using Core.Contracts.Vehicle;
     using ViewModels.Vehicle;
     using ViewModels.Vehicle.Index;
+    using VehiclesForSale.Data.Models.VehicleModel;
 
     [Authorize]
     public class VehicleController : Controller
@@ -52,6 +53,30 @@
                 var vehicleId = vehicleVm.Id.ToString();
                 return RedirectToAction("Add", "Image", new { id = vehicleId });
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(VehicleFormViewModel vehicleVm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vehicleVm);
+            }
+
+            string? userId  = GetUserId();
+            await vehicleService.EditVehicleAsync(vehicleVm, userId!);
+
+
+            var vehicleId = vehicleVm.Id.ToString();
+            return RedirectToAction("Edit", "Image", new { id = vehicleId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            string? userId = GetUserId();
+            var vehicleVm = await vehicleService.GetForEditVehicleAsync(id, userId!);
+            return View(vehicleVm);
         }
 
 
