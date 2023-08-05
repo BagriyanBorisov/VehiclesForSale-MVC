@@ -328,11 +328,14 @@
                 ApplicationUserId = userId
             };
 
-            user.FavoriteVehicleApplicationUsers.Add(favUserVehicle);
-             await context
-                 .FavoriteVehicleApplicationUsers
-                 .AddAsync(favUserVehicle);
-             await context.SaveChangesAsync();
+            if (vehicle.OwnerId != userId)
+            {
+                user.FavoriteVehicleApplicationUsers.Add(favUserVehicle);
+                await context
+                    .FavoriteVehicleApplicationUsers
+                    .AddAsync(favUserVehicle);
+                await context.SaveChangesAsync();
+            }
         }
 
         public async Task<ICollection<VehicleIndexViewModel>> GetWatchListAsync(string userId)
@@ -405,6 +408,10 @@
                 .Where(v => v.ApplicationUserId == userId 
                             && v.VehicleId.ToString() == vehicleId)
                 .FirstOrDefaultAsync();
+
+
+
+
             if (isItIn != null)
             {
                 return true;

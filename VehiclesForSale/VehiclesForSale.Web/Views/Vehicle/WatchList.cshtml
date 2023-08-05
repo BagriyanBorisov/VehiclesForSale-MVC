@@ -4,7 +4,7 @@
     int modelCount = Model.Count();
     int skip = 0;
 }
-<h2 class="text-center mb-3">Your WatchList</h2>
+<h2 class="text-center mb-3">Your Watchlist</h2>
 <hr />
 @while (modelCount != 0)
 {
@@ -42,14 +42,7 @@
                                     <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="btn btn-primary col-12">Details</a>
-                                    </div>
-                                    <div class="col-md-6 col-sm-12">
-                                        <a asp-action="DeleteFromWatchList" asp-controller="Vehicle" asp-route-vehicleId="@car.Id" class="btn btn-danger col-12">Remove from WatchList</a>
-                                    </div>
-                                </div>
+                                <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Check Details</a>
 
                             </div>
                         </div>

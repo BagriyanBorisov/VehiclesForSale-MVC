@@ -82,6 +82,8 @@
 
         }
 
+
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             var userId = GetUserId();
@@ -116,7 +118,7 @@
         {
             string? userId = GetUserId();
             await vehicleService.DeleteVehicleFromWatchListAsync(userId!, vehicleId);
-            return RedirectToAction("WatchList", "Vehicle");
+            return RedirectToAction("Details", "Vehicle", new { id = vehicleId });
         }
 
         [HttpGet]
