@@ -1,0 +1,73 @@
+﻿@model ICollection<VehicleIndexViewModel>
+
+@{
+    int modelCount = Model.Count();
+    int skip = 0;
+}
+<h2 class="text-center mb-3">Your WatchList</h2>
+<hr />
+@while (modelCount != 0)
+{
+    <div class="row">
+        @foreach (var car in Model)
+        {
+            <div class="col-lg-4">
+                <div class="container" style="margin-top: 50px;">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-sl">
+                                <div class="card-image">
+                                    <img src="/Uploads/@car.MainImage" />
+
+                                </div>
+                                <div class="row justify-content-center card-heading">
+                                    <div class="col-sm-6 col-lg-12 text-center">
+                                        @car.Title
+                                    </div>
+                                    <div class="col-sm-6 col-lg-12 text-center">
+                                        Price: $@car.Price
+                                    </div>
+                                </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 text-center">Make: @car.Make</div>
+                                    <div class="col-md-6 text-center">Model: @car.Model</div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 text-center">Year: @car.Month, @car.Year</div>
+                                    <div class="col-md-6 text-center">Mileage: @car.Mileage km</div>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-md-6 text-center">Transmission: @car.Transmission</div>
+                                    <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="btn btn-primary col-12">Details</a>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <a asp-action="DeleteFromWatchList" asp-controller="Vehicle" asp-route-vehicleId="@car.Id" class="btn btn-danger col-12">Remove from WatchList</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            @if (true)
+            {
+                modelCount--;
+            }
+        }
+    </div>
+    @if (true)
+    {
+        skip += 3;
+    }
+}
+
+
+

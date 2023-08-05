@@ -39,6 +39,8 @@
 
         public string? MainImage { get; set; }
 
-       
+        public bool? IsInWatchList { get; set; }
+
+
     }
 }

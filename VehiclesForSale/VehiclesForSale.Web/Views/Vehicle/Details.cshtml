@@ -6,6 +6,8 @@
     bool isFirst = true;
 }
 
+
+
 <div class="container">
     <div class="row m-0">
         <div class="col-lg-8 pb-5 pe-lg-5">
@@ -54,6 +56,7 @@
                             <div class="align-text-top">
                                 <span class="h4 fw-bold">Price: $@Model.Vehicle.Price</span>
                             </div>
+
                         </div>
                     </div>
 
@@ -101,9 +104,31 @@
                         <p class="text-muted">Manufacture Date:</p>
                         <p class="h5 m-0">@Model.Vehicle.Month, @Model.Vehicle.Year</p>
                     </div>
-                    <div class="col-12 ps-30 my-4">
+                    <div class="col-md-6 col-sm-12 ps-30 my-4">
                         <p class="text-muted">Description:</p>
                         <p class="h5 m-0">@Model.Vehicle.Description</p>
+                    </div>
+                    <div class="col-md-6 col-sm-12 my-4">
+                        @if (Model.Vehicle.IsInWatchList == true)
+                        {
+                            <a asp-action="DeleteFromWatchList" asp-controller="Vehicle" asp-route-vehicleId="@Model.Vehicle.Id" class="btn btn-danger col-12">
+                                Remove from watchlist
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+                            </a>
+                        }
+                        else
+                        {
+                            <a asp-action="AddToWatchList" asp-controller="Vehicle" asp-route-vehicleId="@Model.Vehicle.Id" class="btn btn-primary col-12">
+                                Add to watchlist 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                </svg>
+                            </a>
+                        }
                     </div>
                 </div>
             </div>
@@ -112,45 +137,64 @@
             <div class="row m-0 bg-light ">
                 <div class="col-12 px-0">
                     <div class="row bg-light m-0">
-                        <div class="col-5 px-1 my-4 justify-content-center">
-                            <p class="fw-bold">Comfort</p>
-                            @foreach (var comfExtra in Model.Vehicle.ComfortExtras)
-                            {
-                                <p class="h6 m-0">@comfExtra</p>
-                            }
+                        <div class="col-6 px-1 my-2 justify-content-center border-end border-dark">
+                            
+                            <ul>
+                                <p class="fw-bold">Comfort</p>
+                                @foreach (var comfExtra in Model.Vehicle.ComfortExtras)
+                                {
+                                    <li class="align-items-center py-2 m-0">
+                                        @comfExtra
+                                    </li>
+                                }
+                            </ul>
+                            </div>
+                        <div class="col-6 px-1 my-2 justify-content-center border-dark">
+                            <ul>
+                                <p class="fw-bold">Safety</p>
+                                @foreach (var comfExtra in Model.Vehicle.SafetyExtras)
+                                {
+                                    <li class="align-items-center py-2 m-0">
+                                        @comfExtra
+                                    </li>
+                                }
+                            </ul>
                         </div>
 
-                        <div class="col-5 px-1 my-4 justify-content-center">
-                            <p class="fw-bold">Safety</p>
-                            @foreach (var comfExtra in Model.Vehicle.SafetyExtras)
-                            {
-                                <p class="h6 m-0">@comfExtra</p>
-                            }
-                        </div>
+                        <div class="col-6 px-1 justify-content-center border-top border-end border-dark">
+                                <ul>
+                                    <p class="fw-bold my-2">Interior</p>
+                                    @foreach (var comfExtra in Model.Vehicle.InteriorExtras)
+                                    {
+                                        <li class="align-items-center py-2 m-0">
+                                            @comfExtra
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        <div class="col-6 px-1 border-top border-dark">
+                                <ul>
+                                    <p class="fw-bold my-2">Exterior</p>
+                                    @foreach (var comfExtra in Model.Vehicle.ExteriorExtras)
+                                    {
+                                        <li class="h6 m-0">@comfExtra</li>
+                                    }
+                                </ul>
 
-
-                        <div class="col-2 px-1 my-4">
-                            <p class="fw-bold">Other</p>
-                            @foreach (var comfExtra in Model.Vehicle.OtherExtras)
-                            {
-                                <p class="h6 m-0">@comfExtra</p>
-                            }
-                        </div>
-
-                        <div class="col-6 px-1 my-4 justify-content-center">
-                            <p class="fw-bold">Interior</p>
-                            @foreach (var comfExtra in Model.Vehicle.InteriorExtras)
-                            {
-                                <p class="h6 m-0">@comfExtra</p>
-                            }
-                        </div>
-
-                        <div class="col-6 px-1 my-4">
-                            <p class="fw-bold">Exterior</p>
-                            @foreach (var comfExtra in Model.Vehicle.ExteriorExtras)
-                            {
-                                <p class="h6 m-0">@comfExtra</p>
-                            }
+                            </div>
+                      
+                       
+                        
+                        <div class="col-12 px-0 my-0 border-top border-dark ">
+                            <ul>
+                                <p class="fw-bold my-2">Other</p>
+                                @foreach (var comfExtra in Model.Vehicle.OtherExtras)
+                                {
+                                    <li class="py-2 m-0">
+                                        @comfExtra
+                                    </li>
+                                }
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -186,9 +230,8 @@
                                     }
                                     else
                                     {
-                                        <div class="btn btn-success">
-                                            See his other vehicles for sale<span class="fas ps-2"></span>
-                                        </div>
+
+                                        <a asp-action="SellerVehicles" asp-controller="Vehicle" asp-route-id="@Model.Seller.Id" class="btn btn-success col-12 ">Seller other vehicles</a>
                                     }
                                    
                                 </div>

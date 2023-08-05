@@ -1,14 +1,12 @@
-﻿using VehiclesForSale.Web.ViewModels.Vehicle.Details;
-using VehiclesForSale.Web.ViewModels.Vehicle.Index;
-
-namespace VehiclesForSale.Web.Controllers
+﻿namespace VehiclesForSale.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Security.Claims;
+
     using Core.Contracts.Vehicle;
     using ViewModels.Vehicle;
-    using System.Security.Claims;
-    
+    using ViewModels.Vehicle.Index;
 
     [Authorize]
     public class VehicleController : Controller
@@ -80,14 +78,14 @@ namespace VehiclesForSale.Web.Controllers
         {
             string? userId = GetUserId();
             await vehicleService.DeleteVehicleAsync(id, userId!);
-
             return RedirectToAction("YourVehicles", "Vehicle");
 
         }
 
         public async Task<IActionResult> Details(string id)
         {
-            var detailsVm = await vehicleService.GetForDetailsVehicleAsync(id);
+            var userId = GetUserId();
+            var detailsVm = await vehicleService.GetForDetailsVehicleAsync(userId,id);
 
             return View(detailsVm);
 
@@ -104,6 +102,29 @@ namespace VehiclesForSale.Web.Controllers
         private string? GetUserId()
         {
             return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        }
+
+        
+        public async Task<IActionResult> AddToWatchList(string vehicleId)
+        {
+            string? userId = GetUserId(); 
+            await vehicleService.AddVehicleToWatchListAsync(userId!, vehicleId);
+            return RedirectToAction("Details", "Vehicle", new { id = vehicleId });
+        }
+
+        public async Task<IActionResult> DeleteFromWatchList(string vehicleId)
+        {
+            string? userId = GetUserId();
+            await vehicleService.DeleteVehicleFromWatchListAsync(userId!, vehicleId);
+            return RedirectToAction("WatchList", "Vehicle");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> WatchList()
+        {
+            string? userId = GetUserId(); 
+            var models = await vehicleService.GetWatchListAsync(userId!);
+            return View(models);
         }
     }
 }

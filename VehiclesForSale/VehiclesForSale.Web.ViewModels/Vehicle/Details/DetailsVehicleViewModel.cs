@@ -45,6 +45,8 @@
         public string? MainImage { get; set; }
         public string? Description { get; set; }
 
+        public bool? IsInWatchList { get; set; }
+
         public IEnumerable<string> Images { get; set; }
         public ICollection<string> ComfortExtras { get; set; }
         public ICollection<string> SafetyExtras { get; set; }
