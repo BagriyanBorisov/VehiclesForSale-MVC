@@ -8,6 +8,7 @@
         public Task<ImageFormViewModel> GetImageWithVehicle(string vehicleId);
         public Task CreateImages(string id, ImageFormViewModel imageVm);
         public Task DeleteImage(ICollection<Image> imagesCollection, string vehicleId);
+        public Task DeleteImageById(string imageId, string vehicleId);
         public Task<string> GetPathById(string id);
     }
 }

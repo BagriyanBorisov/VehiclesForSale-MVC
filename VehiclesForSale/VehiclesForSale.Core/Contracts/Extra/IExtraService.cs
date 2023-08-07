@@ -5,6 +5,8 @@
     public interface IExtraService
     {
         public Task<ExtraFormViewModel> GetAddExtraAsync(string id);
+        public Task<ExtraFormViewModel> GetEditExtraAsync(string id);
         public Task AddExtraAsync(ExtraFormViewModel extraVm, string userId, string extraId);
+        public Task EditExtraAsync(ExtraFormViewModel extraVm, string userId, string extraId);
     }
 }

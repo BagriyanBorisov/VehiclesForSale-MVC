@@ -1,0 +1,15 @@
+﻿@model ExtraFormViewModel
+@{
+    ViewData["Title"] = "Edit a extras to your vehicle";
+}
+
+<h1 class="text-center">Edit extras to your vehicle</h1>
+<hr />
+<form asp-action="EditExtraForVehicle" asp-controller="Extra" asp-route-id="@Model.ExtraId" method="post">
+    <div class="mb-lg-3 col-lg-12">
+        <partial name="_ExtrasTablePartial" />
+    </div>
+    <div class="mb-3">
+        <input class="btn btn-success mb-2 w-100 p-3 fw-bold" type="submit" value="Finish" />
+    </div>
+</form>

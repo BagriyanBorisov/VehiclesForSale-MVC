@@ -1,7 +1,7 @@
 ﻿namespace VehiclesForSale.Web.ViewModels.Vehicle
 {
-    public class ExteriorExtraFormViewModel : BaseDropDownsViewModel
+    public class ExteriorExtraFormViewModel : BaseExtraFormViewModel
     {
-        public bool IsChecked { get; set; } = false;
+      
     }
 }

@@ -37,5 +37,21 @@
         {
             return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         }
+
+        public async Task<ActionResult> EditExtraForVehicle(string id)
+        {
+            var extra = await extraService.GetEditExtraAsync(id);
+
+            return View(extra);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditExtraForVehicle(string id, ExtraFormViewModel extraVm)
+        {
+            string? userId = GetUserId();
+            await extraService.EditExtraAsync(extraVm, userId!, id);
+
+            return RedirectToAction("YourVehicles", "Vehicle");
+        }
     }
 }

@@ -1,16 +1,16 @@
 ﻿@model ImageFormViewModel
 
 @{
-    ViewData["Title"] = "Add Images";
+    ViewData["Title"] = "Edit Images";
 }
 
-<h1 class="text-center"> Add Images For @Model.VehicleName</h1>
+<h1 class="text-center"> Edit Images For @Model.VehicleName</h1>
 
 <hr />
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Add" enctype="multipart/form-data" asp-controller="Image" asp-route-vehicleId="@Model.VehicleId">
+        <form asp-action="Edit" enctype="multipart/form-data" asp-controller="Image" asp-route-vehicleId="@Model.VehicleId">
             <div class="form-group">
                 <label asp-for="Images" class="control-label">Add an images(you can select multiple)</label>
                 <input asp-for="Images" class="form-control" multiple />
@@ -19,12 +19,10 @@
             <hr />
             <div class="mb-3">
                 <input class="btn btn-primary mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
-                <a asp-action="AddExtraForVehicle" asp-controller="Extra" asp-route-id="@Model.VehicleId" class="mb-3 btn btn-success w-100 p-3 fw-bold">Continue To Extras</a>
+                <a asp-action="EditExtraForVehicle" asp-controller="Extra" asp-route-id="@Model.VehicleId" 
+                class="mb-3 btn btn-success w-100 p-3 fw-bold">Continue To Extras</a>
             </div>
         </form>
-       
-       
-
     </div>
     <div class="container">
         <div class="table-responsive">

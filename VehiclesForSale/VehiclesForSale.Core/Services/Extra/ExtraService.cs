@@ -119,7 +119,6 @@
             var viewModel = await GetAllExtras(vehicle.ExtraId);
             return viewModel;
         }
-
         private async Task<ExtraFormViewModel> GetAllExtras(int extraId)
         {
             ExtraFormViewModel viewModel = new ExtraFormViewModel();
@@ -171,6 +170,278 @@
                 }).ToListAsync();
 
             return viewModel;
+        }
+        public async Task<ExtraFormViewModel> GetEditExtraAsync(string id)
+        {
+            var vehicle = await context.Vehicles.Where(v => v.Id.ToString() == id).FirstOrDefaultAsync();
+            if (vehicle == null)
+            {
+                throw new NullReferenceException("This vehicle does not exist");
+            }
+            var viewModel = await GetAllExtrasForEdit(vehicle.ExtraId);
+            return viewModel;
+        }
+
+
+
+
+        private async Task<ExtraFormViewModel> GetAllExtrasForEdit(int extraId)
+        {
+            ExtraFormViewModel viewModel = new ExtraFormViewModel();
+
+            viewModel.ExtraId = extraId;
+            viewModel.ExteriorExtras = await GetExteriorExtrasForEdit(extraId);
+            viewModel.InteriorExtras = await GetInteriorExtrasForEdit(extraId);
+            viewModel.OtherExtras = await GetOtherExtrasForEdit(extraId);
+            viewModel.SafetyExtras = await GetSafetyExtrasForEdit(extraId);
+            viewModel.ComfortExtras = await GetComfortExtrasForEdit(extraId);
+
+            return viewModel;
+        }
+
+
+
+        private async Task<List<ExteriorExtraFormViewModel>> GetExteriorExtrasForEdit(int? extraId)
+        {
+            var matchedExtras = await context.ExteriorExtras
+                .Where(e => e.ExtraId == extraId)
+                .ToListAsync();
+
+            var unmatchedExtras = await context.ExteriorExtras
+                .Where(e => e.ExtraId != extraId && e.ExtraId == null)
+                .ToListAsync();
+
+            var matchedViewModels = matchedExtras.Select(e => MapExteriorExtraToViewModel(e, extraId)).ToList();
+            var unmatchedViewModels = unmatchedExtras.Select(e => MapExteriorExtraToViewModel(e, extraId)).ToList();
+
+            return matchedViewModels
+            .Union(unmatchedViewModels, new ExtraFormViewModelComparer<ExteriorExtraFormViewModel>())
+            .ToList();
+        }
+
+        private async Task<List<InteriorExtraFormViewModel>> GetInteriorExtrasForEdit(int? extraId)
+        {
+            var matchedExtras = await context.InteriorExtras
+                .Where(e => e.ExtraId == extraId)
+                .ToListAsync();
+
+            var unmatchedExtras = await context.InteriorExtras
+                .Where(e => e.ExtraId != extraId && e.ExtraId == null)
+                .ToListAsync();
+
+            var matchedViewModels = matchedExtras.Select(e => MapInteriorExtraToViewModel(e, extraId)).ToList();
+            var unmatchedViewModels = unmatchedExtras.Select(e => MapInteriorExtraToViewModel(e, extraId)).ToList();
+
+            return matchedViewModels
+                .Union(unmatchedViewModels, new ExtraFormViewModelComparer<InteriorExtraFormViewModel>())
+                .ToList();
+        }
+        private async Task<List<OtherExtraFormViewModel>> GetOtherExtrasForEdit(int? extraId)
+        {
+            var matchedExtras = await context.OtherExtras
+                .Where(e => e.ExtraId == extraId)
+                .ToListAsync();
+
+            var unmatchedExtras = await context.OtherExtras
+                .Where(e => e.ExtraId != extraId && e.ExtraId == null)
+                .ToListAsync();
+
+            var matchedViewModels = matchedExtras.Select(e => MapOtherExtraToViewModel(e, extraId)).ToList();
+            var unmatchedViewModels = unmatchedExtras.Select(e => MapOtherExtraToViewModel(e, extraId)).ToList();
+
+            return matchedViewModels
+                .Union(unmatchedViewModels, new ExtraFormViewModelComparer<OtherExtraFormViewModel>())
+                .ToList();
+        }
+
+        private async Task<List<SafetyExtraFormViewModel>> GetSafetyExtrasForEdit(int? extraId)
+        {
+            var matchedExtras = await context.SafetyExtras
+                .Where(e => e.ExtraId == extraId)
+                .ToListAsync();
+
+            var unmatchedExtras = await context.SafetyExtras
+                .Where(e => e.ExtraId != extraId && e.ExtraId == null)
+                .ToListAsync();
+
+            var matchedViewModels = matchedExtras.Select(e => MapSafetyExtraToViewModel(e, extraId)).ToList();
+            var unmatchedViewModels = unmatchedExtras.Select(e => MapSafetyExtraToViewModel(e, extraId)).ToList();
+
+            return matchedViewModels
+                .Union(unmatchedViewModels, new ExtraFormViewModelComparer<SafetyExtraFormViewModel>())
+                .ToList();
+        }
+
+        private async Task<List<ComfortExtraFormViewModel>> GetComfortExtrasForEdit(int? extraId)
+        {
+            var matchedExtras = await context.ComfortExtras
+                .Where(e => e.ExtraId == extraId)
+                .ToListAsync();
+
+            var unmatchedExtras = await context.ComfortExtras
+                .Where(e => e.ExtraId != extraId && e.ExtraId == null)
+                .ToListAsync();
+
+            var matchedViewModels = matchedExtras.Select(e => MapComfortExtraToViewModel(e, extraId)).ToList();
+            var unmatchedViewModels = unmatchedExtras.Select(e => MapComfortExtraToViewModel(e, extraId)).ToList();
+
+            return matchedViewModels
+                .Union(unmatchedViewModels, new ExtraFormViewModelComparer<ComfortExtraFormViewModel>())
+                .ToList();
+        }
+
+
+        private OtherExtraFormViewModel MapOtherExtraToViewModel(OtherExtra model, int? extraId)
+        {
+            return new OtherExtraFormViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                IsChecked = model.ExtraId == extraId
+            };
+        }
+
+        private SafetyExtraFormViewModel MapSafetyExtraToViewModel(SafetyExtra model, int? extraId)
+        {
+            return new SafetyExtraFormViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                IsChecked = model.ExtraId == extraId
+            };
+        }
+
+        private ComfortExtraFormViewModel MapComfortExtraToViewModel(ComfortExtra model, int? extraId)
+        {
+            return new ComfortExtraFormViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                IsChecked = model.ExtraId == extraId
+            };
+        }
+
+        private ExteriorExtraFormViewModel MapExteriorExtraToViewModel(ExteriorExtra model, int? extraId)
+        {
+            return new ExteriorExtraFormViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                IsChecked = model.ExtraId == extraId // Set IsChecked based on the condition
+            };
+        }
+
+        private InteriorExtraFormViewModel MapInteriorExtraToViewModel(InteriorExtra model, int? extraId)
+        {
+            return new InteriorExtraFormViewModel
+            {
+                Id = model.Id,
+                Name = model.Name,
+                IsChecked = model.ExtraId == extraId
+            };
+        }
+
+        public async Task EditExtraAsync(ExtraFormViewModel extraVm, string userId, string extraId)
+        {
+            var vehicle = await context.Vehicles
+                .Where(v => v.ExtraId.ToString() == extraId && v.OwnerId == userId)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            if (vehicle == null)
+            {
+                throw new NullReferenceException("This vehicle does not exist or you are not the owner!");
+            }
+
+            var extraDb = await context.Extras
+                .Where(e => e.Id.ToString() == extraId)
+                .Include(e => e.ExteriorExtras)
+                .Include(e => e.InteriorExtras)
+                .Include(e => e.ComfortExtras)
+                .Include(e => e.SafetyExtras)
+                .Include(e => e.OtherExtras)
+                .FirstOrDefaultAsync();
+
+            if (extraDb == null)
+            {
+                throw new NullReferenceException("Extra not found.");
+            }
+
+            var safetyExtrasToAdd = extraVm.SafetyExtrasChecked
+                .Where(extra => !extraDb.SafetyExtras.Any(se => se.Name == extra))
+                .Select(extra => new SafetyExtra
+                {
+                    ExtraId = extraDb.Id,
+                    Name = extra
+                }).ToList();
+
+            var comfortExtrasToAdd = extraVm.ComfortExtrasChecked
+                .Where(extra => !extraDb.ComfortExtras.Any(se => se.Name == extra))
+                .Select(extra => new ComfortExtra
+            {
+                ExtraId = extraDb.Id,
+                Name = extra
+            }).ToList();
+
+            var exteriorExtrasToAdd = extraVm.ExteriorExtrasChecked
+               .Where(extra => !extraDb.ExteriorExtras.Any(se => se.Name == extra))
+               .Select(extra => new ExteriorExtra
+            {
+                ExtraId = extraDb.Id,
+                Name = extra
+            }).ToList();
+
+            var interiorExtrasToAdd = extraVm.InteriorExtrasChecked
+                .Where(extra => !extraDb.InteriorExtras.Any(se => se.Name == extra))
+                .Select(extra => new InteriorExtra
+            {
+                ExtraId = extraDb.Id,
+                Name = extra
+            }).ToList();
+
+            var otherExtrasToAdd = extraVm.OtherExtrasChecked
+                .Where(extra => !extraDb.OtherExtras.Any(se => se.Name == extra))
+                .Select(extra => new OtherExtra
+            {
+                ExtraId = extraDb.Id,
+                Name = extra
+            }).ToList();
+
+            // Remove extras that were previously checked but now unchecked
+            var extrasToRemove = extraDb.SafetyExtras
+                .Where(e => !extraVm.SafetyExtrasChecked.Contains(e.Name))
+                .ToList();
+            context.SafetyExtras.RemoveRange(extrasToRemove);
+
+            var extrasToRemoveC = extraDb.ComfortExtras
+                .Where(e => !extraVm.ComfortExtrasChecked.Contains(e.Name))
+                .ToList();
+            context.ComfortExtras.RemoveRange(extrasToRemoveC);
+
+            var extrasToRemoveE = extraDb.ExteriorExtras
+               .Where(e => !extraVm.ExteriorExtrasChecked.Contains(e.Name))
+               .ToList();
+            context.ExteriorExtras.RemoveRange(extrasToRemoveE);
+
+            var extrasToRemoveI = extraDb.InteriorExtras
+              .Where(e => !extraVm.InteriorExtrasChecked.Contains(e.Name))
+              .ToList();
+            context.InteriorExtras.RemoveRange(extrasToRemoveI);
+
+            var extrasToRemoveO = extraDb.OtherExtras
+             .Where(e => !extraVm.OtherExtrasChecked.Contains(e.Name))
+             .ToList();
+            context.OtherExtras.RemoveRange(extrasToRemoveO);
+         
+
+            context.SafetyExtras.AddRange(safetyExtrasToAdd);
+            context.ComfortExtras.AddRange(comfortExtrasToAdd);
+            context.ExteriorExtras.AddRange(exteriorExtrasToAdd);
+            context.InteriorExtras.AddRange(interiorExtrasToAdd);
+            context.OtherExtras.AddRange(otherExtrasToAdd);
+
+            context.Extras.Update(extraDb);
+            await context.SaveChangesAsync();
         }
     }
 }

@@ -1,16 +1,15 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
-    using System.Collections.Generic;
-    using Microsoft.EntityFrameworkCore;
-
-    using Web.ViewModels.Vehicle;
     using Contracts.Vehicle;
+    using Core.Contracts.Image;
     using Data;
     using Data.Models.VehicleModel;
-    using Web.ViewModels.Vehicle.Index;
     using Data.Models.VehicleModel.Enums;
-    using Core.Contracts.Image;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
+    using Web.ViewModels.Vehicle;
     using Web.ViewModels.Vehicle.Details;
+    using Web.ViewModels.Vehicle.Index;
 
     public class VehicleService : IVehicleService
     {
@@ -47,8 +46,8 @@
         public async Task AddVehicleAsync(VehicleFormViewModel vehicleVm, string userId)
         {
             var dateId = await context.Dates
-                .Where(d => 
-                    d.Year == vehicleVm.SelectedYear && 
+                .Where(d =>
+                    d.Year == vehicleVm.SelectedYear &&
                     d.Month == (Month)Enum.Parse(typeof(Month), vehicleVm.SelectedMonth, true))
                 .Select(a => a.Id)
                 .FirstOrDefaultAsync();
@@ -101,31 +100,31 @@
             var models = await context.Vehicles
                 .Include(v => v.CategoryType)
                 .Include(v => v.Make)
-                .Include(v=> v.Model)
-                .Include(v=> v.FuelType)
-                .Include(v=> v.ImageCollection)
-                .Include(v=>v.Color)
-                .Include(v=> v.TransmissionType)
+                .Include(v => v.Model)
+                .Include(v => v.FuelType)
+                .Include(v => v.ImageCollection)
+                .Include(v => v.Color)
+                .Include(v => v.TransmissionType)
                 .Include(v => v.Date)
                 .AsNoTracking()
                 .Select(v => new VehicleIndexViewModel()
                 {
-                Title = v.Title,
-                Price = v.Price.ToString(),
-                CategoryType = v.CategoryType.Name,
-                Color = v.Color.Name,
-                CubicCapacity = v.CubicCapacity,
-                FuelType = v.FuelType.Name,
-                HorsePower = v.HorsePower,
-                Id = v.Id.ToString(),
-                Location = v.Location,
-                Year = v.Date.Year.ToString(),
-                Month = v.Date.Month.ToString(),
-                Mileage = v.Mileage,
-                Make = v.Make.Name,
-                Model = v.Model.Name,
-                Transmission = v.TransmissionType.Name,
-                 }).ToListAsync();
+                    Title = v.Title,
+                    Price = v.Price.ToString(),
+                    CategoryType = v.CategoryType.Name,
+                    Color = v.Color.Name,
+                    CubicCapacity = v.CubicCapacity,
+                    FuelType = v.FuelType.Name,
+                    HorsePower = v.HorsePower,
+                    Id = v.Id.ToString(),
+                    Location = v.Location,
+                    Year = v.Date.Year.ToString(),
+                    Month = v.Date.Month.ToString(),
+                    Mileage = v.Mileage,
+                    Make = v.Make.Name,
+                    Model = v.Model.Name,
+                    Transmission = v.TransmissionType.Name,
+                }).ToListAsync();
 
             foreach (var model in models)
             {
@@ -167,19 +166,19 @@
         public async Task<VehicleFormViewModel> GetForAddVehicleAsync()
         {
             var vehicleVm = new VehicleFormViewModel();
-                vehicleVm.Categories = await categoryService.GetAllAsync();
-                vehicleVm.Colors = await colorService.GetAllAsync();
-                vehicleVm.FuelTypes = await fuelTypeService.GetAllAsync();
-                vehicleVm.Makes = await makeService.GetAllAsync();
-                vehicleVm.TransmissionTypes = await transmissionService.GetAllAsync();
-                vehicleVm.Models = await modelService.GetAllAsync(1);
-                vehicleVm.Months = Enum.GetNames(typeof(Month));
-                vehicleVm.Years = await context.Dates
-                    .Where(date => date.Year >= 1930 && date.Year <= 2023)
-                    .Select(date => date.Year)
-                    .Distinct()
-                    .OrderByDescending(d => d)
-                    .ToArrayAsync();
+            vehicleVm.Categories = await categoryService.GetAllAsync();
+            vehicleVm.Colors = await colorService.GetAllAsync();
+            vehicleVm.FuelTypes = await fuelTypeService.GetAllAsync();
+            vehicleVm.Makes = await makeService.GetAllAsync();
+            vehicleVm.TransmissionTypes = await transmissionService.GetAllAsync();
+            vehicleVm.Models = await modelService.GetAllAsync(1);
+            vehicleVm.Months = Enum.GetNames(typeof(Month));
+            vehicleVm.Years = await context.Dates
+                .Where(date => date.Year >= 1930 && date.Year <= 2023)
+                .Select(date => date.Year)
+                .Distinct()
+                .OrderByDescending(d => d)
+                .ToArrayAsync();
             return vehicleVm;
         }
 
@@ -229,10 +228,11 @@
             return await modelService.GetAllAsync(makeId);
         }
 
-        public async Task<DetailsViewModel> GetForDetailsVehicleAsync(string? userId,string id)
+        public async Task<DetailsViewModel> GetForDetailsVehicleAsync(string? userId, string id)
         {
             var vehicle = await context.Vehicles
                 .Where(v => v.Id.ToString() == id)
+                .AsNoTracking()
                 .Include(v => v.CategoryType)
                 .Include(v => v.Make)
                 .Include(v => v.Model)
@@ -242,41 +242,44 @@
                 .Include(v => v.TransmissionType)
                 .Include(v => v.Date)
                 .Include(v => v.Extra)
-                .Include(v => v.Extra.ComfortExtras)
-                .Include(v => v.Extra.InteriorExtras)
-                .Include(v => v.Extra.ExteriorExtras)
-                .Include(v => v.Extra.OtherExtras)
-                .Include(v => v.Extra.SafetyExtras)
-                .AsNoTracking()
+                    .ThenInclude(e => e.ComfortExtras)
+                .Include(v => v.Extra)
+                    .ThenInclude(e => e.InteriorExtras)
+                .Include(v => v.Extra)
+                    .ThenInclude(e => e.ExteriorExtras)
+                .Include(v => v.Extra)
+                    .ThenInclude(e => e.OtherExtras)
+                .Include(v => v.Extra)
+                    .ThenInclude(e => e.SafetyExtras)
                 .Select(v => new DetailsVehicleViewModel()
-                {
-                    Title = v.Title,
-                    Price = v.Price.ToString(),
-                    CategoryType = v.CategoryType.Name,
-                    Color = v.Color.Name,
-                    CubicCapacity = v.CubicCapacity.ToString(),
-                    FuelType = v.FuelType.Name,
-                    HorsePower = v.HorsePower.ToString(),
-                    Id = v.Id.ToString(),
-                    Location = v.Location,
-                    Year = v.Date.Year.ToString(),
-                    Month = v.Date.Month.ToString(),
-                    Mileage = v.Mileage.ToString(),
-                    Make = v.Make.Name,
-                    Model = v.Model.Name,
-                    Transmission = v.TransmissionType.Name,
-                    Description = v.Description,
-                    OwnerId = v.OwnerId.ToString(),
-                    ComfortExtras =  v.Extra.ComfortExtras.Select(e => e.Name).ToList(),
-                    SafetyExtras =  v.Extra.SafetyExtras.Select(e => e.Name).ToList(),
-                    InteriorExtras =  v.Extra.InteriorExtras.Select(e => e.Name).ToList(),
-                    ExteriorExtras =  v.Extra.ExteriorExtras.Select(e => e.Name).ToList(),
-                    OtherExtras =  v.Extra.OtherExtras.Select(e => e.Name).ToList(),
-                    Images = v.ImageCollection
-                        .Select(i => i.ImageUrl)
-                        .Where(i => i.Contains("_MainImage_") == false)
-                        .ToList(),
-                }).FirstOrDefaultAsync();
+                    {
+
+                        Title = v.Title,
+                        Price = v.Price.ToString(),
+                        CategoryType = v.CategoryType.Name,
+                        Color = v.Color.Name,
+                        CubicCapacity = v.CubicCapacity.ToString(),
+                        FuelType = v.FuelType.Name,
+                        HorsePower = v.HorsePower.ToString(),
+                        Id = v.Id.ToString(),
+                        Location = v.Location,
+                        Year = v.Date.Year.ToString(),
+                        Month = v.Date.Month.ToString(),
+                        Mileage = v.Mileage.ToString(),
+                        Make = v.Make.Name,
+                        Model = v.Model.Name,
+                        Transmission = v.TransmissionType.Name,
+                        Description = v.Description,
+                        OwnerId = v.OwnerId.ToString(),
+                        ComfortExtras = v.Extra.ComfortExtras.Select(e => e.Name).ToList(),
+                        SafetyExtras = v.Extra.SafetyExtras.Select(e => e.Name).ToList(),
+                        InteriorExtras = v.Extra.InteriorExtras.Select(e => e.Name).ToList(),
+                        ExteriorExtras = v.Extra.ExteriorExtras.Select(e => e.Name).ToList(),
+                        OtherExtras = v.Extra.OtherExtras.Select(e => e.Name).ToList(),
+                        Images = v.ImageCollection.Select(i => i.ImageUrl).ToList(),
+                    })
+                    .AsSplitQuery()
+                    .FirstOrDefaultAsync();
 
             if (vehicle == null)
             {
@@ -386,7 +389,7 @@
 
             var favVehicleToDel = await context
                 .FavoriteVehicleApplicationUsers
-                .Where(v => v.VehicleId.ToString() == vehicleId 
+                .Where(v => v.VehicleId.ToString() == vehicleId
                             && v.ApplicationUserId == userId)
                 .FirstOrDefaultAsync();
 
@@ -397,7 +400,7 @@
             }
         }
 
-        private async Task<bool> IsInWatchList(string? userId,string vehicleId)
+        private async Task<bool> IsInWatchList(string? userId, string vehicleId)
         {
             if (userId == null)
             {
@@ -405,7 +408,7 @@
             }
             var isItIn = await context
                 .FavoriteVehicleApplicationUsers
-                .Where(v => v.ApplicationUserId == userId 
+                .Where(v => v.ApplicationUserId == userId
                             && v.VehicleId.ToString() == vehicleId)
                 .FirstOrDefaultAsync();
 
@@ -505,6 +508,6 @@
                 await context.SaveChangesAsync();
             }
         }
-      
+
     }
 }
