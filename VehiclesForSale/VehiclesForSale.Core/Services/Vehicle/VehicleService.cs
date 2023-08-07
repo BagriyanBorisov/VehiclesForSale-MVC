@@ -4,9 +4,11 @@
     using Core.Contracts.Image;
     using Data;
     using Data.Models.VehicleModel;
+    using Data.Models.VehicleModel.Extras;
     using Data.Models.VehicleModel.Enums;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using Web.ViewModels.Vehicle;
     using Web.ViewModels.Vehicle.Details;
     using Web.ViewModels.Vehicle.Index;
@@ -78,9 +80,12 @@
 
         public async Task DeleteVehicleAsync(string vehicleId, string userId)
         {
+            var guidVehicleId = Guid.Parse(vehicleId);
             var vehicleToDel = await context.Vehicles
                 .Where(v => v.Id.ToString() == vehicleId && v.OwnerId == userId)
                 .Include(v => v.ImageCollection)
+                .Include(v => v.Extra)
+                .Include(v => v.FavoriteVehicleApplicationUsers)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
@@ -88,11 +93,39 @@
             {
                 var imageCollection = vehicleToDel.ImageCollection;
                 await imageService.DeleteImage(imageCollection, vehicleId);
+                await DeleteExtraAsync(vehicleToDel.Extra);
 
+
+                var check = vehicleToDel.FavoriteVehicleApplicationUsers.Any();
+                if (check)
+                {
+                    var users = await context.Users
+                        .Include(u => u.FavoriteVehicleApplicationUsers)
+                        .Where(u => u.FavoriteVehicleApplicationUsers
+                            .Any(fv => fv.VehicleId.ToString() == vehicleId))
+                        .ToListAsync();
+
+                    foreach (var user in users)
+                    {
+                        var favoritesToRemove = user.FavoriteVehicleApplicationUsers
+                            .Where(fv => fv.VehicleId == guidVehicleId)
+                            .ToList();
+
+                        foreach (var faToRemove in favoritesToRemove)
+                        {
+                            user.FavoriteVehicleApplicationUsers.Remove(faToRemove);
+                            context.FavoriteVehicleApplicationUsers.Remove(faToRemove);
+                            await context.SaveChangesAsync();
+                        }
+                    }
+
+                    await context.SaveChangesAsync();
+                }
 
                 context.Vehicles.Remove(vehicleToDel);
-                await context.SaveChangesAsync();
+           
             }
+
         }
 
         public async Task<ICollection<VehicleIndexViewModel>> GetAllVehiclesAsync()
@@ -252,32 +285,32 @@
                 .Include(v => v.Extra)
                     .ThenInclude(e => e.SafetyExtras)
                 .Select(v => new DetailsVehicleViewModel()
-                    {
+                {
 
-                        Title = v.Title,
-                        Price = v.Price.ToString(),
-                        CategoryType = v.CategoryType.Name,
-                        Color = v.Color.Name,
-                        CubicCapacity = v.CubicCapacity.ToString(),
-                        FuelType = v.FuelType.Name,
-                        HorsePower = v.HorsePower.ToString(),
-                        Id = v.Id.ToString(),
-                        Location = v.Location,
-                        Year = v.Date.Year.ToString(),
-                        Month = v.Date.Month.ToString(),
-                        Mileage = v.Mileage.ToString(),
-                        Make = v.Make.Name,
-                        Model = v.Model.Name,
-                        Transmission = v.TransmissionType.Name,
-                        Description = v.Description,
-                        OwnerId = v.OwnerId.ToString(),
-                        ComfortExtras = v.Extra.ComfortExtras.Select(e => e.Name).ToList(),
-                        SafetyExtras = v.Extra.SafetyExtras.Select(e => e.Name).ToList(),
-                        InteriorExtras = v.Extra.InteriorExtras.Select(e => e.Name).ToList(),
-                        ExteriorExtras = v.Extra.ExteriorExtras.Select(e => e.Name).ToList(),
-                        OtherExtras = v.Extra.OtherExtras.Select(e => e.Name).ToList(),
-                        Images = v.ImageCollection.Select(i => i.ImageUrl).ToList(),
-                    })
+                    Title = v.Title,
+                    Price = v.Price.ToString(),
+                    CategoryType = v.CategoryType.Name,
+                    Color = v.Color.Name,
+                    CubicCapacity = v.CubicCapacity.ToString(),
+                    FuelType = v.FuelType.Name,
+                    HorsePower = v.HorsePower.ToString(),
+                    Id = v.Id.ToString(),
+                    Location = v.Location,
+                    Year = v.Date.Year.ToString(),
+                    Month = v.Date.Month.ToString(),
+                    Mileage = v.Mileage.ToString(),
+                    Make = v.Make.Name,
+                    Model = v.Model.Name,
+                    Transmission = v.TransmissionType.Name,
+                    Description = v.Description,
+                    OwnerId = v.OwnerId.ToString(),
+                    ComfortExtras = v.Extra.ComfortExtras.Select(e => e.Name).ToList(),
+                    SafetyExtras = v.Extra.SafetyExtras.Select(e => e.Name).ToList(),
+                    InteriorExtras = v.Extra.InteriorExtras.Select(e => e.Name).ToList(),
+                    ExteriorExtras = v.Extra.ExteriorExtras.Select(e => e.Name).ToList(),
+                    OtherExtras = v.Extra.OtherExtras.Select(e => e.Name).ToList(),
+                    Images = v.ImageCollection.Select(i => i.ImageUrl).ToList(),
+                })
                     .AsSplitQuery()
                     .FirstOrDefaultAsync();
 
@@ -509,5 +542,44 @@
             }
         }
 
+
+        private async Task DeleteExtraAsync(Extra extra)
+        {
+            const int maxRetryCount = 3; // Maximum number of retry attempts
+
+            for (int i = 0; i < maxRetryCount; i++)
+            {
+                try
+                {
+                    var interiorExtrasToDel = await context.InteriorExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                    var exteriorExtrasToDel = await context.ExteriorExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                    var comfortExtrasToDel = await context.ComfortExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                    var safetyExtrasToDel = await context.SafetyExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                    var otherExtrasToDel = await context.OtherExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+
+
+                    if (extra != null)
+                    {
+                        context.InteriorExtras.RemoveRange(interiorExtrasToDel);
+                        context.ExteriorExtras.RemoveRange(exteriorExtrasToDel);
+                        context.ComfortExtras.RemoveRange(comfortExtrasToDel);
+                        context.SafetyExtras.RemoveRange(safetyExtrasToDel);
+                        context.OtherExtras.RemoveRange(otherExtrasToDel);
+                        context.Extras.Remove(extra);
+
+
+                        await context.SaveChangesAsync();
+
+                        break; // Exit the loop if deletion is successful
+                    }
+                }
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    // Reload the entity from the database
+                    var entry = ex.Entries.Single();
+                    await entry.ReloadAsync();
+                }
+            }
+        }
     }
 }

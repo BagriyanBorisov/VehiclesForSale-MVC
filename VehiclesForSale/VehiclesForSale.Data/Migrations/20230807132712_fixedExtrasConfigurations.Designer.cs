@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesForSale.Data;
 
@@ -11,9 +12,10 @@ using VehiclesForSale.Data;
 namespace VehiclesForSale.Data.Migrations
 {
     [DbContext(typeof(VehiclesDbContext))]
-    partial class VehiclesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807132712_fixedExtrasConfigurations")]
+    partial class fixedExtrasConfigurations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,14 +230,14 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00a60186-5cac-4a98-974d-c4e90328a9df",
+                            ConcurrencyStamp = "ba0c6387-e5aa-4260-b632-8f556c6304ee",
                             Email = "Pesho.peshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "pesho",
-                            PasswordHash = "AQAAAAEAACcQAAAAEChvo/xsA9EjXx+pePb6Sk7PFx7C6a8UAQ8/6BOPH37e5Cwe8FRQzAimsEux358p4A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHtk1c6tqXRRSBFaDfK3d3FlZJaHMVEqg2yg7Ycih8J3UmdDwj+DkXAk3CUlNJ9Mvw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8e61014a-f4d5-47eb-beb6-8bb80b64035a",
+                            SecurityStamp = "2bb63d9c-a029-40f4-a79c-9755cc5d53e5",
                             TwoFactorEnabled = false,
                             UserName = "Pesho"
                         },
@@ -243,14 +245,14 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "a123as23-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7db815e-a91b-4129-86a4-548d71581343",
+                            ConcurrencyStamp = "151a09f0-80cb-4bd0-9200-8872caff0286",
                             Email = "Gosho.goshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "gosho",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEysxwax/4mIILOxUCfx7g6b0EkwsJb2KIg1GzaYjqqxJ0DaX+t9YGHLQRvxxtf+VA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOPIY3pkG3xs8p4UX7DSPr3Bqgak669Pc554pZe+nP52j3RQUSgfl9ocg2cmWJUntA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2732d6e0-c16d-44fc-9fc9-c78fc905d29f",
+                            SecurityStamp = "e5ee16ea-026a-4289-afb5-72b78fdcadb6",
                             TwoFactorEnabled = false,
                             UserName = "Gosho"
                         });

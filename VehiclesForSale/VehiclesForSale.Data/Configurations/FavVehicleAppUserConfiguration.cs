@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using Models.VehicleModel;
+    using System.Reflection.Emit;
 
     public class FavVehicleAppUserConfiguration : IEntityTypeConfiguration<FavoriteVehicleApplicationUser>
     {
@@ -15,12 +16,12 @@
             builder
                 .HasOne(v => v.ApplicationUser)
                 .WithMany(v => v.FavoriteVehicleApplicationUsers)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
-                .HasOne(v => v.Vehicle)
+                .HasOne(fv => fv.Vehicle)
                 .WithMany(v => v.FavoriteVehicleApplicationUsers)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

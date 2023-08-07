@@ -10,9 +10,10 @@
         public void Configure(EntityTypeBuilder<SafetyExtra> builder)
         {
             builder
-                .HasOne(v => v.Extra)
-                .WithMany(v => v.SafetyExtras)
-                .OnDelete(DeleteBehavior.Restrict);
+               .HasOne(v => v.Extra)
+               .WithMany(v => v.SafetyExtras)
+               .HasForeignKey(v => v.ExtraId) // Assuming ExtraId is the foreign key in child extras
+               .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(Seed());
         }

@@ -12,6 +12,7 @@
             builder
                 .HasOne(v => v.Extra)
                 .WithMany(v => v.ComfortExtras)
+                .HasForeignKey(v => v.ExtraId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.HasData(Seed());
         }

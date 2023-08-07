@@ -12,6 +12,7 @@
             builder
                 .HasOne(v => v.Extra)
                 .WithMany(v => v.ExteriorExtras)
+                .HasForeignKey(v => v.ExtraId) // Assuming ExtraId is the foreign key in child extras
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(Seed());

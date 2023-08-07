@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesForSale.Data;
 
@@ -11,9 +12,10 @@ using VehiclesForSale.Data;
 namespace VehiclesForSale.Data.Migrations
 {
     [DbContext(typeof(VehiclesDbContext))]
-    partial class VehiclesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230807105034_onDeleteNoActionChangeFavUsersVehicle")]
+    partial class onDeleteNoActionChangeFavUsersVehicle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -228,14 +230,14 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00a60186-5cac-4a98-974d-c4e90328a9df",
+                            ConcurrencyStamp = "c25d3b1f-57e1-4426-92f6-c59b0cd0eda1",
                             Email = "Pesho.peshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "pesho",
-                            PasswordHash = "AQAAAAEAACcQAAAAEChvo/xsA9EjXx+pePb6Sk7PFx7C6a8UAQ8/6BOPH37e5Cwe8FRQzAimsEux358p4A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELBEgqEYOJA11ydbpRL017T+EEr5fNZN3aJFv+p+y+xEcc7OLkqmCKDe3dkg/pdM5w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8e61014a-f4d5-47eb-beb6-8bb80b64035a",
+                            SecurityStamp = "2e9c1bdd-e798-4057-87a6-d75048dfefbc",
                             TwoFactorEnabled = false,
                             UserName = "Pesho"
                         },
@@ -243,14 +245,14 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "a123as23-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7db815e-a91b-4129-86a4-548d71581343",
+                            ConcurrencyStamp = "a423dbc6-013a-4587-b799-93e7c477b59f",
                             Email = "Gosho.goshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "gosho",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEysxwax/4mIILOxUCfx7g6b0EkwsJb2KIg1GzaYjqqxJ0DaX+t9YGHLQRvxxtf+VA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDmkLIWr81zoxQSfWsuvVyM46NHpX+gjte0/nCUx3cLGLG5B8rHZYDhjvwGx6x0W5w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2732d6e0-c16d-44fc-9fc9-c78fc905d29f",
+                            SecurityStamp = "e2f92873-1c1f-45e1-80b7-d77a6e288945",
                             TwoFactorEnabled = false,
                             UserName = "Gosho"
                         });
@@ -7834,7 +7836,7 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasOne("VehiclesForSale.Data.Models.VehicleModel.Extras.Extra", "Extra")
                         .WithMany("ComfortExtras")
                         .HasForeignKey("ExtraId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Extra");
                 });
@@ -7844,7 +7846,7 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasOne("VehiclesForSale.Data.Models.VehicleModel.Extras.Extra", "Extra")
                         .WithMany("ExteriorExtras")
                         .HasForeignKey("ExtraId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Extra");
                 });
@@ -7890,7 +7892,7 @@ namespace VehiclesForSale.Data.Migrations
                     b.HasOne("VehiclesForSale.Data.Models.VehicleModel.Vehicle", "Vehicle")
                         .WithMany("FavoriteVehicleApplicationUsers")
                         .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
