@@ -4,6 +4,7 @@
     using VehiclesForSale.Web.ViewModels.Vehicle;
     using Contracts.Vehicle;
     using Data;
+    using VehiclesForSale.Data.Models.VehicleModel;
 
     public class FuelTypeService : IFuelTypeService
     {
@@ -12,6 +13,37 @@
         public FuelTypeService(VehiclesDbContext context)
         {
             this.context = context;
+        }
+
+        public async Task AddAsync(string name)
+        {
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrWhiteSpace(name))
+            {
+                var entityToAdd = new FuelType()
+                {
+                    Name = name,
+                };
+
+                await context.FuelTypes.AddAsync(entityToAdd);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteAsync(string Id)
+        {
+            var entityToDel = await context.FuelTypes.Where(m => m.Id.ToString() == Id).FirstOrDefaultAsync();
+            if (entityToDel == null)
+            {
+                throw new NullReferenceException("This Fuel type does not exist!");
+            }
+            context.FuelTypes.Remove(entityToDel);
+            await context.SaveChangesAsync();
+
+        }
+
+        public async Task<bool> CheckByNameExist(string name)
+        {
+            return await context.FuelTypes.Where(m => m.Name.ToLower() == name.ToLower()).AnyAsync();
         }
 
         public async Task<IEnumerable<FuelTypeFormVehicleViewModel>> GetAllAsync()

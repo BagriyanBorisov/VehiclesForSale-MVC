@@ -8,7 +8,6 @@
     using Data.Models.VehicleModel.Enums;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
-    using System.ComponentModel;
     using Web.ViewModels.Vehicle;
     using Web.ViewModels.Vehicle.Details;
     using Web.ViewModels.Vehicle.Index;
@@ -24,6 +23,7 @@
         private readonly IModelService modelService;
         private readonly ITransmissionTypeService transmissionService;
         private readonly IImageService imageService;
+        private readonly IDateService dateService;
 
         public VehicleService(
             VehiclesDbContext context,
@@ -33,7 +33,8 @@
             IMakeService makeService,
             IModelService modelService,
             ITransmissionTypeService transmissionService,
-            IImageService imageService)
+            IImageService imageService,
+            IDateService dateService)
         {
             this.context = context;
             this.categoryService = categoryService;
@@ -43,6 +44,7 @@
             this.modelService = modelService;
             this.transmissionService = transmissionService;
             this.imageService = imageService;
+            this.dateService = dateService;
         }
 
         public async Task AddVehicleAsync(VehicleFormViewModel vehicleVm, string userId)
@@ -67,7 +69,7 @@
                 Mileage = vehicleVm.Mileage,
                 Id = vehicleVm.Id,
                 HorsePower = vehicleVm.HorsePower,
-                Extra = new Data.Models.VehicleModel.Extras.Extra(),
+                Extra = new Extra(),
                 DateId = dateId,
                 OwnerId = userId,
                 TransmissionTypeId = vehicleVm.TransmissionTypeId,
@@ -206,12 +208,7 @@
             vehicleVm.TransmissionTypes = await transmissionService.GetAllAsync();
             vehicleVm.Models = await modelService.GetAllAsync(1);
             vehicleVm.Months = Enum.GetNames(typeof(Month));
-            vehicleVm.Years = await context.Dates
-                .Where(date => date.Year >= 1930 && date.Year <= 2023)
-                .Select(date => date.Year)
-                .Distinct()
-                .OrderByDescending(d => d)
-                .ToArrayAsync();
+            vehicleVm.Years = await dateService.GetAllAsync();
             return vehicleVm;
         }
 

@@ -4,8 +4,9 @@
     int modelCount = Model.Count();
     int skip = 0;
     int take = 3;
+    ViewData["Title"] = "Your Vehicles";
 }
-<h2 class="text-center mb-3">Your Vehicles</h2>
+<h2 class="text-center mb-3">@ViewData["Title"]</h2>
 <hr />
 @while (modelCount != 0)
 {

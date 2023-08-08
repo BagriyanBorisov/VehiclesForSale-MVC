@@ -68,7 +68,9 @@
 
         
         public int SelectedYear { get; set; }
-        public string SelectedMonth { get; set; }
+
+        [Required]
+        public string SelectedMonth { get; set; } = null!;
         
         public string? Description { get; set; }
 

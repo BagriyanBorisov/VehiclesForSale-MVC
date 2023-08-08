@@ -2,9 +2,11 @@
 
 @{
     int modelCount = Model.Count();
-    int skip = 0;
+    int skip = 0; 
+    ViewData["Title"] = "Your Watchlist";
 }
-<h2 class="text-center mb-3">Your Watchlist</h2>
+
+<h2 class="text-center mb-3">@ViewData["Title"]</h2>
 <hr />
 @while (modelCount != 0)
 {

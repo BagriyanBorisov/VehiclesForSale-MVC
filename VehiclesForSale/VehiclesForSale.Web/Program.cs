@@ -6,6 +6,9 @@ namespace VehiclesForSale.Web
     using Data.Models;
     using Infrastructure;
     using Core.Contracts.Vehicle;
+    using static Common.GeneralConstants;
+    using Microsoft.AspNetCore.Identity;
+
     public class Program
     {
         public static void Main(string[] args)
@@ -21,6 +24,7 @@ namespace VehiclesForSale.Web
                 {
                     options.SignIn.RequireConfirmedAccount = false;
                 })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<VehiclesDbContext>();
 
             builder.Services.AddApplicationServices(typeof(ICategoryService));
@@ -51,6 +55,11 @@ namespace VehiclesForSale.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.SeedAdministrator(DevelopmentAdminEmail);
+            }
 
             app.MapDefaultControllerRoute();
             app.MapRazorPages();

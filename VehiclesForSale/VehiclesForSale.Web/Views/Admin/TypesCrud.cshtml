@@ -1,0 +1,218 @@
+﻿@model TypesViewModel;
+
+@{
+    ViewData["Title"] = "Types Crud";
+}
+
+
+
+<h1 class="text-center my-2">Admin Panel</h1>
+<h2 class="text-center my-2">@ViewData["Title"]</h2>
+<h4 class="text-center text-danger my-2">@ViewBag.ErrorMessage </h4>
+<hr />
+<div class="row text-center my-2">
+    <div class="container col-lg-3 col-sm-12 mb-2 border-end">
+        <div class="table-responsive ">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Body types</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model.Categories.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@category.Id</td>
+                                <td class="col-md-9">@category.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteCategory" asp-controller="Admin" asp-route-categoryId="@category.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddCategory">
+                                <span asp-validation-for="@Model.CategoryNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.CategoryNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Category" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-lg-2 col-sm-12 mb-2 border-end">
+        <div class="table-responsive ">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Fuels</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var fuel in Model.FuelTypes.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@fuel.Id</td>
+                                <td class="col-md-9">@fuel.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteFuel" asp-controller="Admin" asp-route-fuelId="@fuel.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddFuel">
+                                <span asp-validation-for="@Model.FuelNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.FuelNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Fuel" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-lg-3 col-sm-12 mb-2 border-end">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Colors</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var color in Model.Colors.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@color.Id</td>
+                                <td class="col-md-9">@color.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteColor" asp-controller="Admin" asp-route-colorId="@color.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddColor">
+                                <span asp-validation-for="@Model.ColorNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.ColorNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Color" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-lg-2 col-sm-12 mb-2 border-end">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Transmissions</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var transmission in Model.TransmissionTypes.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@transmission.Id</td>
+                                <td class="col-md-9">@transmission.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteTransmission" asp-controller="Admin" asp-route-transmissionId="@transmission.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddTransmission">
+                                <span asp-validation-for="@Model.TransmissionNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.TransmissionNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Transmission" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="container col-lg-2 col-sm-12 mb-2">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Years</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var year in Model.Years)
+                        {
+                            <tr>
+                                <td class="col-md-10">@year</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteYear" asp-controller="Admin" asp-route-year="@year">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddYear">
+                                <span asp-validation-for="@Model.YearNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.YearNew" />
+                                <input class="btn btn-success col-6 mb-2" value="Add Year" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

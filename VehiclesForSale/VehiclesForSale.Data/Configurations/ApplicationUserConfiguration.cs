@@ -25,8 +25,10 @@
             {
                 Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
                 Email = "Pesho.peshev@abv.bg",
+                NormalizedEmail = "PESHO.PESHEV@ABV.bg",
                 UserName = "Pesho",
                 NormalizedUserName = "pesho",
+                PhoneNumber = "+359222222222",
                 PasswordHash = hasher.HashPassword(null, "admin1234")
             };
 
@@ -34,8 +36,10 @@
             {
                 Id = "a123as23-a24d-4543-a6c6-9443d048cdb9", // primary key
                 Email = "Gosho.goshev@abv.bg",
+                NormalizedEmail = "GOSHO.GOSHEV@ABV.BG",
                 UserName = "Gosho",
                 NormalizedUserName = "gosho",
+                PhoneNumber = "+359111111111",
                 PasswordHash = hasher.HashPassword(null, "user1234")
             };
 

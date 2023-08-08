@@ -4,6 +4,7 @@
     using VehiclesForSale.Web.ViewModels.Vehicle;
     using Contracts.Vehicle;
     using Data;
+    using VehiclesForSale.Data.Models.VehicleModel;
 
     public class CategoryService : ICategoryService
     {
@@ -13,6 +14,38 @@
         {
             context = _context;
         }
+
+        public async Task AddAsync(string name)
+        {
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrWhiteSpace(name))
+            {
+                var catToAdd = new CategoryType()
+                {
+                    Name = name,
+                };
+
+                await context.CategoryTypes.AddAsync(catToAdd);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> CheckByNameExist(string name)
+        {
+            return await context.CategoryTypes.Where(m => m.Name.ToLower() == name.ToLower()).AnyAsync();
+        }
+
+        public async Task DeleteAsync(string Id)
+        {
+            var entityToDel = await context.CategoryTypes.Where(m => m.Id.ToString() == Id).FirstOrDefaultAsync();
+            if (entityToDel == null)
+            {
+                throw new NullReferenceException("This Category does not exist!");
+            }
+            context.CategoryTypes.Remove(entityToDel);
+            await context.SaveChangesAsync();
+
+        }
+
         public async Task<IEnumerable<CategoryFormVehicleViewModel>> GetAllAsync()
         {
             var models =
