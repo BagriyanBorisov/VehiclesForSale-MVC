@@ -1,13 +1,12 @@
 namespace VehiclesForSale.Web
 {
-    using Microsoft.EntityFrameworkCore;
-
+    using Core.Contracts.Vehicle;
     using Data;
     using Data.Models;
     using Infrastructure;
-    using Core.Contracts.Vehicle;
-    using static Common.GeneralConstants;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using static Common.GeneralConstants;
 
     public class Program
     {

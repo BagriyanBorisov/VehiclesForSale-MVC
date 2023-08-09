@@ -4,7 +4,6 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
     using Models.VehicleModel;
-    using System.Reflection.Emit;
 
     public class FavVehicleAppUserConfiguration : IEntityTypeConfiguration<FavoriteVehicleApplicationUser>
     {

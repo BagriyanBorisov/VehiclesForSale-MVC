@@ -1,0 +1,105 @@
+﻿@model MakesAndModelsViewModel;
+
+@{
+    ViewData["Title"] = "Makes and Models";
+}
+
+
+
+<h1 class="text-center my-2">Admin Panel</h1>
+<h2 class="text-center my-2">@ViewData["Title"]</h2>
+<h4 class="text-center text-danger my-2">@ViewBag.ErrorMessage </h4>
+<hr />
+<div class="row text-center my-2">
+    <div class="container col-6">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Makes <b>Details</b></h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var make in Model.Makes.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-2">@make.Id</td>
+                                <td class="col-md-8">@make.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteMake" asp-controller="Admin" asp-route-makeId="@make.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddMake">
+                                <span asp-validation-for="@Model.MakeNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.MakeNew" />
+                                <input class="btn btn-success col-6 mb-2" value="Add Make" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-6">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Models <b>Details</b></h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var mod in Model.Models.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-2">@mod.Id</td>
+                                <td class="col-md-8">@mod.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteModel" asp-controller="Admin" asp-route-modelId="@mod.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddModel" id="AddModelForm">
+                                <select class="form-control mb-2" aria-required="true" asp-for="@Model.MakeId">
+                                    <option value="">Select Make</option> <!-- Add a default option -->
+                                    @foreach (var make in Model.Makes)
+                                    {
+                                        <option value="@make.Id">@make.Name</option>
+                                    }
+                                </select>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.ModelNew" />
+                                <input class="btn btn-success col-6 mb-2" value="Add Model" type="submit" />
+                            </form>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

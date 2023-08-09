@@ -1,10 +1,8 @@
 ﻿namespace VehiclesForSale.Data.Models.VehicleModel
 {
+    using Extras;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
-    using Extras;
-
     using static Common.Validations.EntityValidationConstants.VehicleValidations;
 
 

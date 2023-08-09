@@ -1,13 +1,14 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
-    using Contracts.Vehicle;
-    using Core.Contracts.Image;
-    using Data;
-    using Data.Models.VehicleModel;
-    using Data.Models.VehicleModel.Extras;
-    using Data.Models.VehicleModel.Enums;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
+   
+    using Data;
+    using Contracts.Vehicle;
+    using Contracts.Image;
+    using Data.Models.VehicleModel;
+    using Data.Models.VehicleModel.Enums;
+    using Data.Models.VehicleModel.Extras;
     using Web.ViewModels.Vehicle;
     using Web.ViewModels.Vehicle.Details;
     using Web.ViewModels.Vehicle.Index;
@@ -125,7 +126,7 @@
                 }
 
                 context.Vehicles.Remove(vehicleToDel);
-           
+
             }
 
         }

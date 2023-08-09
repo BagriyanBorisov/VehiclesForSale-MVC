@@ -1,12 +1,12 @@
 ﻿namespace VehiclesForSale.Core.Services.Extra
 {
     using Microsoft.EntityFrameworkCore;
-    using Data.Models.VehicleModel.Extras;
-    using Contracts.Extra;
-    using Data;
-    using Web.ViewModels.Vehicle;
     using System.Collections.Generic;
-    using VehiclesForSale.Data.Models.VehicleModel;
+
+    using Data;
+    using Contracts.Extra;
+    using Data.Models.VehicleModel.Extras;
+    using Web.ViewModels.Vehicle;
 
     public class ExtraService : IExtraService
     {
@@ -380,34 +380,34 @@
             var comfortExtrasToAdd = extraVm.ComfortExtrasChecked
                 .Where(extra => !extraDb.ComfortExtras.Any(se => se.Name == extra))
                 .Select(extra => new ComfortExtra
-            {
-                ExtraId = extraDb.Id,
-                Name = extra
-            }).ToList();
+                {
+                    ExtraId = extraDb.Id,
+                    Name = extra
+                }).ToList();
 
             var exteriorExtrasToAdd = extraVm.ExteriorExtrasChecked
                .Where(extra => !extraDb.ExteriorExtras.Any(se => se.Name == extra))
                .Select(extra => new ExteriorExtra
-            {
-                ExtraId = extraDb.Id,
-                Name = extra
-            }).ToList();
+               {
+                   ExtraId = extraDb.Id,
+                   Name = extra
+               }).ToList();
 
             var interiorExtrasToAdd = extraVm.InteriorExtrasChecked
                 .Where(extra => !extraDb.InteriorExtras.Any(se => se.Name == extra))
                 .Select(extra => new InteriorExtra
-            {
-                ExtraId = extraDb.Id,
-                Name = extra
-            }).ToList();
+                {
+                    ExtraId = extraDb.Id,
+                    Name = extra
+                }).ToList();
 
             var otherExtrasToAdd = extraVm.OtherExtrasChecked
                 .Where(extra => !extraDb.OtherExtras.Any(se => se.Name == extra))
                 .Select(extra => new OtherExtra
-            {
-                ExtraId = extraDb.Id,
-                Name = extra
-            }).ToList();
+                {
+                    ExtraId = extraDb.Id,
+                    Name = extra
+                }).ToList();
 
             // Remove extras that were previously checked but now unchecked
             var extrasToRemove = extraDb.SafetyExtras
@@ -434,7 +434,7 @@
              .Where(e => !extraVm.OtherExtrasChecked.Contains(e.Name))
              .ToList();
             context.OtherExtras.RemoveRange(extrasToRemoveO);
-         
+
 
             context.SafetyExtras.AddRange(safetyExtrasToAdd);
             context.ComfortExtras.AddRange(comfortExtrasToAdd);

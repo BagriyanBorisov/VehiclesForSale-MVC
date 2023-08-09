@@ -1,10 +1,11 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
     using Microsoft.EntityFrameworkCore;
-    using VehiclesForSale.Core.Contracts.Vehicle;
-    using VehiclesForSale.Web.ViewModels.Vehicle;
+
     using Data;
-    using VehiclesForSale.Data.Models.VehicleModel;
+    using Contracts.Vehicle;
+    using Data.Models.VehicleModel;
+    using Web.ViewModels.Vehicle;
 
     public class TransmissionTypeService : ITransmissionTypeService
     {
@@ -47,11 +48,11 @@
 
         public async Task<IEnumerable<TransmissionTypeFormVehicleViewModel>> GetAllAsync()
         {
-            var models = 
+            var models =
                 await context.TransmissionTypes
-                    .Select(e => new TransmissionTypeFormVehicleViewModel() 
-                    { 
-                        Id = e.Id, 
+                    .Select(e => new TransmissionTypeFormVehicleViewModel()
+                    {
+                        Id = e.Id,
                         Name = e.Name
                     }).ToListAsync();
 

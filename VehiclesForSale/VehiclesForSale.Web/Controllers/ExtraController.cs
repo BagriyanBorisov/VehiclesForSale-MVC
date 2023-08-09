@@ -1,11 +1,11 @@
 ﻿namespace VehiclesForSale.Web.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
-    using Microsoft.AspNetCore.Authorization;
 
-    using ViewModels.Vehicle;
     using Core.Contracts.Extra;
+    using ViewModels.Vehicle;
 
     [Authorize]
     public class ExtraController : Controller
@@ -25,7 +25,7 @@
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddExtraForVehicle(string id,ExtraFormViewModel extraVm)
+        public async Task<ActionResult> AddExtraForVehicle(string id, ExtraFormViewModel extraVm)
         {
             string? userId = GetUserId();
             await extraService.AddExtraAsync(extraVm, userId!, id);

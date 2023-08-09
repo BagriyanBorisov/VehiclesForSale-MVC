@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using VehiclesForSale.Core.Contracts.Extra;
     using VehiclesForSale.Core.Contracts.Vehicle;
     using VehiclesForSale.Web.ViewModels.AdminPanel;
@@ -26,7 +27,7 @@
             ITransmissionTypeService transmissionTypeService,
             IFuelTypeService fuelTypeService,
             IColorService colorService,
-            ICategoryService categoryService, 
+            ICategoryService categoryService,
             IDateService dateService,
             IExtraService extraService)
         {
@@ -45,13 +46,24 @@
         [Route("")]
         public async Task<IActionResult> Index(string? errorMsg)
         {
+            if (User?.IsInRole(AdminRoleName) ?? false)
+            {
+                return View();
+            }
+            return RedirectToAction("Index", "Vehicle");
+        }
+
+        [HttpGet]
+        [Route("MakesAndModels")]
+        public async Task<IActionResult> MakesAndModels(string? errorMsg)
+        {
             var vm = new MakesAndModelsViewModel()
             {
                 Makes = await makeService.GetAllAsync(),
                 Models = await modelService.GetForAllMakesAsync()
             };
             ViewBag.ErrorMessage = errorMsg;
-                  return View(vm);
+            return View(vm);
         }
 
         [HttpGet]
@@ -236,7 +248,7 @@
         {
             if (vm.TransmissionNew == null)
             {
-                return RedirectToAction("TypesCrud", "Admin", 
+                return RedirectToAction("TypesCrud", "Admin",
                     new { errorMsg = "The Transmission Type cannot be null or empty!" });
             }
             else if (await transmissionTypeService.CheckByNameExist(vm.TransmissionNew))
@@ -270,13 +282,13 @@
         [Route("AddMake")]
         public async Task<IActionResult> AddMake(MakesAndModelsViewModel vm)
         {
-            if(vm.MakeNew == null)
+            if (vm.MakeNew == null)
             {
-                return RedirectToAction("Index", "Admin", new {errorMsg = "The make cannot be null or empty!" });
+                return RedirectToAction("Index", "Admin", new { errorMsg = "The make cannot be null or empty!" });
             }
-            else if(await makeService.CheckByNameExist(vm.MakeNew))
+            else if (await makeService.CheckByNameExist(vm.MakeNew))
             {
-              
+
                 return RedirectToAction("Index", "Admin", new { errorMsg = "This make already exists!" });
             }
 
@@ -288,7 +300,7 @@
         [Route("AddModel")]
         public async Task<IActionResult> AddModel(MakesAndModelsViewModel vm)
         {
-            if(vm.MakeId == null)
+            if (vm.MakeId == null)
             {
                 return RedirectToAction("Index", "Admin", new { errorMsg = "The make must be selected!" });
             }

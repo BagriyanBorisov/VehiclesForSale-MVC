@@ -22,7 +22,7 @@ namespace VehiclesForSale.Web.ViewModels.AdminPanel
         public int TransmissionTypeId { get; set; }
 
         public int FuelTypeId { get; set; }
- 
+
         public int ColorId { get; set; }
 
         public int CategoryTypeId { get; set; }

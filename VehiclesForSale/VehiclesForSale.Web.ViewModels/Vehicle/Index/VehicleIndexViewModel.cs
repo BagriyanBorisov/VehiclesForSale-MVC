@@ -1,12 +1,10 @@
 ﻿namespace VehiclesForSale.Web.ViewModels.Vehicle.Index
 {
-    using System.ComponentModel.DataAnnotations;
-
     public class VehicleIndexViewModel
     {
         public VehicleIndexViewModel()
         {
-          
+
         }
         public string Id { get; set; } = null!;
         public string Title { get; set; } = null!;
@@ -28,7 +26,7 @@
 
         public string Model { get; set; } = null!;
 
-        
+
         public string Transmission { get; set; } = null!;
 
         public string FuelType { get; set; } = null!;

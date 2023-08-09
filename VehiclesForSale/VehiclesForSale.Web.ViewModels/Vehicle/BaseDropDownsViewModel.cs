@@ -8,6 +8,6 @@
         public string Name { get; set; } = null!;
 
         [Required]
-        public int Id { get; set; } 
+        public int Id { get; set; }
     }
 }

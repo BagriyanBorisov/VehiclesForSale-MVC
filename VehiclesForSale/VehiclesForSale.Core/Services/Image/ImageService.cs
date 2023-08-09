@@ -2,22 +2,20 @@
 
 namespace VehiclesForSale.Core.Services.Image
 {
+    using Data;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-
-    using VehiclesForSale.Core.Contracts.Image;
-
-    using Data;
-    using VehiclesForSale.Web.ViewModels.Vehicle;
-    using System.Collections.Generic;
-    using System.IO;
     using SixLabors.ImageSharp;
     using SixLabors.ImageSharp.Processing;
+    using System.Collections.Generic;
+    using System.IO;
+    using VehiclesForSale.Core.Contracts.Image;
+    using VehiclesForSale.Web.ViewModels.Vehicle;
 
 
     public class ImageService : IImageService
     {
-     
+
         private readonly VehiclesDbContext context;
         private readonly IWebHostEnvironment webHostEnvironment;
 
@@ -34,7 +32,7 @@ namespace VehiclesForSale.Core.Services.Image
                 .Include(v => v.ImageCollection)
                 .FirstOrDefaultAsync();
 
-            if(vehicle == null)
+            if (vehicle == null)
             {
                 throw new NullReferenceException("This vehicle does not exist.");
             }
@@ -51,10 +49,10 @@ namespace VehiclesForSale.Core.Services.Image
                 }).ToList()
             };
 
-            foreach ( var image in imageForm.ImagesForTable )
+            foreach (var image in imageForm.ImagesForTable)
             {
                 char[] array = image.ImageUrl.ToCharArray();
-                var charArr = image.ImageUrl.Skip(Array.IndexOf(array,'_'));
+                var charArr = image.ImageUrl.Skip(Array.IndexOf(array, '_'));
                 string name = string.Empty;
                 foreach (var ch in charArr)
                 {
@@ -66,13 +64,13 @@ namespace VehiclesForSale.Core.Services.Image
             return imageForm;
         }
 
-        public async Task CreateImages(string id,ImageFormViewModel imageVm)
+        public async Task CreateImages(string id, ImageFormViewModel imageVm)
         {
             var vehicle = await context.Vehicles
                 .Where(v => v.Id.ToString().Equals(id))
                 .Include(v => v.ImageCollection).AsNoTracking().FirstOrDefaultAsync();
 
-            if( vehicle == null )
+            if (vehicle == null)
             {
                 throw new NullReferenceException("Vehicle does not exist");
             }
@@ -85,8 +83,8 @@ namespace VehiclesForSale.Core.Services.Image
                     isFirst = false;
                 }
             }
-               
-            if(imageVm.Images.Count + vehicle.ImageCollection.Count < 17)
+
+            if (imageVm.Images.Count + vehicle.ImageCollection.Count < 17)
             {
                 foreach (var image in imageVm.Images)
                 {
@@ -102,7 +100,7 @@ namespace VehiclesForSale.Core.Services.Image
                 }
                 await context.SaveChangesAsync();
             }
-            
+
         }
 
         private async Task<string> UploadImage(IFormFile image, string vehicleId, bool isFirst)
@@ -200,7 +198,7 @@ namespace VehiclesForSale.Core.Services.Image
                 .Where(v => v.Id.ToString() == vehicleId)
                 .Include(v => v.ImageCollection)
                 .FirstOrDefaultAsync();
-               
+
             if (image == null)
             {
                 throw new NullReferenceException("Image does not exist");
@@ -212,10 +210,10 @@ namespace VehiclesForSale.Core.Services.Image
             }
 
             var filePath = Path.Combine(webHostEnvironment.WebRootPath, "Uploads") + "/" + image.ImageUrl;
-                if (File.Exists(filePath))
-                {
-                    File.Delete(filePath);
-                }
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
 
             vehicleToDel.ImageCollection.Remove(image);
             context.Images.Remove(image);

@@ -1,13 +1,12 @@
 ﻿namespace VehiclesForSale.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-
     using Core.Contracts.Image;
+    using Microsoft.AspNetCore.Mvc;
     using ViewModels.Vehicle;
 
     public class ImageController : Controller
     {
-       
+
         private readonly IImageService imageService;
 
         public ImageController(IImageService imageService)
@@ -18,7 +17,7 @@
         public async Task<IActionResult> Add(string id)
         {
             var imageForm = await imageService.GetImageWithVehicle(id);
-            
+
             return View(imageForm);
         }
 

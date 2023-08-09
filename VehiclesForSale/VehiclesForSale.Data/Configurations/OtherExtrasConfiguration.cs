@@ -23,7 +23,7 @@
             {
                 new OtherExtra { Name = "LPG", Id = 1 },
                 new OtherExtra { Name = "4x4", Id = 2 },
-           
+
             };
 
             return otherExtras;

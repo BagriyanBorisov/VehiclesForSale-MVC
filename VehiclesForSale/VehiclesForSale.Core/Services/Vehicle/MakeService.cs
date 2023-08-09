@@ -1,25 +1,25 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
     using Microsoft.EntityFrameworkCore;
-
-    using VehiclesForSale.Web.ViewModels.Vehicle;
-    using Contracts.Vehicle;
+   
     using Data;
-    using Data.Models.VehicleModel;
+    using Contracts.Vehicle;
+    using Data.Models.VehicleModel; 
+    using Web.ViewModels.Vehicle;
     public class MakeService : IMakeService
     {
         private readonly VehiclesDbContext context;
-        
+
 
         public MakeService(VehiclesDbContext context)
         {
             this.context = context;
-            
+
         }
 
         public async Task AddMakeAsync(string makeName)
         {
-            if(!string.IsNullOrEmpty(makeName) || !string.IsNullOrWhiteSpace(makeName))
+            if (!string.IsNullOrEmpty(makeName) || !string.IsNullOrWhiteSpace(makeName))
             {
                 var makeToAdd = new Make()
                 {
@@ -39,7 +39,7 @@
         public async Task DeleteMakeAsync(string makeId)
         {
             var makeToDel = await context.Makes.Where(m => m.Id.ToString() == makeId).FirstOrDefaultAsync();
-            if(makeToDel == null)
+            if (makeToDel == null)
             {
                 throw new NullReferenceException("This make does not exist!");
             }

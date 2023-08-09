@@ -10,7 +10,7 @@
             Makes = new HashSet<MakeFormVehicleViewModel>();
         }
 
-        public string? MakeNew { get; set; } 
+        public string? MakeNew { get; set; }
         public string? ModelNew { get; set; }
 
         public int? MakeId { get; set; }

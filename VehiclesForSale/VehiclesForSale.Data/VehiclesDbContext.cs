@@ -1,15 +1,12 @@
 ﻿namespace VehiclesForSale.Data
 {
-    using System.Reflection;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-
     using Models;
     using Models.VehicleModel;
     using Models.VehicleModel.Extras;
-    using Configurations;
-   
+    using System.Reflection;
+
 
     public class VehiclesDbContext : IdentityDbContext<ApplicationUser>
     {
@@ -37,7 +34,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        
+
             Assembly configAssembly = Assembly.GetAssembly(typeof(VehiclesDbContext)) ?? Assembly.GetExecutingAssembly();
             modelBuilder.ApplyConfigurationsFromAssembly(configAssembly);
 

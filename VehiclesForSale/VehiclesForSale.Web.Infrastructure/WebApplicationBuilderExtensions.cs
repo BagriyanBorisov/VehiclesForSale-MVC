@@ -1,9 +1,9 @@
 ﻿namespace VehiclesForSale.Web.Infrastructure
 {
-    using System.Reflection;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Reflection;
     using VehiclesForSale.Data.Models;
     using static Common.GeneralConstants;
 

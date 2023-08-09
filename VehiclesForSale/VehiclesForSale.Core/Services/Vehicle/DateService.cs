@@ -1,10 +1,11 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
     using Microsoft.EntityFrameworkCore;
-    using VehiclesForSale.Core.Contracts.Vehicle;
-    using VehiclesForSale.Data;
-    using VehiclesForSale.Data.Models.VehicleModel;
-    using VehiclesForSale.Data.Models.VehicleModel.Enums;
+    
+    using Data;
+    using Contracts.Vehicle;
+    using Data.Models.VehicleModel;
+    using Data.Models.VehicleModel.Enums;
 
     public class DateService : IDateService
     {

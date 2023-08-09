@@ -1,12 +1,11 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
     using Microsoft.EntityFrameworkCore;
-
+   
+    using Data;
+    using Contracts.Vehicle;
     using Data.Models.VehicleModel;
     using Web.ViewModels.Vehicle;
-    using Contracts.Vehicle;
-    using Data;
-    
 
     public class ModelService : IModelService
     {
@@ -26,20 +25,20 @@
             };
 
             await context.Models.AddAsync(modelToAdd);
-            await context.SaveChangesAsync();   
-            
+            await context.SaveChangesAsync();
+
         }
 
         public async Task<bool> CheckByNameExist(string modelName, int? makeId)
         {
-            return await context.Models.Where(m => m.MakeId == makeId && m.Name.ToLower()==modelName.ToLower()).AnyAsync();
+            return await context.Models.Where(m => m.MakeId == makeId && m.Name.ToLower() == modelName.ToLower()).AnyAsync();
         }
 
         public async Task DeleteModelAsync(string modelId)
         {
             var modToDel = await context.Models.Where(m => m.Id.ToString() == modelId).FirstOrDefaultAsync();
 
-            if(modToDel ==null)
+            if (modToDel == null)
             {
                 throw new NullReferenceException("This model does not exists");
             }

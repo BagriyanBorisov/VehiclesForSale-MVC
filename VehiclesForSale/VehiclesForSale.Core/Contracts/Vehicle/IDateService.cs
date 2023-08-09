@@ -1,6 +1,4 @@
-﻿using VehiclesForSale.Web.ViewModels.Vehicle;
-
-namespace VehiclesForSale.Core.Contracts.Vehicle
+﻿namespace VehiclesForSale.Core.Contracts.Vehicle
 {
     public interface IDateService
     {

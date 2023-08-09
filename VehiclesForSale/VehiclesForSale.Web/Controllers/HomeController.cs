@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
 using VehiclesForSale.Web.Models;
 
 namespace VehiclesForSale.Web.Controllers
@@ -10,7 +10,7 @@ namespace VehiclesForSale.Web.Controllers
 
         public HomeController()
         {
-            
+
         }
 
         public IActionResult Index()
@@ -32,7 +32,7 @@ namespace VehiclesForSale.Web.Controllers
         [Authorize]
         public IActionResult Extras()
         {
-            
+
             return View();
         }
 

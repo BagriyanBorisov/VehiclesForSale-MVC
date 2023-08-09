@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VehiclesForSale.Data.Models.VehicleModel.Enums;
-using VehiclesForSale.Data.Models.VehicleModel.Extras;
 
 namespace VehiclesForSale.Data.Configurations
 {
@@ -26,13 +24,13 @@ namespace VehiclesForSale.Data.Configurations
         {
             List<Vehicle> vehicles = new List<Vehicle>
             {
-                new Vehicle { 
+                new Vehicle {
                     Title = "Mercedes-Benz E class 320CDI",
                     CategoryTypeId = 2, Price = 10000,
-                    CubicCapacity = 3224, 
+                    CubicCapacity = 3224,
                     DateId = 123,
                     Mileage = 300000,
-                    HorsePower = 224, 
+                    HorsePower = 224,
                     MakeId = 1,
                     ModelId = 1,
                     TransmissionTypeId = 2,

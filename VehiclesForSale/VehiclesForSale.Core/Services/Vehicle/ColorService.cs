@@ -1,10 +1,11 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
     using Microsoft.EntityFrameworkCore;
-    using VehiclesForSale.Web.ViewModels.Vehicle;
-    using Contracts.Vehicle;
+
     using Data;
-    using VehiclesForSale.Data.Models.VehicleModel;
+    using Contracts.Vehicle;
+    using Data.Models.VehicleModel;
+    using Web.ViewModels.Vehicle;
 
     public class ColorService : IColorService
     {

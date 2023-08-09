@@ -1,19 +1,17 @@
 ﻿namespace VehiclesForSale.Web.Controllers
 {
+    using Core.Contracts.Vehicle;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
-
-    using Core.Contracts.Vehicle;
     using ViewModels.Vehicle;
     using ViewModels.Vehicle.Index;
-    using VehiclesForSale.Data.Models.VehicleModel;
 
     [Authorize]
     public class VehicleController : Controller
     {
         private readonly IVehicleService vehicleService;
-        
+
 
         public VehicleController(IVehicleService vehicleService)
         {
@@ -42,7 +40,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(VehicleFormViewModel vehicleVm)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return View(vehicleVm);
@@ -50,8 +48,8 @@
             string? userId = GetUserId();
             await vehicleService.AddVehicleAsync(vehicleVm, userId!);
 
-                var vehicleId = vehicleVm.Id.ToString();
-                return RedirectToAction("Add", "Image", new { id = vehicleId });
+            var vehicleId = vehicleVm.Id.ToString();
+            return RedirectToAction("Add", "Image", new { id = vehicleId });
 
         }
 
@@ -63,7 +61,7 @@
                 return View(vehicleVm);
             }
 
-            string? userId  = GetUserId();
+            string? userId = GetUserId();
             await vehicleService.EditVehicleAsync(vehicleVm, userId!);
 
 
@@ -98,7 +96,7 @@
             return View(models);
         }
 
-       
+
         public async Task<IActionResult> Delete(string id)
         {
             string? userId = GetUserId();
@@ -112,7 +110,7 @@
         public async Task<IActionResult> Details(string id)
         {
             var userId = GetUserId();
-            var detailsVm = await vehicleService.GetForDetailsVehicleAsync(userId,id);
+            var detailsVm = await vehicleService.GetForDetailsVehicleAsync(userId, id);
 
             return View(detailsVm);
 
@@ -121,7 +119,7 @@
         [HttpPost]
         public async Task<IEnumerable<ModelFormVehicleViewModel>> GetModelValues(string id)
         {
-            
+
             var modelsForMake = await vehicleService.GetModels(id);
             return modelsForMake;
         }
@@ -131,10 +129,10 @@
             return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         }
 
-        
+
         public async Task<IActionResult> AddToWatchList(string vehicleId)
         {
-            string? userId = GetUserId(); 
+            string? userId = GetUserId();
             await vehicleService.AddVehicleToWatchListAsync(userId!, vehicleId);
             return RedirectToAction("Details", "Vehicle", new { id = vehicleId });
         }
@@ -149,7 +147,7 @@
         [HttpGet]
         public async Task<IActionResult> WatchList()
         {
-            string? userId = GetUserId(); 
+            string? userId = GetUserId();
             var models = await vehicleService.GetWatchListAsync(userId!);
             return View(models);
         }
