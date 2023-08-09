@@ -1,0 +1,218 @@
+﻿@model ExtrasCrudViewModel;
+
+@{
+    ViewData["Title"] = "Extras Crud";
+}
+
+
+
+<h1 class="text-center my-2">Admin Panel</h1>
+<h2 class="text-center my-2">@ViewData["Title"]</h2>
+<h4 class="text-center text-danger my-2">@ViewBag.ErrorMessage </h4>
+<hr />
+<div class="row text-center my-2">
+    <div class="container col-lg-3 col-sm-12 mb-2 border-end">
+        <div class="table-responsive ">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Interior</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var interior in Model.InteriorExtras.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@interior.Id</td>
+                                <td class="col-md-9">@interior.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteInterior" asp-controller="Admin" asp-route-interiorId="@interior.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddInterior">
+                                <span asp-validation-for="@Model.InteriorNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.InteriorNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Interior" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-lg-2 col-sm-12 mb-2 border-end">
+        <div class="table-responsive ">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Exterior</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var ex in Model.ExteriorExtras.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@ex.Id</td>
+                                <td class="col-md-9">@ex.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteExterior" asp-controller="Admin" asp-route-exteriorId="@ex.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddExterior">
+                                <span asp-validation-for="@Model.ExteriorNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.ExteriorNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Exterior" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-lg-3 col-sm-12 mb-2 border-end">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Comfort</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var comfort in Model.ComfortExtras.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@comfort.Id</td>
+                                <td class="col-md-9">@comfort.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteComfort" asp-controller="Admin" asp-route-comfortId="@comfort.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddComfort">
+                                <span asp-validation-for="@Model.ComfortNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.ComfortNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Comfort" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-lg-2 col-sm-12 mb-2 border-end">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Safety</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var safety in Model.SafetyExtras.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-1">@safety.Id</td>
+                                <td class="col-md-9">@safety.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteSafety" asp-controller="Admin" asp-route-safetyId="@safety.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddSafety">
+                                <span asp-validation-for="@Model.SafetyNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.SafetyNew" />
+                                <input class="btn btn-success col-10 mb-2" value="Add Safety" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container col-lg-2 col-sm-12 mb-2">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2>Other</h2></div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var other in Model.OtherExtras.Reverse())
+                        {
+                            <tr>
+                                <td class="col-md-10">@other.Name</td>
+                                <td class="col-md-2">
+                                    <a class="btn btn-danger" asp-action="DeleteOther" asp-controller="Admin" asp-route-otherId="@other.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <form asp-controller="Admin" asp-action="AddOther">
+                                <span asp-validation-for="@Model.OtherNew" class="text-danger"></span>
+                                <input class="form-control mb-2" autocomplete="username" aria-required="true" asp-for="@Model.OtherNew" />
+                                <input class="btn btn-success col-6 mb-2" value="Add Other" type="submit" />
+                            </form>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -16,10 +16,11 @@
         {
             List<TransmissionType> transmissionTypes = new List<TransmissionType>
             {
-                new TransmissionType { Name = "Manual", Id = 1 },
-                new TransmissionType { Name = "Automatic", Id = 2 },
-                new TransmissionType { Name = "CVT", Id = 3 },
-                new TransmissionType { Name = "Semi-Automatic", Id = 4 }
+                new TransmissionType { Name = "Any", Id = 1 },
+                new TransmissionType { Name = "Manual", Id = 2 },
+                new TransmissionType { Name = "Automatic", Id = 3 },
+                new TransmissionType { Name = "CVT", Id = 4 },
+                new TransmissionType { Name = "Semi-Automatic", Id = 5 }
             };
 
             return transmissionTypes;

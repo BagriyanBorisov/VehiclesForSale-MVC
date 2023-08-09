@@ -5,6 +5,8 @@
     using Contracts.Extra;
     using Data;
     using Web.ViewModels.Vehicle;
+    using System.Collections.Generic;
+    using VehiclesForSale.Data.Models.VehicleModel;
 
     public class ExtraService : IExtraService
     {
@@ -441,6 +443,211 @@
             context.OtherExtras.AddRange(otherExtrasToAdd);
 
             context.Extras.Update(extraDb);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<InteriorExtraFormViewModel>> GetInteriorExtrasAsync()
+        {
+            return await context.InteriorExtras
+                .Select(e => new InteriorExtraFormViewModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ExteriorExtraFormViewModel>> GetExteriorExtrasAsync()
+        {
+            return await context.ExteriorExtras
+               .Select(e => new ExteriorExtraFormViewModel()
+               {
+                   Id = e.Id,
+                   Name = e.Name,
+               }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<SafetyExtraFormViewModel>> GetSafetyExtrasAsync()
+        {
+            return await context.SafetyExtras
+              .Select(e => new SafetyExtraFormViewModel()
+              {
+                  Id = e.Id,
+                  Name = e.Name,
+              }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ComfortExtraFormViewModel>> GetComfortExtrasAsync()
+        {
+            return await context.ComfortExtras
+             .Select(e => new ComfortExtraFormViewModel()
+             {
+                 Id = e.Id,
+                 Name = e.Name,
+             }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<OtherExtraFormViewModel>> GetOtherExtrasAsync()
+        {
+            return await context.OtherExtras
+            .Select(e => new OtherExtraFormViewModel()
+            {
+                Id = e.Id,
+                Name = e.Name,
+            }).ToListAsync();
+        }
+
+        public async Task<bool> CheckInteriorByNameExist(string name)
+        {
+            return await context.InteriorExtras.Where(m => m.Name.ToLower() == name.ToLower()).AnyAsync();
+        }
+
+        public async Task<bool> CheckExteriorByNameExist(string name)
+        {
+            return await context.ExteriorExtras.Where(m => m.Name.ToLower() == name.ToLower()).AnyAsync();
+        }
+
+        public async Task<bool> CheckSafetyByNameExist(string name)
+        {
+            return await context.SafetyExtras.Where(m => m.Name.ToLower() == name.ToLower()).AnyAsync();
+        }
+
+        public async Task<bool> CheckComfortByNameExist(string name)
+        {
+            return await context.ComfortExtras.Where(m => m.Name.ToLower() == name.ToLower()).AnyAsync();
+        }
+
+        public async Task<bool> CheckOtherByNameExist(string name)
+        {
+            return await context.OtherExtras.Where(m => m.Name.ToLower() == name.ToLower()).AnyAsync();
+        }
+
+        public async Task AddInteriorAsync(string name)
+        {
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrWhiteSpace(name))
+            {
+                var exToAdd = new InteriorExtra()
+                {
+                    ExtraId = null,
+                    Name = name,
+                };
+
+                await context.InteriorExtras.AddAsync(exToAdd);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddExteriorAsync(string name)
+        {
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrWhiteSpace(name))
+            {
+                var exToAdd = new ExteriorExtra()
+                {
+                    ExtraId = null,
+                    Name = name,
+                };
+
+                await context.ExteriorExtras.AddAsync(exToAdd);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddSafetyAsync(string name)
+        {
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrWhiteSpace(name))
+            {
+                var exToAdd = new SafetyExtra()
+                {
+                    ExtraId = null,
+                    Name = name,
+                };
+
+                await context.SafetyExtras.AddAsync(exToAdd);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddComfortAsync(string name)
+        {
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrWhiteSpace(name))
+            {
+                var exToAdd = new ComfortExtra()
+                {
+                    ExtraId = null,
+                    Name = name,
+                };
+
+                await context.ComfortExtras.AddAsync(exToAdd);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddOtherAsync(string name)
+        {
+            if (!string.IsNullOrEmpty(name) || !string.IsNullOrWhiteSpace(name))
+            {
+                var exToAdd = new OtherExtra()
+                {
+                    ExtraId = null,
+                    Name = name,
+                };
+
+                await context.OtherExtras.AddAsync(exToAdd);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteInteriorAsync(string Id)
+        {
+            var entityToDel = await context.InteriorExtras.Where(m => m.Id.ToString() == Id).FirstOrDefaultAsync();
+            if (entityToDel == null)
+            {
+                throw new NullReferenceException("This Extra does not exist!");
+            }
+            context.InteriorExtras.Remove(entityToDel);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteExteriorAsync(string Id)
+        {
+            var entityToDel = await context.ExteriorExtras.Where(m => m.Id.ToString() == Id).FirstOrDefaultAsync();
+            if (entityToDel == null)
+            {
+                throw new NullReferenceException("This Extra does not exist!");
+            }
+            context.ExteriorExtras.Remove(entityToDel);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteSafetyAsync(string Id)
+        {
+            var entityToDel = await context.SafetyExtras.Where(m => m.Id.ToString() == Id).FirstOrDefaultAsync();
+            if (entityToDel == null)
+            {
+                throw new NullReferenceException("This Extra does not exist!");
+            }
+            context.SafetyExtras.Remove(entityToDel);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteComfortAsync(string Id)
+        {
+            var entityToDel = await context.ComfortExtras.Where(m => m.Id.ToString() == Id).FirstOrDefaultAsync();
+            if (entityToDel == null)
+            {
+                throw new NullReferenceException("This Extra does not exist!");
+            }
+            context.ComfortExtras.Remove(entityToDel);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteOtherAsync(string Id)
+        {
+            var entityToDel = await context.OtherExtras.Where(m => m.Id.ToString() == Id).FirstOrDefaultAsync();
+            if (entityToDel == null)
+            {
+                throw new NullReferenceException("This Extra does not exist!");
+            }
+            context.OtherExtras.Remove(entityToDel);
             await context.SaveChangesAsync();
         }
     }
