@@ -6,6 +6,7 @@
     using System.Security.Claims;
     using ViewModels.Vehicle;
     using ViewModels.Vehicle.Index;
+    using ViewModels.Vehicle.Search;
 
     [Authorize]
     public class VehicleController : Controller
@@ -82,10 +83,73 @@
         [AllowAnonymous]
         public async Task<IActionResult> Search()
         {
-            var vehicleVm = await vehicleService.GetForAddVehicleAsync();
+            var vehicleVm = await vehicleService.GetForSearchAsync();
+           
 
             return View(vehicleVm);
         }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Search(VehicleSearchViewModel vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            string makeId = vm.MakeId.ToString();
+            string modelId = vm.ModelId.ToString();
+            string transmissionId = vm.TransmissionTypeId.ToString();
+            string yearTo = vm.SelectedYearTo.ToString();
+            string yearFrom = vm.SelectedYearFrom.ToString();
+            string priceTo = vm.PriceTo.ToString();
+            string priceFrom = vm.PriceFrom.ToString();
+            string body = vm.CategoryTypeId.ToString();
+            string color = vm.ColorId.ToString();
+            string mileageTo = vm.MileageTo.ToString();
+            string cubicCapacityTo = vm.CubicCapacityTo.ToString();
+            string horsePowerTo = vm.HorsePowerTo.ToString();
+            string fuelType = vm.FuelTypeId.ToString();
+
+            return RedirectToAction("FilteredVehicles", "Vehicle", new
+            {
+                MakeId = makeId,
+                ModelId = modelId,
+                TransmissionTypeId = transmissionId,
+                SelectedYearTo = yearTo,
+                SelectedYearFrom = yearFrom,
+                PriceTo = priceTo,
+                PriceFrom = priceFrom,
+                CategoryTypeId = body,
+                ColorId = color,
+                MileageTo = mileageTo,
+                CubicCapacityTo = cubicCapacityTo,
+                HorsePowerTo = horsePowerTo,
+                FuelTypeId = fuelType
+            });
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        [ActionName("FilteredVehicles")]
+        public async Task<IActionResult> FilteredVehicles(
+            string MakeId, string ModelId, string TransmissionTypeId,
+            string SelectedYearTo, string SelectedYearFrom,
+            string PriceTo, string PriceFrom, string CategoryTypeId,
+            string ColorId, string MileageTo, string CubicCapacityTo,
+            string HorsePowerTo, string FuelTypeId)
+        {
+            // Your logic to filter vehicles based on the parameters
+            var vehicleCollection = new VehicleCollectionViewModel()
+            {
+                Vehicles = await vehicleService.GetAllVehiclesAsync()
+            };
+
+            return View("FilteredVehicles", vehicleCollection);
+        }
+
 
 
         [HttpGet]

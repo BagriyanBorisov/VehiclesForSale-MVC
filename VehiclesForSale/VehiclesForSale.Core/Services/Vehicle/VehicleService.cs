@@ -12,6 +12,7 @@
     using Web.ViewModels.Vehicle;
     using Web.ViewModels.Vehicle.Details;
     using Web.ViewModels.Vehicle.Index;
+    using Web.ViewModels.Vehicle.Search;
 
     public class VehicleService : IVehicleService
     {
@@ -578,6 +579,19 @@
                     await entry.ReloadAsync();
                 }
             }
+        }
+
+        public async Task<VehicleSearchViewModel> GetForSearchAsync()
+        {
+            var vehicleVm = new VehicleSearchViewModel();
+            vehicleVm.Categories = await categoryService.GetAllAsync();
+            vehicleVm.Colors = await colorService.GetAllAsync();
+            vehicleVm.FuelTypes = await fuelTypeService.GetAllAsync();
+            vehicleVm.Makes = await makeService.GetAllAsync();
+            vehicleVm.TransmissionTypes = await transmissionService.GetAllAsync();
+            vehicleVm.Models = await modelService.GetAllAsync(1);
+            vehicleVm.Years = await dateService.GetAllAsync();
+            return vehicleVm;
         }
     }
 }

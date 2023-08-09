@@ -1,13 +1,11 @@
-﻿@model VehicleFormViewModel;
+﻿@model VehicleSearchViewModel;
 @{
     ViewData["Title"] = "Search for vehicle";
 }
 
-
-
 <div class="row text-center">
     <div class="text-center mb-lg-3 col-lg-12">
-        <form id="AddVehicleForm" method="post" asp-controller="Vehicle" asp-action="Search">
+        <form id="SearchVehicleForm" method="post">
            
             <div class="mb-lg-3 col-lg-4">
                 <h1 class="text-center mb-lg-3 col-lg-12">@ViewData["Title"]</h1>
@@ -36,27 +34,39 @@
                 </div>
                 <div class="row text-center">
                     <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.Price">Price Range From</label>
-                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Price"/>
-                        <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                        <label asp-for="@Model.PriceFrom">Price Range From</label>
+                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.PriceFrom"/>
+                        <span asp-validation-for="@Model.PriceFrom" class="text-danger"></span>
                     </div>
                     <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.Price">Price Range To</label>
-                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Price"/>
-                        <span asp-validation-for="@Model.Price" class="text-danger"></span>
-                    </div>
-
-                @*    <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.SelectedYear">Year From: </label>
-                        <input type="month" class="form-control" autocomplete="username" aria-required="true" asp-for="@Model.Year"/>
-                        <span asp-validation-for="@Model.SelectedYear" class="text-danger"></span>
+                        <label asp-for="@Model.PriceTo">Price Range To</label>
+                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.PriceTo"/>
+                        <span asp-validation-for="@Model.PriceTo" class="text-danger"></span>
                     </div>
 
                     <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.SelectedMonth">Year To: </label>
-                        <input type="month" class="form-control" autocomplete="username" aria-required="true" asp-for="@Model.Year"/>
-                        <span asp-validation-for="@Model.SelectedMonth" class="text-danger"></span>
-                    </div>*@
+                        <label asp-for="@Model.SelectedYearFrom" class="form-label-add-edit">Year From: </label>
+                        <select asp-for="@Model.SelectedYearFrom" class="form-control" aria-required="true">
+                            <option value="">Select Year</option>
+                            @foreach (var year in Model.Years)
+                            {
+                                <option value="@year">@year</option>
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.SelectedYearFrom" class="text-danger"></span>
+                    </div>
+
+                    <div class="text-center mb-3 col-md-6">
+                    <label asp-for="@Model.SelectedYearTo" class="form-label-add-edit">Year To: </label>
+                    <select asp-for="@Model.SelectedYearTo" class="form-control" aria-required="true">
+                            <option value="">Select Year</option>
+                        @foreach (var year in Model.Years)
+                        {
+                            <option value="@year">@year</option>
+                        }
+                    </select>
+                    <span asp-validation-for="@Model.SelectedYearTo" class="text-danger"></span>
+                    </div>
 
                 </div>
                 <div class="row text-center">
@@ -82,12 +92,6 @@
                     </div>
 
                     <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.Location">Location(optional)</label>
-                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Location"/>
-                        <span asp-validation-for="@Model.Location" class="text-danger"></span>
-                    </div>
-
-                    <div class="text-center mb-3 col-md-6">
                         <label asp-for="@Model.CategoryTypeId" class="form-label-add-edit">Body type: </label>
                         <select asp-for="@Model.CategoryTypeId" class="form-control" aria-required="true">
                             @foreach (var categoryType in Model.Categories)
@@ -108,21 +112,21 @@
                         <span asp-validation-for="@Model.ColorId" class="text-danger"></span>
                     </div>
                     <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.Mileage">Mileage To: </label>
-                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Mileage"/>
-                        <span asp-validation-for="@Model.Mileage" class="text-danger"></span>
+                        <label asp-for="@Model.MileageTo">Mileage To: </label>
+                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.MileageTo" />
+                        <span asp-validation-for="@Model.MileageTo" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row text-center">
                     <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.CubicCapacity">Cubic Capacity</label>
-                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.CubicCapacity"/>
-                        <span asp-validation-for="@Model.CubicCapacity" class="text-danger"></span>
+                        <label asp-for="@Model.CubicCapacityTo">Cubic Capacity To:</label>
+                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.CubicCapacityTo"/>
+                        <span asp-validation-for="@Model.CubicCapacityTo" class="text-danger"></span>
                     </div>
                     <div class="text-center mb-3 col-md-6">
-                        <label asp-for="@Model.HorsePower">Horse Power</label>
-                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.HorsePower"/>
-                        <span asp-validation-for="@Model.HorsePower" class="text-danger"></span>
+                        <label asp-for="@Model.HorsePowerTo">Horse Power To:</label>
+                        <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.HorsePowerTo" />
+                        <span asp-validation-for="@Model.HorsePowerTo" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row text-center">
@@ -132,48 +136,45 @@
                 </div>
             </div>
         </form>
-        
-  @*      @while (modelCount != 0)
-        {
-            <div class="row">
-                @foreach(var car in Model.Reverse().Skip(skip).Take(take))
-                {
-                    <div class="col-md-4">
-                        <div class="container" style="margin-top: 50px;">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card-sl">
-                                        <div class="card-image">
-                                            <img src="/Uploads/@car.MainImage" />
-                                       
-                                        </div>
-
-                                        <a class="card-action" href="#"><i class="fa fa-heart"></i></a>
-                                        <div class="card-heading">
-                                            @car.Make @car.Model
-                                        </div>
-                                        <div class="card-text">
-                                            @car.Title
-                                        </div>
-                                        <div class="card-text">
-                                            $@car.Price
-                                        </div>
-                                        <a href="#" class="card-button"> Check Details</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @if (true)
-                    {
-                        modelCount--;
-                    }
-                }  
-            </div>
-            @if (true)
-            {
-                skip += 3;
-            }
-        }*@
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            // Dropdownlist Selectedchange event
+            $("#MakeId").change(function () {
+                var makeId = $(this).val(); // Get the selected makeId
+
+                $("#ModelId").empty(); // Clear the current options in the Model dropdown
+
+                // If no makeId is selected, show a default option in the Model dropdown
+                if (makeId === "") {
+                    $("#ModelId").append('<option value="">Select a Model</option>');
+                    return;
+                }
+
+                // Make an AJAX POST request to retrieve the models based on the selected makeId
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetModelValues")',
+                    dataType: 'json',
+                    data: { id: makeId }, // Send the selected makeId as 'id'
+                    success: function (models) {
+                        // models contains the JSON formatted list of models returned from the controller
+
+                        $("#ModelId").append('<option value="">Select a Model</option>');
+                        $.each(models, function (i, model) {
+                            $("#ModelId").append('<option value="' + model.id + '">' + model.name + '</option>');
+                        });
+                    },
+                    error: function (ex) {
+                        alert('Failed to retrieve models: ' + ex);
+                    }
+                });
+            });
+        });
+    </script>
+}

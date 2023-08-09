@@ -1,5 +1,6 @@
 ﻿namespace VehiclesForSale.Core.Contracts.Vehicle
 {
+    using VehiclesForSale.Web.ViewModels.Vehicle.Search;
     using Web.ViewModels.Vehicle;
     using Web.ViewModels.Vehicle.Details;
     using Web.ViewModels.Vehicle.Index;
@@ -20,5 +21,7 @@
         public Task EditVehicleAsync(VehicleFormViewModel vehicleVm, string userId);
         public Task AddVehicleToWatchListAsync(string userId, string vehicleId);
         public Task DeleteVehicleFromWatchListAsync(string userId, string vehicleId);
+
+        public Task<VehicleSearchViewModel> GetForSearchAsync();
     }
 }
