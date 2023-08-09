@@ -448,7 +448,7 @@
 
         public async Task<IEnumerable<InteriorExtraFormViewModel>> GetInteriorExtrasAsync()
         {
-            return await context.InteriorExtras
+            return await context.InteriorExtras.Where(e => e.ExtraId == null)
                 .Select(e => new InteriorExtraFormViewModel()
                 {
                     Id = e.Id,
@@ -458,7 +458,7 @@
 
         public async Task<IEnumerable<ExteriorExtraFormViewModel>> GetExteriorExtrasAsync()
         {
-            return await context.ExteriorExtras
+            return await context.ExteriorExtras.Where(e => e.ExtraId == null)
                .Select(e => new ExteriorExtraFormViewModel()
                {
                    Id = e.Id,
@@ -468,7 +468,7 @@
 
         public async Task<IEnumerable<SafetyExtraFormViewModel>> GetSafetyExtrasAsync()
         {
-            return await context.SafetyExtras
+            return await context.SafetyExtras.Where(e => e.ExtraId == null)
               .Select(e => new SafetyExtraFormViewModel()
               {
                   Id = e.Id,
@@ -478,7 +478,7 @@
 
         public async Task<IEnumerable<ComfortExtraFormViewModel>> GetComfortExtrasAsync()
         {
-            return await context.ComfortExtras
+            return await context.ComfortExtras.Where(e => e.ExtraId == null)
              .Select(e => new ComfortExtraFormViewModel()
              {
                  Id = e.Id,
@@ -488,7 +488,7 @@
 
         public async Task<IEnumerable<OtherExtraFormViewModel>> GetOtherExtrasAsync()
         {
-            return await context.OtherExtras
+            return await context.OtherExtras.Where(e => e.ExtraId == null)
             .Select(e => new OtherExtraFormViewModel()
             {
                 Id = e.Id,
