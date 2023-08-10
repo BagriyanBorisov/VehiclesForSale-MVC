@@ -4,6 +4,8 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
+    using VehiclesForSale.Data.Models.VehicleModel;
+    using VehiclesForSale.Web.ViewModels;
     using ViewModels.Vehicle;
     using ViewModels.Vehicle.Index;
     using ViewModels.Vehicle.Search;
@@ -20,13 +22,11 @@
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? pageNumber)
         {
-            var vehicleCollection = new VehicleCollectionViewModel()
-            {
-                Vehicles = await vehicleService.GetAllVehiclesAsync()
-            };
-            return View(vehicleCollection);
+            int pageSize = 6;
+            var vehicles = await vehicleService.GetAllVehiclesAsync();
+            return View(PaginatedList<VehicleIndexViewModel>.Create(vehicles,pageNumber ?? 1, pageSize));
         }
 
         [HttpGet]
@@ -138,9 +138,9 @@
             string SelectedYearTo, string SelectedYearFrom,
             string PriceTo, string PriceFrom, string CategoryTypeId,
             string ColorId, string MileageTo, string CubicCapacityTo,
-            string HorsePowerTo, string FuelTypeId)
+            string HorsePowerTo, string FuelTypeId, int? pageNumber)
         {
-
+           
             var filteredVehicles = await vehicleService.GetFilteredAsync(
               MakeId, ModelId, TransmissionTypeId,
               SelectedYearTo, SelectedYearFrom,
@@ -148,22 +148,22 @@
               ColorId, MileageTo, CubicCapacityTo,
               HorsePowerTo, FuelTypeId);
 
-            var vehicleCollection = new VehicleCollectionViewModel()
-            {
-                Vehicles = filteredVehicles
-            };
-
-            return View("Filtered",vehicleCollection);
+            
+            int pageSize = 6;
+           
+            return View("Filtered",PaginatedList<VehicleIndexViewModel>.Create(filteredVehicles, pageNumber ?? 1, pageSize));
+          
         }
 
 
 
         [HttpGet]
-        public async Task<IActionResult> YourVehicles()
+        public async Task<IActionResult> YourVehicles(int? pageNumber)
         {
+            int pageSize = 6;
             string? userId = GetUserId();
             var models = await vehicleService.GetUserVehiclesAsync(userId!);
-            return View(models);
+            return View(PaginatedList<VehicleIndexViewModel>.Create(models, pageNumber ?? 1, pageSize));
         }
 
 
@@ -215,11 +215,12 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> WatchList()
+        public async Task<IActionResult> WatchList(int? pageNumber)
         {
+            int pageSize = 6;
             string? userId = GetUserId();
             var models = await vehicleService.GetWatchListAsync(userId!);
-            return View(models);
+            return View(PaginatedList<VehicleIndexViewModel>.Create(models, pageNumber ?? 1, pageSize));
         }
     }
 }

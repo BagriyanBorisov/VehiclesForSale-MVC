@@ -1,15 +1,11 @@
-﻿@model ICollection<VehicleIndexViewModel>
+﻿@model PaginatedList<VehicleIndexViewModel>
 
 @{
-    int modelCount = Model.Count();
-    int skip = 0;
-    int take = 3;
+  
     ViewData["Title"] = "Your Vehicles";
 }
 <h2 class="text-center mb-3">@ViewData["Title"]</h2>
 <hr />
-@while (modelCount != 0)
-{
     <div class="row">
         @foreach (var car in Model)
         {
@@ -60,19 +56,19 @@
                         </div>
                     </div>
                 </div>
-               
+             
             </div>
-            @if (true)
-            {
-                modelCount--;
-            }
         }
     </div>
-    @if (true)
-    {
-        skip += 3;
-    }
+
+@{
+    var prevDisabled = !Model.HasPrevious ? "disabled" : "";
+    var nextDisabled = !Model.HasNext ? "disabled" : "";
 }
-
-
+<div class="row my-4">
+    <div class="col-12 text-center">
+        <a asp-action="YourVehicles" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-danger me-5 col-md-2 col-sm-4 @prevDisabled">Previous</a>
+        <a asp-action="YourVehicles" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-primary col-md-2 col-sm-4 @nextDisabled">Next Page</a>
+    </div>
+</div>
 

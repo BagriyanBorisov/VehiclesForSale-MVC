@@ -1,68 +1,74 @@
-﻿@model ICollection<VehicleIndexViewModel>
+﻿@model PaginatedList<VehicleIndexViewModel>
 
 @{
-    int modelCount = Model.Count();
-    int skip = 0; 
     ViewData["Title"] = "Your Watchlist";
 }
 
 <h2 class="text-center mb-3">@ViewData["Title"]</h2>
 <hr />
-@while (modelCount != 0)
+@if (!Model.Any())
 {
-    <div class="row">
-        @foreach (var car in Model)
-        {
-            <div class="col-lg-4">
-                <div class="container" style="margin-top: 50px;">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card-sl">
-                                <div class="card-image">
-                                    <img src="/Uploads/@car.MainImage" />
+    <h2 class="text-center mb-3">There are no added vehicle to Your Watchlist yet</h2>
+}
 
-                                </div>
-                                <div class="row justify-content-center card-heading">
-                                    <div class="col-sm-6 col-lg-12 text-center">
-                                        @car.Title
-                                    </div>
-                                    <div class="col-sm-6 col-lg-12 text-center">
-                                        Price: $@car.Price
-                                    </div>
-                                </div>
 
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6 text-center">Make: @car.Make</div>
-                                    <div class="col-md-6 text-center">Model: @car.Model</div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6 text-center">Year: @car.Month, @car.Year</div>
-                                    <div class="col-md-6 text-center">Mileage: @car.Mileage km</div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-md-6 text-center">Transmission: @car.Transmission</div>
-                                    <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
-                                </div>
 
-                                <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Check Details</a>
+   <div class="row">
+    @foreach (var car in Model)
+    {
+        <div class="col-lg-4">
+            <div class="container" style="margin-top: 50px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-sl">
+                            <div class="card-image">
+                                <img src="/Uploads/@car.MainImage" />
 
                             </div>
+                            <div class="row justify-content-center card-heading">
+                                <div class="col-sm-6 col-lg-12 text-center">
+                                    @car.Title
+                                </div>
+                                <div class="col-sm-6 col-lg-12 text-center">
+                                    Price: $@car.Price
+                                </div>
+                            </div>
+
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-center">Make: @car.Make</div>
+                                <div class="col-md-6 text-center">Model: @car.Model</div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-center">Year: @car.Month, @car.Year</div>
+                                <div class="col-md-6 text-center">Mileage: @car.Mileage km</div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-center">Transmission: @car.Transmission</div>
+                                <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
+                            </div>
+
+                            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Check Details</a>
+
                         </div>
                     </div>
                 </div>
-
             </div>
-            @if (true)
-            {
-                modelCount--;
-            }
-        }
-    </div>
-    @if (true)
-    {
-        skip += 3;
+        </div>
     }
+</div>
+
+@{
+    var prevDisabled = !Model.HasPrevious ? "disabled" : "";
+    var nextDisabled = !Model.HasNext ? "disabled" : "";
 }
+
+<div class="row my-4">
+    <div class="col-12 text-center">
+        <a asp-action="WatchList" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-danger me-5 col-md-2 col-sm-4 @prevDisabled">Previous</a>
+        <a asp-action="WatchList" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-primary col-md-2 col-sm-4 @nextDisabled">Next Page</a>
+    </div>
+</div>
+
 
 
 
