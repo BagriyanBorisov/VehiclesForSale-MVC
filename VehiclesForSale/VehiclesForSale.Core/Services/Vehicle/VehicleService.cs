@@ -143,6 +143,7 @@
                 .Include(v => v.TransmissionType)
                 .Include(v => v.Date)
                 .AsNoTracking()
+                .OrderByDescending(v => v.DateAdded)
                 .Select(v => new VehicleIndexViewModel()
                 {
                     Title = v.Title,
@@ -225,6 +226,7 @@
                 .Include(v => v.TransmissionType)
                 .Include(v => v.Date)
                 .AsNoTracking()
+                .OrderByDescending(v => v.DateAdded)
                 .Select(v => new VehicleIndexViewModel()
                 {
                     Title = v.Title,
@@ -387,6 +389,7 @@
                 .Include(v => v.Vehicle.TransmissionType)
                 .Include(v => v.Vehicle.Date)
                 .AsNoTracking()
+                .OrderByDescending(v => v.Vehicle.DateAdded)
                 .Select(v => new VehicleIndexViewModel()
                 {
                     Title = v.Vehicle.Title,

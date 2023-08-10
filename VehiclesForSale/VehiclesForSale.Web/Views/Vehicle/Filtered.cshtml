@@ -8,6 +8,11 @@
 <h2 class="text-center mb-3">@ViewData["Title"]:</h2>
 <hr />
 
+@if (!Model.Any())
+{
+    <h2 class="text-center mb-3">There are no vehicles that match your Search</h2>
+}
+
 <div class="row">
     @foreach (var car in Model)
     {

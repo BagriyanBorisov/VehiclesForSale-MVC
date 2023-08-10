@@ -13,6 +13,7 @@
             ImageCollection = new HashSet<Image>();
             FavoriteVehicleApplicationUsers = new HashSet<FavoriteVehicleApplicationUser>();
             Id = Guid.NewGuid();
+            DateAdded = DateTime.UtcNow;
             Extra = new Extra();
         }
 
@@ -43,6 +44,8 @@
 
         public string? Location { get; set; }
         public string? Description { get; set; }
+
+        public DateTime DateAdded { get; set; }
 
 
         //Relations
