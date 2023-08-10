@@ -113,7 +113,7 @@
             string horsePowerTo = vm.HorsePowerTo.ToString();
             string fuelType = vm.FuelTypeId.ToString();
 
-            return RedirectToAction("FilteredVehicles", "Vehicle", new
+            return RedirectToAction("Filtered", "Vehicle", new
             {
                 MakeId = makeId,
                 ModelId = modelId,
@@ -131,23 +131,29 @@
             });
         }
 
-        [HttpGet]
+        
         [AllowAnonymous]
-        [ActionName("FilteredVehicles")]
-        public async Task<IActionResult> FilteredVehicles(
+        public async Task<IActionResult> Filtered(
             string MakeId, string ModelId, string TransmissionTypeId,
             string SelectedYearTo, string SelectedYearFrom,
             string PriceTo, string PriceFrom, string CategoryTypeId,
             string ColorId, string MileageTo, string CubicCapacityTo,
             string HorsePowerTo, string FuelTypeId)
         {
-            // Your logic to filter vehicles based on the parameters
+
+            var filteredVehicles = await vehicleService.GetFilteredAsync(
+              MakeId, ModelId, TransmissionTypeId,
+              SelectedYearTo, SelectedYearFrom,
+              PriceTo, PriceFrom, CategoryTypeId,
+              ColorId, MileageTo, CubicCapacityTo,
+              HorsePowerTo, FuelTypeId);
+
             var vehicleCollection = new VehicleCollectionViewModel()
             {
-                Vehicles = await vehicleService.GetAllVehiclesAsync()
+                Vehicles = filteredVehicles
             };
 
-            return View("FilteredVehicles", vehicleCollection);
+            return View("Filtered",vehicleCollection);
         }
 
 

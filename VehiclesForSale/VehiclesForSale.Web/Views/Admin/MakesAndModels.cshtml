@@ -82,7 +82,7 @@
                             <form asp-controller="Admin" asp-action="AddModel" id="AddModelForm">
                                 <select class="form-control mb-2" aria-required="true" asp-for="@Model.MakeId">
                                     <option value="">Select Make</option> <!-- Add a default option -->
-                                    @foreach (var make in Model.Makes)
+                                    @foreach (var make in Model.Makes.Skip(1))
                                     {
                                         <option value="@make.Id">@make.Name</option>
                                     }

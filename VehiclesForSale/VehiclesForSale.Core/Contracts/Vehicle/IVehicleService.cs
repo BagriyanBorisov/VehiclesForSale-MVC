@@ -23,5 +23,12 @@
         public Task DeleteVehicleFromWatchListAsync(string userId, string vehicleId);
 
         public Task<VehicleSearchViewModel> GetForSearchAsync();
+
+        public Task<ICollection<VehicleIndexViewModel>> GetFilteredAsync(
+             string MakeId, string ModelId, string TransmissionTypeId,
+            string SelectedYearTo, string SelectedYearFrom,
+            string PriceTo, string PriceFrom, string CategoryTypeId,
+            string ColorId, string MileageTo, string CubicCapacityTo,
+            string HorsePowerTo, string FuelTypeId);
     }
 }

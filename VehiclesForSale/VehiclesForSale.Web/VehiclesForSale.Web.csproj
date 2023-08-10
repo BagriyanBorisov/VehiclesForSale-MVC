@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Vehicle\FilteredVehicles.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.20" />
@@ -36,10 +32,6 @@
     <ProjectReference Include="..\VehiclesForSale.Data\VehiclesForSale.Data.csproj" />
     <ProjectReference Include="..\VehiclesForSale.Web.Infrastructure\VehiclesForSale.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\VehiclesForSale.Web.ViewModels\VehiclesForSale.Web.ViewModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Vehicle\FilteredVehicles.cshtml" />
   </ItemGroup>
 
 </Project>

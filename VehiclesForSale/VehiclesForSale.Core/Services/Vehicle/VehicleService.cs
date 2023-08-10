@@ -1,14 +1,13 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
-    using Microsoft.EntityFrameworkCore;
-    using System.Collections.Generic;
-   
-    using Data;
-    using Contracts.Vehicle;
     using Contracts.Image;
+    using Contracts.Vehicle;
+    using Data;
     using Data.Models.VehicleModel;
     using Data.Models.VehicleModel.Enums;
     using Data.Models.VehicleModel.Extras;
+    using Microsoft.EntityFrameworkCore;
+    using System.Collections.Generic;
     using Web.ViewModels.Vehicle;
     using Web.ViewModels.Vehicle.Details;
     using Web.ViewModels.Vehicle.Index;
@@ -593,5 +592,112 @@
             vehicleVm.Years = await dateService.GetAllAsync();
             return vehicleVm;
         }
+
+        public async Task<ICollection<VehicleIndexViewModel>> GetFilteredAsync(
+             string MakeId, string ModelId, string TransmissionTypeId,
+            string SelectedYearTo, string SelectedYearFrom,
+            string PriceTo, string PriceFrom, string CategoryTypeId,
+            string ColorId, string MileageTo, string CubicCapacityTo,
+            string HorsePowerTo, string FuelTypeId)
+        {
+            IQueryable<Vehicle> query = context.Vehicles
+                .Include(v => v.Date); 
+
+            // Apply filters based on non-empty and non-default parameters
+            if (!string.IsNullOrEmpty(MakeId) && MakeId != "1")
+            {
+                query = query.Where(vehicle => vehicle.MakeId.ToString() == MakeId);
+            }
+            if (!string.IsNullOrEmpty(ModelId) && ModelId != "1")
+            {
+                query = query.Where(vehicle => vehicle.ModelId.ToString() == ModelId);
+            }
+            if (!string.IsNullOrEmpty(TransmissionTypeId) && TransmissionTypeId != "1")
+            {
+                query = query.Where(vehicle => vehicle.TransmissionTypeId.ToString() == TransmissionTypeId);
+            }
+            if (!string.IsNullOrEmpty(CategoryTypeId) && CategoryTypeId != "1")
+            {
+                query = query.Where(vehicle => vehicle.CategoryTypeId.ToString() == CategoryTypeId);
+            }
+            if (!string.IsNullOrEmpty(ColorId) && ColorId != "1")
+            {
+                query = query.Where(vehicle => vehicle.ColorId.ToString() == ColorId);
+            }
+            if (!string.IsNullOrEmpty(FuelTypeId) && FuelTypeId != "1")
+            {
+                query = query.Where(vehicle => vehicle.FuelTypeId.ToString() == FuelTypeId);
+            }
+
+            // Apply range filters
+            if (!string.IsNullOrEmpty(SelectedYearFrom))
+            {
+                query = query.Where(vehicle => vehicle.Date.Year >= Convert.ToInt32(SelectedYearFrom));
+            }
+            if (!string.IsNullOrEmpty(SelectedYearTo))
+            {
+                query = query.Where(vehicle => vehicle.Date.Year <= Convert.ToInt32(SelectedYearTo));
+            }
+            if (!string.IsNullOrEmpty(PriceFrom))
+            {
+                query = query.Where(vehicle => vehicle.Price >= Convert.ToDecimal(PriceFrom));
+            }
+            if (!string.IsNullOrEmpty(PriceTo))
+            {
+                query = query.Where(vehicle => vehicle.Price <= Convert.ToDecimal(PriceTo));
+            }
+         
+            if (!string.IsNullOrEmpty(MileageTo))
+            {
+                query = query.Where(vehicle => vehicle.Mileage <= Convert.ToInt64(MileageTo));
+            }
+         
+            if (!string.IsNullOrEmpty(CubicCapacityTo))
+            {
+                query = query.Where(vehicle => vehicle.CubicCapacity <= Convert.ToInt32(CubicCapacityTo));
+            }
+      
+            if (!string.IsNullOrEmpty(HorsePowerTo))
+            {
+                query = query.Where(vehicle => vehicle.HorsePower <= Convert.ToInt32(HorsePowerTo));
+            }
+
+            var filteredVehicles = await query
+                .Include(v => v.CategoryType)
+                .Include(v => v.Make)
+                .Include(v => v.Model)
+                .Include(v => v.FuelType)
+                .Include(v => v.ImageCollection)
+                .Include(v => v.Color)
+                .Include(v => v.TransmissionType)
+                .Select(v => new VehicleIndexViewModel
+                {
+                    Title = v.Title,
+                    Price = v.Price.ToString(),
+                    CategoryType = v.CategoryType.Name,
+                    Color = v.Color.Name,
+                    CubicCapacity = v.CubicCapacity,
+                    FuelType = v.FuelType.Name,
+                    HorsePower = v.HorsePower,
+                    Id = v.Id.ToString(),
+                    Location = v.Location,
+                    Year = v.Date.Year.ToString(),
+                    Month = v.Date.Month.ToString(),
+                    Mileage = v.Mileage,
+                    Make = v.Make.Name,
+                    Model = v.Model.Name,
+                    Transmission = v.TransmissionType.Name,
+                })
+                .ToListAsync();
+
+            foreach (var model in filteredVehicles)
+            {
+                model.MainImage = await imageService.GetPathById(model.Id);
+            }
+
+
+            return filteredVehicles;
+        }
+
     }
 }

@@ -1,13 +1,11 @@
-﻿@using VehiclesForSale.Web.ViewModels.Vehicle.Index;
-
-@model VehicleCollectionViewModel
+﻿@model VehicleCollectionViewModel
 
 @{
     int skip = 0;
-    ViewData["Title"] = "Latest Added";
+    ViewData["Title"] = "Searched for: ";
 
 }
-<h2 class="text-center mb-3">Latest vehicles added</h2>
+<h2 class="text-center mb-3">@ViewData["Title"]</h2>
 <hr />
 
 <div class="row">
