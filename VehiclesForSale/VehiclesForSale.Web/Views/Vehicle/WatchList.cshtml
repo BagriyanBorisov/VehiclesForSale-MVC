@@ -61,12 +61,7 @@
     var nextDisabled = !Model.HasNext ? "disabled" : "";
 }
 
-<div class="row my-4">
-    <div class="col-12 text-center">
-        <a asp-action="WatchList" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-danger me-5 col-md-2 col-sm-4 @prevDisabled">Previous</a>
-        <a asp-action="WatchList" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-primary col-md-2 col-sm-4 @nextDisabled">Next Page</a>
-    </div>
-</div>
+@await Html.PartialAsync("_PaginationControls", ("WatchList", Model.PageIndex, prevDisabled, nextDisabled));
 
 
 
