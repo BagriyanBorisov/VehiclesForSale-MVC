@@ -71,7 +71,9 @@
 @{
     var prevDisabled = !Model.HasPrevious ? "disabled" : "";
     var nextDisabled = !Model.HasNext ? "disabled" : "";
+    string action = "YourVehicles";
 }
 
-@await Html.PartialAsync("_PaginationControls", ("YourVehicles", Model.PageIndex, prevDisabled, nextDisabled));
+<partial name="_PaginationControls" 
+         model="(action, Model.PageIndex, prevDisabled, nextDisabled)" />
 

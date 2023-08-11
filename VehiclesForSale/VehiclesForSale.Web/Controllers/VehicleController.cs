@@ -1,4 +1,7 @@
-﻿namespace VehiclesForSale.Web.Controllers
+﻿using Microsoft.AspNetCore.Identity;
+using VehiclesForSale.Data.Models;
+
+namespace VehiclesForSale.Web.Controllers
 {
     using Core.Contracts.Vehicle;
     using Microsoft.AspNetCore.Authorization;
@@ -13,10 +16,11 @@
     public class VehicleController : Controller
     {
         private readonly IVehicleService vehicleService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-
-        public VehicleController(IVehicleService vehicleService)
+        public VehicleController(IVehicleService vehicleService, UserManager<ApplicationUser> userManager)
         {
+            this.userManager = userManager;
             this.vehicleService = vehicleService;
         }
 
@@ -26,6 +30,22 @@
             int pageSize = 6;
             var vehicles = await vehicleService.GetAllVehiclesAsync();
             return View(PaginatedList<VehicleIndexViewModel>.Create(vehicles,pageNumber ?? 1, pageSize));
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> SellerVehicles(string? Id, int? pageNumber)
+        {
+            int pageSize = 6;
+            if (Id != null)
+            {
+                var seller = await userManager.FindByIdAsync(Id);
+                ViewData["SellerId"] = Id;
+                ViewData["SellerName"] = seller.UserName;
+                var vehicles = await vehicleService.GetUserVehiclesAsync(Id);
+                return View(PaginatedList<VehicleIndexViewModel>.Create(vehicles, pageNumber ?? 1, pageSize));
+            }
+
+            return RedirectToAction("Search");
         }
 
         [HttpGet]
@@ -72,9 +92,17 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            string? userId = GetUserId();
-            var vehicleVm = await vehicleService.GetForEditVehicleAsync(id, userId!);
-            return View(vehicleVm);
+            try
+            {
+                string? userId = GetUserId();
+                var vehicleVm = await vehicleService.GetForEditVehicleAsync(id, userId!);
+                return View(vehicleVm);
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
 
 

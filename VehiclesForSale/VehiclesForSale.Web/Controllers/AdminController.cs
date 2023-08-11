@@ -1,4 +1,6 @@
-﻿namespace VehiclesForSale.Web.Controllers
+﻿using VehiclesForSale.Core.Contracts.Admin;
+
+namespace VehiclesForSale.Web.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -7,6 +9,7 @@
     using Core.Contracts.Vehicle;
     using ViewModels.AdminPanel;
     using static Common.GeneralConstants;
+    using ViewModels;
 
     [Route("Admin")]
     [Authorize(Roles = AdminRoleName)]
@@ -20,6 +23,7 @@
         private readonly ICategoryService categoryService;
         private readonly IDateService dateService;
         private readonly IExtraService extraService;
+        private readonly IAdminService adminService;
 
         public AdminController(
             IModelService modelService,
@@ -29,7 +33,8 @@
             IColorService colorService,
             ICategoryService categoryService,
             IDateService dateService,
-            IExtraService extraService)
+            IExtraService extraService,
+            IAdminService adminService)
         {
             this.makeService = makeService;
             this.modelService = modelService;
@@ -39,6 +44,7 @@
             this.categoryService = categoryService;
             this.dateService = dateService;
             this.extraService = extraService;
+            this.adminService = adminService;
 
         }
 
@@ -49,6 +55,19 @@
             if (User?.IsInRole(AdminRoleName) ?? false)
             {
                 return View();
+            }
+            return RedirectToAction("Index", "Vehicle");
+        }
+
+        [HttpGet]
+        [Route("Users")]
+        public async Task<IActionResult> Users(int? pageNumber)
+        {
+            int pageSize = 10;
+            if (User?.IsInRole(AdminRoleName) ?? false)
+            {
+                var users = await adminService.GetUsersAsync();
+                return View(PaginatedList<AdminPanelUserViewModel>.Create(users, pageNumber ?? 1, pageSize));
             }
             return RedirectToAction("Index", "Vehicle");
         }

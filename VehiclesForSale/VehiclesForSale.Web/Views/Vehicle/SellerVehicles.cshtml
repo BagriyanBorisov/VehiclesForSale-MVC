@@ -1,11 +1,11 @@
 ﻿@model PaginatedList<VehicleIndexViewModel>
 
 @{
-    ViewData["Title"] = "Latest vehicles";
-   
+    ViewData["Title"] = "Seller vehicles: " + ViewData["SellerName"];
+
 }
-<h2 class="text-center mb-3">Latest vehicles</h2>
-<hr/>
+<h2 class="text-center mb-3">@ViewData["Title"]</h2>
+<hr />
 
 @if (!Model.Any())
 {
@@ -13,7 +13,7 @@
 }
 
 <div class="row">
-    @foreach(var car in Model)
+    @foreach (var car in Model)
     {
         var checkImage = car.MainImage ?? "NoImage.jpg";
         <div class="col-lg-4">
@@ -32,8 +32,8 @@
                                     Price: $@car.Price
                                 </div>
                             </div>
-                           
-                          
+
+
                             <div class="row justify-content-center">
                                 <div class="col-md-6 text-center">Make: @car.Make</div>
                                 <div class="col-md-6 text-center">Model: @car.Model</div>
@@ -52,15 +52,27 @@
                 </div>
             </div>
         </div>
-    }  
-    </div>
-
-    @{
-        var prevDisabled = !Model.HasPrevious ? "disabled" : "";
-        var nextDisabled = !Model.HasNext ? "disabled" : "";
-        string action = "Index";
     }
+</div>
 
-<partial name="_PaginationControls" 
-         model="(action, Model.PageIndex, prevDisabled, nextDisabled)" />
-   
+@{
+    var prevDisabled = !Model.HasPrevious ? "disabled" : "";
+    var nextDisabled = !Model.HasNext ? "disabled" : "";
+}
+
+<div class="row my-4">
+    <div class="col-12 text-center">
+        <a asp-action="SellerVehicles" asp-route-Id="@ViewData["SellerId"]" asp-route-pageNumber="@(Model.PageIndex-1)" class="btn btn-danger me-5 col-md-2 col-sm-4 @prevDisabled">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+            </svg> Previous
+        </a>
+        <a asp-action="SellerVehicles" asp-route-Id="@ViewData["SellerId"]" asp-route-pageNumber="@(Model.PageIndex+1)" class="btn btn-primary col-md-2 col-sm-4 @nextDisabled">
+            Next Page
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+            </svg>
+        </a>
+    </div>
+</div>
