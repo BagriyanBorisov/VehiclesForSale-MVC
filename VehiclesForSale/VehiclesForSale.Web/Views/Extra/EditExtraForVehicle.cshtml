@@ -4,6 +4,15 @@
 }
 
 <h1 class="text-center">Edit extras to your vehicle</h1>
+
+<div class="container">
+    <ul class="progressbar">
+        <li>Edit Vehicle</li>
+        <li>Edit Images</li>
+        <li class="active">Edit Extras</li>
+    </ul>
+</div>
+
 <hr />
 <form asp-action="EditExtraForVehicle" asp-controller="Extra" asp-route-id="@Model.ExtraId" method="post">
     <div class="mb-lg-3 col-lg-12">

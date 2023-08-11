@@ -187,6 +187,7 @@
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IEnumerable<ModelFormVehicleViewModel>> GetModelValues(string id)
         {
 

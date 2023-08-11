@@ -19,7 +19,7 @@
                 <div class="col-12 p-5">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            @foreach (var img in Model.Vehicle.Images)
+                            @foreach (var img in Model.Vehicle.Images.Skip(1))
                             {
                                 if (isFirst)
                                 {
