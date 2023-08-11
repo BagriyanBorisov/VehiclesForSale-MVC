@@ -19,6 +19,7 @@
                 <div class="col-12 p-5">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
+                            
                             @foreach (var img in Model.Vehicle.Images.Skip(1))
                             {
                                 if (isFirst)
@@ -26,7 +27,7 @@
                                     <div class="carousel-item active">
                                         <img src="/Uploads/@img" class="d-block w-100">
                                     </div>
-                                    @if(true)isFirst=false;
+                                    isFirst = false;
                                 }
                                 else
                                 {
@@ -34,6 +35,13 @@
                                         <img src="/Uploads/@img" class="d-block w-100">
                                     </div>
                                 }
+                            }
+                            
+                            @if (isFirst)
+                            {
+                            <div class="carousel-item active">
+                                <img src="/Uploads/NoImage.jpg" class="d-block w-100">
+                            </div>
                             }
 
                         </div>
@@ -146,9 +154,9 @@
                 <div class="col-12 px-0">
                     <div class="row bg-light m-0">
                         <div class="col-6 px-1 my-2 justify-content-center border-end border-dark">
-                            
+                            <p class="fw-bold m-2">Comfort</p>
                             <ul>
-                                <p class="fw-bold">Comfort</p>
+                               
                                 @foreach (var comfExtra in Model.Vehicle.ComfortExtras)
                                 {
                                     <li class="align-items-center py-2 m-0">
@@ -158,8 +166,9 @@
                             </ul>
                             </div>
                         <div class="col-6 px-1 my-2 justify-content-center border-dark">
+                            <p class="fw-bold m-2">Safety</p>
                             <ul>
-                                <p class="fw-bold">Safety</p>
+
                                 @foreach (var comfExtra in Model.Vehicle.SafetyExtras)
                                 {
                                     <li class="align-items-center py-2 m-0">
@@ -170,32 +179,35 @@
                         </div>
 
                         <div class="col-6 px-1 justify-content-center border-top border-end border-dark">
-                                <ul>
-                                    <p class="fw-bold my-2">Interior</p>
-                                    @foreach (var comfExtra in Model.Vehicle.InteriorExtras)
-                                    {
-                                        <li class="align-items-center py-2 m-0">
-                                            @comfExtra
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                        <div class="col-6 px-1 border-top border-dark">
-                                <ul>
-                                    <p class="fw-bold my-2">Exterior</p>
-                                    @foreach (var comfExtra in Model.Vehicle.ExteriorExtras)
-                                    {
-                                        <li class="h6 m-0">@comfExtra</li>
-                                    }
-                                </ul>
+                            <p class="fw-bold m-2">Interior</p>
+                            <ul>
 
-                            </div>
+                                @foreach (var comfExtra in Model.Vehicle.InteriorExtras)
+                                {
+                                    <li class="align-items-center py-2 m-0">
+                                        @comfExtra
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-6 px-1 border-top border-dark">
+                            <p class="fw-bold m-2">Exterior</p>
+                            <ul>
+
+                                @foreach (var comfExtra in Model.Vehicle.ExteriorExtras)
+                                {
+                                    <li class="h6 m-0">@comfExtra</li>
+                                }
+                            </ul>
+
+                        </div>
                       
                        
                         
                         <div class="col-12 px-0 my-0 border-top border-dark ">
+                            <p class="fw-bold m-2">Other</p>
                             <ul>
-                                <p class="fw-bold my-2">Other</p>
+
                                 @foreach (var comfExtra in Model.Vehicle.OtherExtras)
                                 {
                                     <li class="py-2 m-0">
@@ -215,10 +227,10 @@
                     </div>
                     <div class="col-12 px-4">
                         <div class="d-flex w-100 flex-column mb-4">
-                            <p class="fw-bold">@Model.Seller.Name</p>
+                            <p class="fw-bold">Owner's Name: @Model.Seller.Name</p>
                             <div class=" w-100 d-flex flex-column align-items-start">
-                                <p class="fw-bold">@Model.Seller.PhoneNumber</p>
-                                <p class="text-muted">@Model.Seller.Location</p>
+                                <p class="fw-bold">Phone number: @Model.Seller.PhoneNumber</p>
+                                <p class="text-muted">Vehicle's Location: @Model.Vehicle.Location </p>
                                 <p class="text-muted">In VehiclesForSale since: @Model.Seller.RegistrationMade</p>
                             </div>
                         </div>

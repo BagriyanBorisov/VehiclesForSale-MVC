@@ -1,0 +1,43 @@
+﻿@model RegisterViewModel;
+
+@{
+    ViewData["Title"] = "Your Profile";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-8 m-0 bg-light mx-auto text-center">
+       
+            <div class="d-flex align-items-end mt-4 mb-2">
+                <p class="h4 m-0">
+                    <span class="pe-1">Username: @Model.UserName</span>
+                </p>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-start mb-3">
+                <div class="align-text-top">
+                    <span class="h4">Email: @Model.Email</span>
+                </div>
+
+            </div>
+            <hr />
+            <div class="d-flex justify-content-start mb-3">
+                <div class="align-text-top">
+                    <span class="h4">Phone number: @Model.PhoneNumber</span>
+                </div>
+            </div>
+            <hr />
+            <div class="text-center mb-2">
+                <a asp-action="UpdateInformation" asp-controller="Account" id="updateInfo" class="btn btn-primary">Update information</a>
+                <a asp-action="UpdatePassword" asp-controller="Account" id="updatePass" class="btn btn-warning">Update Password</a>
+            </div>
+        </div>
+    </div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

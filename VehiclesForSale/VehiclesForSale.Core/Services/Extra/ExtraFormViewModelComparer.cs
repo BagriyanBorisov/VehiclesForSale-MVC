@@ -6,9 +6,9 @@
     public class ExtraFormViewModelComparer<T> : IEqualityComparer<T>
       where T : BaseExtraFormViewModel
     {
-        public bool Equals(T x, T y)
+        public bool Equals(T? x, T? y)
         {
-            return x.Name == y.Name;
+            return x?.Name == y?.Name;
         }
 
         public int GetHashCode(T obj)

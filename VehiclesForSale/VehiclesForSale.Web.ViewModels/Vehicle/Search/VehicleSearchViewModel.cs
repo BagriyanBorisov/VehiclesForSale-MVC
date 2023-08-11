@@ -1,6 +1,7 @@
 ﻿namespace VehiclesForSale.Web.ViewModels.Vehicle.Search
 {
     using System.ComponentModel.DataAnnotations;
+    using Index;
     using Common;
    
     public class VehicleSearchViewModel
@@ -14,6 +15,7 @@
             this.FuelTypes = new HashSet<FuelTypeFormVehicleViewModel>();
             this.Categories = new HashSet<CategoryFormVehicleViewModel>();
             this.Years = new HashSet<int>();
+            this.Vehicles = new HashSet<VehicleIndexViewModel>();
         }
 
         [PriceToLessThanOrEqual(nameof(PriceFrom),
@@ -56,5 +58,7 @@
         public IEnumerable<FuelTypeFormVehicleViewModel> FuelTypes { get; set; }
         public IEnumerable<ColorFormVehicleViewModel> Colors { get; set; }
         public IEnumerable<CategoryFormVehicleViewModel> Categories { get; set; }
+
+        public ICollection<VehicleIndexViewModel> Vehicles { get; set; }
     }
 }

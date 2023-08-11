@@ -16,13 +16,14 @@
 <div class="row">
     @foreach (var car in Model)
     {
+        var checkImage = car.MainImage ?? "NoImage.jpg";
         <div class="col-lg-4">
             <div class="container" style="margin-top: 50px;">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card-sl">
                             <div class="card-image">
-                                <img src="/Uploads/@car.MainImage" />
+                                <img src="/Uploads/@checkImage" />
                             </div>
                             <div class="row justify-content-center card-heading">
                                 <div class="col-sm-6 col-lg-12 text-center">

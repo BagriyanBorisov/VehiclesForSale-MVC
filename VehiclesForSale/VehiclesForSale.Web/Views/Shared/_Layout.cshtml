@@ -13,19 +13,30 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 bar">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">VehiclesForSale</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Vehicle" asp-action="Index">VehiclesForSale</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item box m-1">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Index">Latest Added</a>
+                        <li class="nav-item box border-start border-end">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Index">Latest vehicles</a>
                         </li>
-                        <li class="nav-item box m-1">
+                        <li class="nav-item box  border-end">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Search">Search</a>
                         </li>
+                        @if (User?.Identity?.IsAuthenticated ?? false)
+                        {
+                            <li class="nav-item box border-end">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="WatchList">Your Watchlist</a>
+                            </li>
+
+                            <li class="nav-item box border-end">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="YourVehicles">Your Publications</a>
+                            </li>
+
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -52,63 +63,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script>
-        function test() {
-            var tabsNewAnim = $('#navbarSupportedContent');
-            var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
-            var activeItemNewAnim = tabsNewAnim.find('.active');
-            var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
-            var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
-            var itemPosNewAnimTop = activeItemNewAnim.position();
-            var itemPosNewAnimLeft = activeItemNewAnim.position();
-            $(".hori-selector").css({
-                "top": itemPosNewAnimTop.top + "px",
-                "left": itemPosNewAnimLeft.left + "px",
-                "height": activeWidthNewAnimHeight + "px",
-                "width": activeWidthNewAnimWidth + "px"
-            });
-            $("#navbarSupportedContent").on("click", "li", function (e) {
-                $('#navbarSupportedContent ul li').removeClass("active");
-                $(this).addClass('active');
-                var activeWidthNewAnimHeight = $(this).innerHeight();
-                var activeWidthNewAnimWidth = $(this).innerWidth();
-                var itemPosNewAnimTop = $(this).position();
-                var itemPosNewAnimLeft = $(this).position();
-                $(".hori-selector").css({
-                    "top": itemPosNewAnimTop.top + "px",
-                    "left": itemPosNewAnimLeft.left + "px",
-                    "height": activeWidthNewAnimHeight + "px",
-                    "width": activeWidthNewAnimWidth + "px"
-                });
-            });
-        }
-        $(document).ready(function () {
-            setTimeout(function () { test(); });
-        });
-        $(window).on('resize', function () {
-            setTimeout(function () { test(); }, 500);
-        });
-        $(".navbar-toggler").click(function () {
-            $(".navbar-collapse").slideToggle(300);
-            setTimeout(function () { test(); });
-        });
-
-
-
-        // --------------add active class-on another-page move----------
-        jQuery(document).ready(function ($) {
-            // Get current path and find target link
-            var path = window.location.pathname.split("/").pop();
-
-            // Account for home page with empty path
-            if (path == '') {
-                path = 'index.html';
-            }
-
-            var target = $('#navbarSupportedContent ul li a[href="' + path + '"]');
-            // Add active class to target link
-            target.parent().addClass('active');
-        });</script>
-    @await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

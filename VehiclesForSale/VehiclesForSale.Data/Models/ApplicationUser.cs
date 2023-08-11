@@ -11,6 +11,7 @@ namespace VehiclesForSale.Data.Models
             this.FavoriteVehicleApplicationUsers = new HashSet<FavoriteVehicleApplicationUser>();
         }
 
+        public DateTime RegistrationDate { get; set; }
         public ICollection<Vehicle> VehiclesCollectionForSale { get; set; }
         public ICollection<FavoriteVehicleApplicationUser> FavoriteVehicleApplicationUsers { get; set; }
     }

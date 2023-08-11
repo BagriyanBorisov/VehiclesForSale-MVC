@@ -4,8 +4,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System.Security.Claims;
-    using VehiclesForSale.Data.Models.VehicleModel;
-    using VehiclesForSale.Web.ViewModels;
+    using ViewModels;
     using ViewModels.Vehicle;
     using ViewModels.Vehicle.Index;
     using ViewModels.Vehicle.Search;
@@ -102,15 +101,15 @@
             string makeId = vm.MakeId.ToString();
             string modelId = vm.ModelId.ToString();
             string transmissionId = vm.TransmissionTypeId.ToString();
-            string yearTo = vm.SelectedYearTo.ToString();
-            string yearFrom = vm.SelectedYearFrom.ToString();
-            string priceTo = vm.PriceTo.ToString();
-            string priceFrom = vm.PriceFrom.ToString();
+            string yearTo = vm.SelectedYearTo.ToString() ?? "";
+            string yearFrom = vm.SelectedYearFrom.ToString() ?? "";
+            string priceTo = vm.PriceTo.ToString() ?? "";
+            string priceFrom = vm.PriceFrom.ToString() ?? "";
             string body = vm.CategoryTypeId.ToString();
             string color = vm.ColorId.ToString();
-            string mileageTo = vm.MileageTo.ToString();
-            string cubicCapacityTo = vm.CubicCapacityTo.ToString();
-            string horsePowerTo = vm.HorsePowerTo.ToString();
+            string mileageTo = vm.MileageTo.ToString() ?? "";
+            string cubicCapacityTo = vm.CubicCapacityTo.ToString() ?? "";
+            string horsePowerTo = vm.HorsePowerTo.ToString() ?? "";
             string fuelType = vm.FuelTypeId.ToString();
 
             return RedirectToAction("Filtered", "Vehicle", new

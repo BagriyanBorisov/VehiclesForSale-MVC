@@ -10,7 +10,7 @@
     [Authorize]
     public class ExtraController : Controller
     {
-        private IExtraService extraService;
+        private readonly IExtraService extraService;
 
         public ExtraController(IExtraService extraService)
         {

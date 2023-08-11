@@ -28,6 +28,7 @@
                 UserName = "Pesho",
                 NormalizedUserName = "pesho",
                 PhoneNumber = "+359222222222",
+                RegistrationDate = DateTime.UtcNow,
                 PasswordHash = hasher.HashPassword(null, "admin1234")
             };
 
@@ -39,6 +40,7 @@
                 UserName = "Gosho",
                 NormalizedUserName = "gosho",
                 PhoneNumber = "+359111111111",
+                RegistrationDate = DateTime.UtcNow,
                 PasswordHash = hasher.HashPassword(null, "user1234")
             };
 

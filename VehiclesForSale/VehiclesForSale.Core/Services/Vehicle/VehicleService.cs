@@ -331,8 +331,8 @@
                     Name = owner!.UserName,
                     Id = owner!.Id,
                     Location = "Cherven Bryag",
-                    PhoneNumber = "+359 123 456 987",
-                    RegistrationMade = "March, 2022"
+                    PhoneNumber = owner!.PhoneNumber,
+                    RegistrationMade = owner!.RegistrationDate.ToString("MM/dd/yyyy")
                 },
                 Vehicle = vehicle
             };
@@ -552,22 +552,25 @@
             {
                 try
                 {
-                    var interiorExtrasToDel = await context.InteriorExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
-                    var exteriorExtrasToDel = await context.ExteriorExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
-                    var comfortExtrasToDel = await context.ComfortExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
-                    var safetyExtrasToDel = await context.SafetyExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
-                    var otherExtrasToDel = await context.OtherExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
-
-
                     if (extra != null)
                     {
+                        var interiorExtrasToDel =
+                            await context.InteriorExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                        var exteriorExtrasToDel =
+                            await context.ExteriorExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                        var comfortExtrasToDel =
+                            await context.ComfortExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                        var safetyExtrasToDel =
+                            await context.SafetyExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+                        var otherExtrasToDel =
+                            await context.OtherExtras.Where(ie => ie.ExtraId == extra.Id).ToListAsync();
+
                         context.InteriorExtras.RemoveRange(interiorExtrasToDel);
                         context.ExteriorExtras.RemoveRange(exteriorExtrasToDel);
                         context.ComfortExtras.RemoveRange(comfortExtrasToDel);
                         context.SafetyExtras.RemoveRange(safetyExtrasToDel);
                         context.OtherExtras.RemoveRange(otherExtrasToDel);
                         context.Extras.Remove(extra);
-
 
                         await context.SaveChangesAsync();
 
@@ -593,6 +596,7 @@
             vehicleVm.TransmissionTypes = await transmissionService.GetAllAsync();
             vehicleVm.Models = await modelService.GetAllAsync(1);
             vehicleVm.Years = await dateService.GetAllAsync();
+            vehicleVm.Vehicles = await GetAllVehiclesAsync();
             return vehicleVm;
         }
 

@@ -21,5 +21,9 @@
         [EmailAddress]
         [StringLength(UserEmailMaxLength, MinimumLength = UserEmailMinLength)]
         public string Email { get; set; } = null!;
+
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; } = null!;
     }
 }

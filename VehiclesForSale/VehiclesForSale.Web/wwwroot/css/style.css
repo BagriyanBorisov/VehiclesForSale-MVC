@@ -260,9 +260,6 @@ a {
     background-color: #f0f4fa
 }
 
-.container {
-    width: 100%;
-}
 
 .progressbar {
     counter-reset: step;

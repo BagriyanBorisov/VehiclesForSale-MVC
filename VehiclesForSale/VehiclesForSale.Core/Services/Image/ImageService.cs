@@ -105,14 +105,14 @@ namespace VehiclesForSale.Core.Services.Image
 
         private async Task<string> UploadImage(IFormFile image, string vehicleId, bool isFirst)
         {
-            string fileName = null;
+            string fileName = string.Empty;
             if (image.Length != 0)
             {
                 string uploadDir = Path.Combine(webHostEnvironment.WebRootPath, "Uploads");
                 fileName = vehicleId + "_" + image.FileName;
                 string filePath = Path.Combine(uploadDir, fileName);
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+               await using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await image.CopyToAsync(fileStream);
                 }
@@ -127,7 +127,7 @@ namespace VehiclesForSale.Core.Services.Image
                     using (var resizedImage = ResizeImage(originalImage, 1024, 768))
                     {
                         // Save the resized image with the new filename
-                        resizedImage.Save(resizedFilePath);
+                        await resizedImage.SaveAsync(resizedFilePath);
                     }
                     var imageModel = new Data.Models.VehicleModel.Image()
                     {
@@ -147,13 +147,6 @@ namespace VehiclesForSale.Core.Services.Image
             //Gets main image for index view
             string imgPath = id.ToLower() + "_MainImage";
             var image = await context.Images.FirstOrDefaultAsync(i => i.ImageUrl.Contains(imgPath));
-
-            if (image == null)
-            {
-                return null;
-                //TODO: ADD NO IMAGES - IMAGE
-            }
-
             return image?.ImageUrl!;
         }
 

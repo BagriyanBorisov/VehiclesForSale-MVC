@@ -3,9 +3,9 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    using VehiclesForSale.Core.Contracts.Extra;
-    using VehiclesForSale.Core.Contracts.Vehicle;
-    using VehiclesForSale.Web.ViewModels.AdminPanel;
+    using Core.Contracts.Extra;
+    using Core.Contracts.Vehicle;
+    using ViewModels.AdminPanel;
     using static Common.GeneralConstants;
 
     [Route("Admin")]
@@ -44,7 +44,7 @@
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> Index(string? errorMsg)
+        public IActionResult Index()
         {
             if (User?.IsInRole(AdminRoleName) ?? false)
             {
