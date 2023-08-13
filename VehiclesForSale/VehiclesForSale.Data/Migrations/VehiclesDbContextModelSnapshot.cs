@@ -280,7 +280,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CategoryTypes");
+                    b.ToTable("CategoryTypes", (string)null);
 
                     b.HasData(
                         new
@@ -340,7 +340,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Colors");
+                    b.ToTable("Colors", (string)null);
 
                     b.HasData(
                         new
@@ -431,7 +431,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Dates");
+                    b.ToTable("Dates", (string)null);
 
                     b.HasData(
                         new
@@ -7224,7 +7224,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("ComfortExtras");
+                    b.ToTable("ComfortExtras", (string)null);
 
                     b.HasData(
                         new
@@ -7274,7 +7274,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("ExteriorExtras");
+                    b.ToTable("ExteriorExtras", (string)null);
 
                     b.HasData(
                         new
@@ -7309,7 +7309,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Extras");
+                    b.ToTable("Extras", (string)null);
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Extras.InteriorExtra", b =>
@@ -7332,7 +7332,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("InteriorExtras");
+                    b.ToTable("InteriorExtras", (string)null);
 
                     b.HasData(
                         new
@@ -7377,7 +7377,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("OtherExtras");
+                    b.ToTable("OtherExtras", (string)null);
 
                     b.HasData(
                         new
@@ -7412,7 +7412,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("ExtraId");
 
-                    b.ToTable("SafetyExtras");
+                    b.ToTable("SafetyExtras", (string)null);
 
                     b.HasData(
                         new
@@ -7454,7 +7454,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("FavoriteVehicleApplicationUsers");
+                    b.ToTable("FavoriteVehicleApplicationUsers", (string)null);
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.FuelType", b =>
@@ -7472,7 +7472,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FuelTypes");
+                    b.ToTable("FuelTypes", (string)null);
 
                     b.HasData(
                         new
@@ -7532,7 +7532,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.Make", b =>
@@ -7550,7 +7550,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Makes");
+                    b.ToTable("Makes", (string)null);
 
                     b.HasData(
                         new
@@ -7600,7 +7600,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("MakeId");
 
-                    b.ToTable("Models");
+                    b.ToTable("Models", (string)null);
 
                     b.HasData(
                         new
@@ -7698,7 +7698,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransmissionTypes");
+                    b.ToTable("TransmissionTypes", (string)null);
 
                     b.HasData(
                         new
@@ -7808,7 +7808,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("TransmissionTypeId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -28,6 +28,10 @@
                 await context.FuelTypes.AddAsync(entityToAdd);
                 await context.SaveChangesAsync();
             }
+            else
+            {
+                throw new NullReferenceException("Cannot be null or empty - Fuel name");
+            }
         }
 
         public async Task DeleteAsync(string Id)

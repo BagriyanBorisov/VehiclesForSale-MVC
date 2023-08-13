@@ -4,6 +4,7 @@
 
     public interface IExtraService
     {
+        public Task<bool> CheckOwner(string vehicleId, string userId);
         public Task<ExtraFormViewModel> GetAddExtraAsync(string id);
         public Task<ExtraFormViewModel> GetEditExtraAsync(string id);
         public Task AddExtraAsync(ExtraFormViewModel extraVm, string userId, string extraId);

@@ -17,6 +17,12 @@
             this.context = context;
         }
 
+        public async Task<bool> CheckOwner(string vehicleId, string userId)
+        {
+            return await context.Vehicles
+                .Where(v => v.Id.ToString() == vehicleId && v.OwnerId == userId).AnyAsync();
+        }
+
         public async Task AddExtraAsync(ExtraFormViewModel extraVm, string userId, string extraId)
         {
             var vehicle = await context.Vehicles
@@ -200,8 +206,6 @@
 
             return viewModel;
         }
-
-
 
         private async Task<List<ExteriorExtraFormViewModel>> GetExteriorExtrasForEdit(int? extraId)
         {

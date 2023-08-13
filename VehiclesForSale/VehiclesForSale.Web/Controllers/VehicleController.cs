@@ -69,7 +69,7 @@ namespace VehiclesForSale.Web.Controllers
             await vehicleService.AddVehicleAsync(vehicleVm, userId!);
 
             var vehicleId = vehicleVm.Id.ToString();
-            return RedirectToAction("Add", "Image", new { id = vehicleId });
+            return RedirectToAction("Add", "Image", new { id = vehicleId});
 
         }
 

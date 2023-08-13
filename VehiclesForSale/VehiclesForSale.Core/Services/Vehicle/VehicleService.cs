@@ -174,7 +174,9 @@
 
         public async Task<VehicleFormViewModel> GetById(string id)
         {
-            var vehicle = await context.Vehicles.FirstOrDefaultAsync(x => x.Id.ToString() == id);
+            var vehicle = await context.Vehicles.Where(x => x.Id.ToString() == id)
+                .Include(v => v.Date)
+                .FirstOrDefaultAsync();
 
             if (vehicle == null)
             {

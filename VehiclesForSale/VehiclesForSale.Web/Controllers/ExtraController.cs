@@ -19,9 +19,15 @@
 
         public async Task<ActionResult> AddExtraForVehicle(string id)
         {
-            var extra = await extraService.GetAddExtraAsync(id);
+            var userId = GetUserId();
+            if (await extraService.CheckOwner(id, userId))
+            {
+                var extra = await extraService.GetAddExtraAsync(id);
 
-            return View(extra);
+                return View(extra);
+            }
+
+            return RedirectToAction("Index", "Error");
         }
 
         [HttpPost]
@@ -40,9 +46,13 @@
 
         public async Task<ActionResult> EditExtraForVehicle(string id)
         {
-            var extra = await extraService.GetEditExtraAsync(id);
-
-            return View(extra);
+            var userId = GetUserId();
+            if (await extraService.CheckOwner(id, userId))
+            {
+                var extra = await extraService.GetEditExtraAsync(id);
+                return View(extra);
+            }
+            return RedirectToAction("Index", "Error");
         }
 
         [HttpPost]

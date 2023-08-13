@@ -6,6 +6,7 @@
     public interface IImageService
     {
         public Task<ImageFormViewModel> GetImageWithVehicle(string vehicleId);
+        public Task<bool> CheckOwner(string vehicleId, string userId);
         public Task CreateImages(string id, ImageFormViewModel imageVm);
         public Task DeleteImage(ICollection<Image> imagesCollection, string vehicleId);
         public Task DeleteImageById(string imageId, string vehicleId);

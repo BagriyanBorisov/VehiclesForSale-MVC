@@ -2,6 +2,7 @@
 {
     using Core.Contracts.Image;
     using Microsoft.AspNetCore.Mvc;
+    using System.Security.Claims;
     using ViewModels.Vehicle;
 
     public class ImageController : Controller
@@ -16,9 +17,20 @@
 
         public async Task<IActionResult> Add(string id)
         {
-            var imageForm = await imageService.GetImageWithVehicle(id);
+            var userId = GetUserId();
+            if (await imageService.CheckOwner(id, userId))
+            {
+                var imageForm = await imageService.GetImageWithVehicle(id);
+                return View(imageForm);
+            }
 
-            return View(imageForm);
+            return RedirectToAction("Index", "Error");
+
+        }
+
+        private string? GetUserId()
+        {
+            return User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
         }
 
         [HttpPost]
@@ -32,9 +44,14 @@
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var imageForm = await imageService.GetImageWithVehicle(id);
+            var userId = GetUserId();
+            if (await imageService.CheckOwner(id, userId))
+            {
+                var imageForm = await imageService.GetImageWithVehicle(id);
+                return View(imageForm);
+            }
 
-            return View(imageForm);
+            return RedirectToAction("Index", "Error");
         }
 
         [HttpPost]
@@ -47,9 +64,15 @@
 
         public async Task<IActionResult> Delete(string imageId, string vehicleId)
         {
-            await imageService.DeleteImageById(imageId, vehicleId);
+            var userId = GetUserId();
+            if (await imageService.CheckOwner(vehicleId, userId))
+            {
+                await imageService.DeleteImageById(imageId, vehicleId);
 
-            return RedirectToAction("Edit", "Image", new { id = vehicleId });
-        }
+                return RedirectToAction("Edit", "Image", new { id = vehicleId });
+            }
+
+             return RedirectToAction("Index", "Error");
+    }
     }
 }

@@ -212,5 +212,11 @@ namespace VehiclesForSale.Core.Services.Image
             context.Images.Remove(image);
             await context.SaveChangesAsync();
         }
+
+        public async Task<bool> CheckOwner(string vehicleId, string userId)
+        {
+            return await context.Vehicles
+                .Where(v => v.Id.ToString() == vehicleId && v.OwnerId == userId).AnyAsync();
+        }
     }
 }

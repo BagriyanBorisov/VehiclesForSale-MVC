@@ -20,7 +20,8 @@
             {
                 UserName = u.UserName,
                 Email = u.Email,
-                PhoneNumber = u.PhoneNumber
+                PhoneNumber = u.PhoneNumber,
+                RegisteredSince = u.RegistrationDate.ToShortDateString()
             }).ToListAsync();
         }
     }

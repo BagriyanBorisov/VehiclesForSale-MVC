@@ -303,16 +303,16 @@ namespace VehiclesForSale.Web.Controllers
         {
             if (vm.MakeNew == null)
             {
-                return RedirectToAction("Index", "Admin", new { errorMsg = "The make cannot be null or empty!" });
+                return RedirectToAction("MakesAndModels", "Admin", new { errorMsg = "The make cannot be null or empty!" });
             }
             else if (await makeService.CheckByNameExist(vm.MakeNew))
             {
 
-                return RedirectToAction("Index", "Admin", new { errorMsg = "This make already exists!" });
+                return RedirectToAction("MakesAndModels", "Admin", new { errorMsg = "This make already exists!" });
             }
 
             await makeService.AddMakeAsync(vm.MakeNew);
-            return RedirectToAction("Index");
+            return RedirectToAction("MakesAndModels");
         }
 
         [HttpPost]
@@ -321,21 +321,21 @@ namespace VehiclesForSale.Web.Controllers
         {
             if (vm.MakeId == null)
             {
-                return RedirectToAction("Index", "Admin", new { errorMsg = "The make must be selected!" });
+                return RedirectToAction("MakesAndModels", "Admin", new { errorMsg = "The make must be selected!" });
             }
 
             else if (vm.ModelNew == null)
             {
-                return RedirectToAction("Index", "Admin", new { errorMsg = "The model cannot be null or empty!" });
+                return RedirectToAction("MakesAndModels", "Admin", new { errorMsg = "The model cannot be null or empty!" });
             }
             else if (await modelService.CheckByNameExist(vm.ModelNew, vm.MakeId))
             {
 
-                return RedirectToAction("Index", "Admin", new { errorMsg = "This model already exists!" });
+                return RedirectToAction("MakesAndModels", "Admin", new { errorMsg = "This model already exists!" });
             }
 
             await modelService.AddModelAsync(vm.ModelNew, vm.MakeId);
-            return RedirectToAction("Index");
+            return RedirectToAction("MakesAndModels");
         }
 
 
@@ -414,7 +414,7 @@ namespace VehiclesForSale.Web.Controllers
         {
 
             await makeService.DeleteMakeAsync(makeId);
-            return RedirectToAction("Index");
+            return RedirectToAction("MakesAndModels");
         }
 
         [Route("DeleteModel")]
@@ -422,7 +422,7 @@ namespace VehiclesForSale.Web.Controllers
         {
 
             await modelService.DeleteModelAsync(modelId);
-            return RedirectToAction("Index");
+            return RedirectToAction("MakesAndModels");
         }
     }
 }

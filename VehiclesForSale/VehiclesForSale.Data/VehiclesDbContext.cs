@@ -30,7 +30,7 @@
         public DbSet<CategoryType> CategoryTypes { get; set; } = null!;
         public DbSet<Color> Colors { get; set; } = null!;
         public DbSet<FavoriteVehicleApplicationUser> FavoriteVehicleApplicationUsers { get; set; } = null!;
-        public DbSet<Date> Dates { get; set; }
+        public DbSet<Date> Dates { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

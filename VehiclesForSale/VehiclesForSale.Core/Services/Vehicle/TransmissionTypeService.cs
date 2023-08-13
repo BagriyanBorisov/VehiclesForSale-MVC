@@ -27,6 +27,10 @@
                 await context.TransmissionTypes.AddAsync(entityToAdd);
                 await context.SaveChangesAsync();
             }
+            else
+            {
+                throw new NullReferenceException("Transmission name is null or empty!");
+            }
         }
 
         public async Task DeleteAsync(string Id)

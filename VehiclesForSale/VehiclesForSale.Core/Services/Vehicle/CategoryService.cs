@@ -1,7 +1,7 @@
 ﻿namespace VehiclesForSale.Core.Services.Vehicle
 {
     using Microsoft.EntityFrameworkCore;
-  
+
     using Data;
     using Contracts.Vehicle;
     using Data.Models.VehicleModel;
@@ -27,6 +27,10 @@
 
                 await context.CategoryTypes.AddAsync(catToAdd);
                 await context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new NullReferenceException("Category name is null or empty!");
             }
         }
 
@@ -59,5 +63,7 @@
 
             return models;
         }
+
+
     }
 }

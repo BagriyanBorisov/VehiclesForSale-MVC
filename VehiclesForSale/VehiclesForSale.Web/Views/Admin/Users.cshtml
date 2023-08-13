@@ -11,7 +11,7 @@
     <h3 class="mb-3">Registered Users </h3>
     <a asp-area="" asp-controller="Admin" asp-action="Index"
        class="btn btn-secondary btn-lg col-md-2 mb-2">Go Back</a>
-    <hr class="my-4">
+    <hr class="my-4">   
     <table class="table">
         <thead>
         <tr>
@@ -19,6 +19,7 @@
             <th scope="col">Username</th>
             <th scope="col">Email</th>
             <th scope="col">Phone number</th>
+            <th scope="col">Registration Made</th>
 
         </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
                 <td>@user.PhoneNumber</td>
+                <td>@user.RegisteredSince</td>
             </tr>
             count++;
         }

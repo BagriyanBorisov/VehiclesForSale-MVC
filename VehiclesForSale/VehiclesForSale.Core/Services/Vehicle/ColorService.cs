@@ -27,6 +27,10 @@
                 await context.Colors.AddAsync(entityToAdd);
                 await context.SaveChangesAsync();
             }
+            else
+            {
+                throw new NullReferenceException("Color is null or empty!");
+            }
         }
         public async Task DeleteAsync(string Id)
         {
