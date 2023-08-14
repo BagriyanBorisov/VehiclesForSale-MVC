@@ -48,7 +48,9 @@ Administrators possess the authority to:
     - Extras
     - Types
 - View registered users in the database
-- Manage users and listings## Views
+- Manage users and listings
+
+## Views
 ### Index
 * Search for a specific vehicle
 
