@@ -4,6 +4,8 @@ VehiclesForSale is a web application built using ASP.NET Core that provides a co
 
 
 ## Database Diagram
+![DatabaseDiagram](https://github.com/BagriyanBorisov/VehiclesForSale-MVC/assets/108102199/33380810-e4cb-4625-bedc-1fb9ebf0a14a)
+
 ## Built With
 * ASP.NET Core 6 MVC
 * Entity Framework Core
