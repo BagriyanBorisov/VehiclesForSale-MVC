@@ -124,3 +124,9 @@ Administrators possess the authority to:
 
 ### Registered users
 ![UsersTableAdmin](https://github.com/BagriyanBorisov/VehiclesForSale-MVC/assets/108102199/29e4a708-2d36-479b-8b56-99ab084f136a)
+
+
+
+## License
+
+This project is licensed with the [MIT License](https://choosealicense.com/licenses/mit/)
