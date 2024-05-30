@@ -17,7 +17,12 @@ namespace VehiclesForSale.Web.Controllers
             return RedirectToAction("Search", "Vehicle");
         }
 
-      
+        public IActionResult Chat()
+        {
+            return View();
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

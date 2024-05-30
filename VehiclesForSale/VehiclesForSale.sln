@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesForSale.Web.ViewMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesForSale.Web.Infrastructure", "VehiclesForSale.Web.Infrastructure\VehiclesForSale.Web.Infrastructure.csproj", "{A2EC709E-3A74-49CA-9D82-79B460885BA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehiclesForSale.Tests", "VehiclesForSale.Tests\VehiclesForSale.Tests.csproj", "{24BA6B78-97C9-47E7-B41C-12755CF19B77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VehiclesForSale.Tests", "VehiclesForSale.Tests\VehiclesForSale.Tests.csproj", "{24BA6B78-97C9-47E7-B41C-12755CF19B77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
