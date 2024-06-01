@@ -1,14 +1,14 @@
 ﻿@model PaginatedList<VehicleIndexViewModel>
 
 @{
-    ViewData["Title"] = "Your Watchlist";
+    ViewData["Title"] = "Запазени";
 }
 
-<h2 class="text-center mb-3">@ViewData["Title"]</h2>
+<h2 class="text-center mb-3">@ViewData["Title"] <i class="fas fa-eye"></i></h2>
 <hr />
 @if (!Model.Any())
 {
-    <h2 class="text-center mb-3">There are no added vehicle to Your Watchlist yet</h2>
+    <h3 class="text-center mb-3">Все още няма добавени превозни средства във Вашия списък за наблюдение.</h3>
 }
 
    <div class="row">

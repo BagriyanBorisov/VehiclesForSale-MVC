@@ -1,53 +1,66 @@
 ﻿@model PaginatedList<VehicleIndexViewModel>
 
 @{
-    ViewData["Title"] = "Latest vehicles";
+    ViewData["Title"] = "Последно добавени обяви:";
+   
 }
-
-<h2 class="text-center mb-3">Latest vehicles</h2>
-<hr />
+<h2 class="text-center mb-3">Последно добавени обяви:</h2>
+<hr/>
 
 @if (!Model.Any())
 {
-    <h2 class="text-center mb-3">There are no added vehicles yet</h2>
+    <h2 class="text-center mb-3">Все още няма добавени обяви.</h2>
 }
 
 <div class="row">
-    @foreach (var car in Model)
+    @foreach(var car in Model)
     {
         var checkImage = car.MainImage ?? "NoImage.jpg";
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-                <img class="card-img-top" src="/Uploads/@checkImage" alt="@car.Title" />
-                <div class="card-body">
-                    <h5 class="card-title text-center">@car.Title</h5>
-                    <p class="card-text text-center"><strong>Price:</strong> $@car.Price</p>
-                    <div class="row text-center">
-                        <div class="col-6"><strong>Make:</strong> @car.Make</div>
-                        <div class="col-6"><strong>Model:</strong> @car.Model</div>
+        <div class="col-lg-4">
+            <div class="container" style="margin-top: 50px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card-sl">
+                            <div class="card-image">
+                                <img src="/Uploads/@checkImage" />
+                            </div>
+                            <div class="row justify-content-center card-heading">
+                                <div class="col-sm-6 col-lg-12 text-center">
+                                    @car.Title
+                                </div>
+                                <div class="col-sm-6 col-lg-12 text-center">
+                                    Price: $@car.Price
+                                </div>
+                            </div>
+                           
+                          
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-center">Make: @car.Make</div>
+                                <div class="col-md-6 text-center">Model: @car.Model</div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-center">Year: @car.Month, @car.Year</div>
+                                <div class="col-md-6 text-center">Mileage: @car.Mileage km</div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-center">Transmission: @car.Transmission</div>
+                                <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
+                            </div>
+                            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Check Details</a>
+                        </div>
                     </div>
-                    <div class="row text-center mt-2">
-                        <div class="col-6"><strong>Year:</strong> @car.Month, @car.Year</div>
-                        <div class="col-6"><strong>Mileage:</strong> @car.Mileage km</div>
-                    </div>
-                    <div class="row text-center mt-2">
-                        <div class="col-6"><strong>Transmission:</strong> @car.Transmission</div>
-                        <div class="col-6"><strong>Fuel:</strong> @car.FuelType</div>
-                    </div>
-                </div>
-                <div class="card-footer text-center">
-                    <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="btn btn-primary">Check Details</a>
                 </div>
             </div>
         </div>
+    }  
+    </div>
+
+    @{
+        var prevDisabled = !Model.HasPrevious ? "disabled" : "";
+        var nextDisabled = !Model.HasNext ? "disabled" : "";
+        string action = "Index";
     }
-</div>
 
-@{
-    var prevDisabled = !Model.HasPrevious ? "disabled" : "";
-    var nextDisabled = !Model.HasNext ? "disabled" : "";
-    string action = "Index";
-}
-
-<partial name="_PaginationControls"
+<partial name="_PaginationControls" 
          model="(action, Model.PageIndex, prevDisabled, nextDisabled)" />
+   
