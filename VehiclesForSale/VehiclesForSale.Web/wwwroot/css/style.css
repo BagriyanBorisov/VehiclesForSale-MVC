@@ -12,6 +12,34 @@ a {
     color: #007bff;
 }
 
+/* Navbar Styles */
+.navbar {
+    transition: background-color 0.3s;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-item .nav-link {
+    font-size: 1.1rem;
+    padding: 10px 15px;
+}
+
+    .navbar-nav .nav-item .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+    }
+
+.sticky-top {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+    text-align: center;
+}
+
 /* Card Styles */
 
 .card-sl {
@@ -248,7 +276,10 @@ a {
         margin-right: 1rem;
     }
 }
-
+.btn-primary {
+    border-color: #212d40;
+    background-color: #4586ed;
+}
 
 .btn.btn-primaryDetails {
     width: 100%;
@@ -273,14 +304,19 @@ a {
     box-shadow: 3px 3px 6px 1px rgba(0,0,0,.4);
 }
 
+.navbar-brand{
+    margin: 0, 0, 0, 0;
+    padding: 0, 0, 0, 0;
+
+}
 .bar {
     background-color: #b7cced;
 }
 
 .body {
-    background-color: #f0f4fa
+    background-color: #f0f4fa;
+   /* background-image: url('~/Uploads/Background_Image_with_Logo_f0f4fa.png');*/
 }
-
 
 .progressbar {
     counter-reset: step;
