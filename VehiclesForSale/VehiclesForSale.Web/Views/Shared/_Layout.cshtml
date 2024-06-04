@@ -11,6 +11,7 @@
 </head>
 <body class="body">
     <header>
+        <div class="navbarsticky">
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 bar fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand pe-0 ps-0" asp-controller="Vehicle" asp-action="Search">
@@ -22,19 +23,19 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item box border-start border-end">
+                        <li class="nav-item box border-start border-end border-radius border ms-2">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Search">Търси <i class="fas fa-search"></i></a>
                         </li>
-                        <li class="nav-item box  border-end">
+                        <li class="nav-item box border-start border-end border-radius border ms-2">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Index">Последно добавени <i class="fas fa-car"></i></a>
                         </li>
                         @if (User?.Identity?.IsAuthenticated ?? false)
                         {
-                            <li class="nav-item box border-end">
+                            <li class="nav-item box border-start border-end border-radius border ms-2">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="WatchList">Запазени <i class="fas fa-eye"></i></a>
                             </li>
 
-                            <li class="nav-item box border-end">
+                            <li class="nav-item box border-start border-end border-radius border ms-2">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="YourVehicles">Вашите обяви <i class="fas fa-dollar-sign"></i></a>
                             </li>
 
@@ -44,7 +45,7 @@
                 </div>
             </div>
         </nav>
-
+        </div>
    
 
    

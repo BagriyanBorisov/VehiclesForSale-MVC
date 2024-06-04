@@ -276,9 +276,22 @@ a {
         margin-right: 1rem;
     }
 }
+
+.border-radius {
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+
+
+.btn {
+    border-radius: 4px;
+}
+
 .btn-primary {
     border-color: #212d40;
     background-color: #4586ed;
+    border-radius: 8px;
 }
 
 .btn.btn-primaryDetails {
@@ -371,3 +384,10 @@ a {
             .progressbar li.active + li:after {
                 background-color: green;
             }
+
+
+#profile-container {
+    -moz-border-radius: 16px;
+    -webkit-border-radius: 16px;
+    border-radius: 16px;
+}
