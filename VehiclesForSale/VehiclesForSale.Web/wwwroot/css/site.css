@@ -21,6 +21,9 @@ body {
 /* Custom jQuery UI slider handle */
 .ui-slider-horizontal .ui-slider-handle {
     border: 1px solid #000000;
+   /* -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;*/
     background: #1F487E
 }
 
