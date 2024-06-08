@@ -32,24 +32,24 @@
                                     @car.Title
                                 </div>
                                 <div class="col-sm-6 col-lg-12 text-center">
-                                    Price: $@car.Price
+                                    Цена: @car.Price лв.
                                 </div>
                             </div>
 
 
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center">Make: @car.Make</div>
-                                <div class="col-md-6 text-center">Model: @car.Model</div>
+                            <div class="row justify-content-sm-evenly">
+                                <div class="col-sm-6 ms-md-2 ps-sm-3">Марка: @car.Make</div>
+                                <div class="col-sm-5">Модел: @car.Model</div>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center">Year: @car.Month, @car.Year</div>
-                                <div class="col-md-6 text-center">Mileage: @car.Mileage km</div>
+                            <div class="row justify-content-sm-evenly">
+                                <div class="col-sm-6 ms-md-2 ps-sm-3">Година: @car.Month, @car.Year</div>
+                                <div class="col-sm-5">Пробег: @car.Mileage km</div>
                             </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center">Transmission: @car.Transmission</div>
-                                <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
+                            <div class="row justify-content-sm-evenly pb-2">
+                                <div class="col-sm-6 ms-md-2 ps-sm-3">Ск. кутия: @car.Transmission</div>
+                                <div class="col-sm-5">Гориво: @car.FuelType</div>
                             </div>
-                            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Check Details</a>
+                            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button">Детайлна информация</a>
                         </div>
                     </div>
                 </div>
