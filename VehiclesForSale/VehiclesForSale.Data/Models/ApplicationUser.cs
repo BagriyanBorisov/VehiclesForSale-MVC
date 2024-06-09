@@ -9,10 +9,13 @@ namespace VehiclesForSale.Data.Models
         {
             this.VehiclesCollectionForSale = new HashSet<Vehicle>();
             this.FavoriteVehicleApplicationUsers = new HashSet<FavoriteVehicleApplicationUser>();
+            this.Messages = new HashSet<Message>();
         }
 
         public DateTime RegistrationDate { get; set; }
         public ICollection<Vehicle> VehiclesCollectionForSale { get; set; }
         public ICollection<FavoriteVehicleApplicationUser> FavoriteVehicleApplicationUsers { get; set; }
+
+        public ICollection<Message> Messages { get; set; }
     }
 }

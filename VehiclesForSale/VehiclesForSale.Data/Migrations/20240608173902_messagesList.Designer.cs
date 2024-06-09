@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesForSale.Data;
 
@@ -11,9 +12,11 @@ using VehiclesForSale.Data;
 namespace VehiclesForSale.Data.Migrations
 {
     [DbContext(typeof(VehiclesDbContext))]
-    partial class VehiclesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240608173902_messagesList")]
+    partial class messagesList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,17 +234,17 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a14d695d-341f-4a36-b94e-50df7ba591fc",
+                            ConcurrencyStamp = "5d9b790c-8511-415f-b30f-173b9fefe6ec",
                             Email = "Pesho.peshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO.PESHEV@ABV.bg",
                             NormalizedUserName = "pesho",
-                            PasswordHash = "AQAAAAIAAYagAAAAELAhwhVANW93VnzZd91MArhlrFB5/KtrebktkX4mfd1o6eE6XX5DWaI6pnImLsGGTQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJ5/1tEo+bwQvTr4aF3pxnyE7xP/wQ+yT9gD6NJI14pwgmb753dkxpcPR7BLCm4U9A==",
                             PhoneNumber = "+359222222222",
                             PhoneNumberConfirmed = false,
-                            RegistrationDate = new DateTime(2024, 6, 9, 10, 25, 13, 814, DateTimeKind.Utc).AddTicks(8898),
-                            SecurityStamp = "201ef501-ec6b-4f8c-9459-147b58afa2ca",
+                            RegistrationDate = new DateTime(2024, 6, 8, 17, 39, 0, 856, DateTimeKind.Utc).AddTicks(9117),
+                            SecurityStamp = "e0e5cdcd-47b1-43d9-bbd8-6da94549b908",
                             TwoFactorEnabled = false,
                             UserName = "Pesho"
                         },
@@ -249,17 +252,17 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "a123as23-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca9c43f1-2051-43ed-8178-11a8926e1ea7",
+                            ConcurrencyStamp = "d79cbb25-689c-462c-a1c0-c1b5198a68ea",
                             Email = "Gosho.goshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GOSHO.GOSHEV@ABV.BG",
                             NormalizedUserName = "gosho",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC6Yb/UwWhiWxW8KTzXfLOsD6f355ZdScQWweM23M8eluiczm4x5GaNpQ18aTwYaYQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAAPREvSv/qR8LOZosFlvJO6kUE8N0moNh3CwzGRZLUFG244RKe+sKyueH67btImpQ==",
                             PhoneNumber = "+359111111111",
                             PhoneNumberConfirmed = false,
-                            RegistrationDate = new DateTime(2024, 6, 9, 10, 25, 13, 862, DateTimeKind.Utc).AddTicks(4807),
-                            SecurityStamp = "4a420664-1939-4750-8058-3910313898d3",
+                            RegistrationDate = new DateTime(2024, 6, 8, 17, 39, 0, 909, DateTimeKind.Utc).AddTicks(952),
+                            SecurityStamp = "92bd4ae1-1c8c-4a47-ac1f-d1c79ce0c7be",
                             TwoFactorEnabled = false,
                             UserName = "Gosho"
                         });
@@ -293,7 +296,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Message");
                 });
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.VehicleModel.CategoryType", b =>

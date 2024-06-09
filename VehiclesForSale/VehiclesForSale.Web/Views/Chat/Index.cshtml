@@ -1,0 +1,133 @@
+﻿@using VehiclesForSale.Data.Models;
+@model ChatViewModel
+﻿@{
+    ViewData["Title"] = "Chat";
+
+   
+}
+<link rel="stylesheet" href="~/css/chat.css" asp-append-version="true" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+
+
+<div class="mt-5"></div>
+<div class="mt-5"></div>
+<div class="mt-5"></div>
+<div class="mt-5"><h2 class="text-center mb-3">Чатът Ви с @Model.ReceiverName:</h2></div>
+<hr />
+@if (this.User.Identity.IsAuthenticated)
+{          
+    <div class="container mt-5">
+        <div class="row clearfix">
+            <div class="col-lg-12">
+                <div class="card chat-app">
+                    <div class="chat">
+                        <div class="chat-header clearfix">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                
+                                    <div class="chat-about float-center">
+                                        <h6 class="m-b-0">@Model.ReceiverName</h6>
+                                      
+                                    </div>
+                                </div>
+                             
+                            </div>
+                        </div>
+                        <div class="chat-history">
+                            <div class="chat-message clearfix">
+                                <div class="input-group mb-0 row text-center">
+                                    <div class="col-sm-2 offset-3">
+                                        <button class="form-control btn btn-primary" id="sendButton" value="Send Message" onclick="sendMessage(event)">Send</button>
+                                    </div>
+                                   <div class="col-sm-6">
+                                        <input type="hidden" id="destuser" value="@Model.ReceiverId" />
+                                        <input type="hidden" id="sendingUser" value="@Model.SenderId" />
+                                        <input type="text" class="form-control input-custom" id="messageInput" placeholder="Напиши нещо тук..." />
+                                    </div>
+                 
+                                </div>
+                            </div>
+                            <ul class="m-b-0" id="chatMessages">
+                                @foreach (var message in Model.Message)
+                                {
+                                    if(message.SenderId == Model.ReceiverId)
+                                    {
+                                        <li class="clearfix">
+                                            <div class="message-data text-end me-2">
+                                                <span class="message-data-time">@message.CreatedOn.ToShortTimeString(), @message.CreatedOn.ToShortDateString()</span>
+                                                <span class="message-data"><b>@Model.ReceiverName:</b></span>
+                                            </div>
+                                            <div class="message other-message float-right"> @message.Content </div>
+                                        </li>
+                                    }else{
+                                        <li>
+                                            <div class="message-data">
+                                                <span class="message-data-time">@message.CreatedOn.ToShortTimeString(), @message.CreatedOn.ToShortDateString()</span>
+                                            </div>
+                                            <div class="message my-message"> @message.Content </div>
+                                        </li>
+                                    }
+                                } 
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+           
+        }
+    
+ 
+else
+{
+    <h3 class="text-danger text-center font-weight-normal">You need to login in order to use the chat.</h3>
+}
+
+                      
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.9/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chathub")
+            .build();
+
+        connection.on("ReceiveMessage", (sender, username, message) => {
+            const sendingUser = document.getElementById('sendingUser').value;
+            const msg = document.createElement('li');
+            msg.className = 'clearfix';
+            if (sender === sendingUser) {
+                msg.innerHTML = `
+                            <div class="message-data me-2">
+                                <span class="message-data-time">${new Date().toLocaleTimeString()}, ${new Date().toLocaleDateString()}</span>
+                            </div>
+                            <div class="message my-message">${message}</div>
+                        `;
+            }
+            else {
+                msg.innerHTML = `
+                            <div class="message-data text-end me-2">
+                                <span class="message-data-time">${new Date().toLocaleTimeString()}, ${new Date().toLocaleDateString()}</span>
+                                <span class="message-data"><b>${username}</b></span>
+                            </div>
+                            <div class="message other-message float-right">${message}</div>
+                        `;
+            }
+
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.insertBefore(msg, chatMessages.firstChild);
+        });
+
+        connection.start().catch(err => console.error('Error connecting to SignalR: ' + err.toString()));
+
+        function sendMessage(event) {
+            event.preventDefault();
+            const sendingUser = document.getElementById('sendingUser').value;
+            const destuser = document.getElementById('destuser').value;
+            const message = document.getElementById('messageInput').value;
+            connection.invoke("SendMessage", destuser,sendingUser, message)
+                .catch(err => console.error('Error sending message: ' + err.toString()));
+            document.getElementById('messageInput').value = '';
+        }
+    </script>
+}

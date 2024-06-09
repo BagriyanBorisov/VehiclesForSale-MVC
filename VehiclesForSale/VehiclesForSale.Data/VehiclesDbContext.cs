@@ -18,6 +18,7 @@
         public DbSet<Vehicle> Vehicles { get; set; } = null!;
         public DbSet<Make> Makes { get; set; } = null!;
         public DbSet<Model> Models { get; set; } = null!;
+        public DbSet<Message> Messages { get; set; } = null!;
         public DbSet<FuelType> FuelTypes { get; set; } = null!;
         public DbSet<TransmissionType> TransmissionTypes { get; set; } = null!;
         public DbSet<Image> Images { get; set; } = null!;

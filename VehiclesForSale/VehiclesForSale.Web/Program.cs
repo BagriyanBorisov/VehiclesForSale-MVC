@@ -6,6 +6,7 @@ namespace VehiclesForSale.Web
     using Infrastructure;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using VehiclesForSale.Web.Hubs;
     using static Common.GeneralConstants;
 
     public class Program
@@ -18,7 +19,7 @@ namespace VehiclesForSale.Web
             builder.Services.AddDbContext<VehiclesDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+            builder.Services.AddSignalR();
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
@@ -60,8 +61,14 @@ namespace VehiclesForSale.Web
                 app.SeedAdministrator(DevelopmentAdminEmail);
             }
 
-            app.MapDefaultControllerRoute();
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapHub<ChatHub>("/Chathub");
+            });
 
             app.Run();
         }
