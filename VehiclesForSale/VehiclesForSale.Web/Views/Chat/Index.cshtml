@@ -12,7 +12,6 @@
 <div class="mt-5"></div>
 <div class="mt-5"></div>
 <div class="mt-5"></div>
-<div class="mt-5"><h2 class="text-center mb-3">Чатът Ви с @Model.ReceiverName:</h2></div>
 <hr />
 @if (this.User.Identity.IsAuthenticated)
 {          
@@ -22,29 +21,28 @@
                 <div class="card chat-app">
                     <div class="chat">
                         <div class="chat-header clearfix">
-                            <div class="row">
-                                <div class="col-lg-6">
+                            <div class="row text-center">
                                 
-                                    <div class="chat-about float-center">
-                                        <h6 class="m-b-0">@Model.ReceiverName</h6>
+                                    <div class="chat-about">
+                                    <h6 class="m-b-0">Чатът Ви с @Model.ReceiverName</h6>
                                       
                                     </div>
-                                </div>
+                           
                              
                             </div>
                         </div>
                         <div class="chat-history">
                             <div class="chat-message clearfix">
                                 <div class="input-group mb-0 row text-center">
-                                    <div class="col-sm-2 offset-3">
-                                        <button class="form-control btn btn-primary" id="sendButton" value="Send Message" onclick="sendMessage(event)">Send</button>
-                                    </div>
-                                   <div class="col-sm-6">
+                  
+                                   <div class="col-sm-6 offset-md-2 pb-2">
                                         <input type="hidden" id="destuser" value="@Model.ReceiverId" />
                                         <input type="hidden" id="sendingUser" value="@Model.SenderId" />
                                         <input type="text" class="form-control input-custom" id="messageInput" placeholder="Напиши нещо тук..." />
                                     </div>
-                 
+                                    <div class="col-sm-2">
+                                        <button class="form-control btn btn-primary" id="sendButton" value="Send Message" onclick="sendMessage(event)">Изпрати</button>
+                                    </div>
                                 </div>
                             </div>
                             <ul class="m-b-0" id="chatMessages">

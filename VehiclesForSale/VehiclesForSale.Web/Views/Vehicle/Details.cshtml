@@ -224,11 +224,7 @@
                                 <p class="text-muted">Дата на регистрация в сайта: @Model.Seller.RegistrationMade</p>
                                 <p class="text-muted">Местоположение на автомобила: @Model.Vehicle.Location </p>
                             </div>
-                            <div class="row">
-                                <div class="col-sm-12 mb-2">
-                                    <a asp-action="Index" asp-controller="Chat" asp-route-receivingUserId="@Model.Seller.Id" class="btn btn-primary col-12">Chat with @Model.Seller.Name</a>
-                                </div>
-                        </div>
+                           
                         <div class="w-100 d-flex flex-column align-items-center">
                             <div class="row m-0">
                                 <div class="col-12  mb-4 p-0">
@@ -244,7 +240,12 @@
                                      </div>
                                     }
                                     else
-                                    {
+                                        {
+                                            <div class="row">
+                                                <div class="col-sm-12 mb-2">
+                                                    <a asp-action="Index" asp-controller="Chat" asp-route-receivingUserId="@Model.Seller.Id" class="btn btn-primary col-12">Chat with @Model.Seller.Name</a>
+                                                </div>
+                                            </div>
 
                                         <a asp-action="SellerVehicles" asp-controller="Vehicle" asp-route-Id="@Model.Seller.Id" class="btn btn-success col-12 ">Други обяви на @Model.Seller.Name</a>
                                     }

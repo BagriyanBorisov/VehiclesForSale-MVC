@@ -43,30 +43,5 @@ $(document).ready(function () {
             $("#priceToLabel").text('До: ' + ui.value + 'лв.');
         }
     });
-
-    // Initialize year from slider
-    $("#yearFromSlider").slider({
-        range: "min",
-        value: parseInt($("#yearFrom").val()) || 0,
-        min: 1980,
-        max: new Date().getFullYear(),
-        step: 1,
-        slide: function (event, ui) {
-            $("#yearFrom").val(ui.value);
-            $("#yearFromLabel").text(ui.value);
-        }
-    });
-
-    // Initialize year to slider
-    $("#yearToSlider").slider({
-        range: "min",
-        value: parseInt($("#yearTo").val()) || new Date().getFullYear(),
-        min: 1980,
-        max: new Date().getFullYear(),
-        step: 1,
-        slide: function (event, ui) {
-            $("#yearTo").val(ui.value);
-            $("#yearToLabel").text(ui.value);
-        }
-    });
+    
 });

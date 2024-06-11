@@ -1,20 +1,53 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 
+@using VehiclesForSale.Core.Services.Chat
 @using VehiclesForSale.Data.Models
 @using static VehiclesForSale.Common.GeneralConstants;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject ChatService ChatService
+
+@{
+    var userId = UserManager.GetUserId(User);
+    var unreadCount = 0;
+    var notifications = new List<NotificationViewModel>();
+    if (userId != null)
+    {
+        unreadCount = await ChatService.GetUnreadNotificationsCountAsync(userId);
+        notifications = await ChatService.GetNotifications(userId);
+    }
+}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+
+        <li class="nav-item box border-start border-end border-radius border me-md-2">
+            <div class="collapse navbar-collapse nav-item dropdown stick-top" id="navbarNavDarkDropdown">
+                <a class="nav-link dropdown-toggle text-dark fw-bolder" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="icon-container">
+                        <i class="fas fa-comments fa-2x"></i>
+                        <span class="badge" id="notification-count">@unreadCount</span> Чатове
+                    </div>
+                </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                @foreach (var notification in notifications)
+                {
+                    <a class="dropdown-item" asp-area="" asp-action="Index" asp-controller="Chat" asp-route-receivingUserId="@notification.SenderId">@notification.SenderName</a>
+                }
+            </div>
+            </div>
+        </li>
+      
         if (User.IsInRole(AdminRoleName))
         {
+            <li class="nav-item box border-start border-end border-radius border me-md-2">
             <div class="collapse navbar-collapse nav-item dropdown stick-top" id="navbarNavDarkDropdown">
                
-                    <li class="nav-item box border-start border-end border-radius border me-2">
+                    
                         <a class="nav-link dropdown-toggle text-dark fw-bolder" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Админ меню
                         </a>
@@ -25,8 +58,9 @@
                             <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="ExtrasCrud" asp-controller="Admin">Екстри</a></li>
                             <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="Users" asp-controller="Admin">Потребители</a></li>
                         </ul>
-                    </li>
-            </div>
+
+                </div>
+            </li>
         }
         <li class="nav-item box border-start border-end border-radius border ms-2">
             <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Add">Добави обява <i class="fas fa-plus"></i> </a>
@@ -53,5 +87,7 @@
         </li>
     }
 </ul>
+
+
 
 

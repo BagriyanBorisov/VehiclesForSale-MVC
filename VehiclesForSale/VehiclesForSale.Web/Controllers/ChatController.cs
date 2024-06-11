@@ -24,9 +24,9 @@ namespace VehiclesForSale.Web.Controllers
         {
             var sender = await this._userManager.GetUserAsync(this.User);
             var receivingUser = await this._userManager.FindByIdAsync(receivingUserId);
-            if (receivingUser == null)
+            if (receivingUser == null || sender.Id == receivingUserId)
             {
-                return this.NotFound();
+                return BadRequest("Invalid chat request.");
             }
             
             var chatViewModel = new ChatViewModel

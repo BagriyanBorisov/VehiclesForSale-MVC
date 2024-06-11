@@ -17,5 +17,8 @@ namespace VehiclesForSale.Data.Models
         public ICollection<FavoriteVehicleApplicationUser> FavoriteVehicleApplicationUsers { get; set; }
 
         public ICollection<Message> Messages { get; set; }
+
+        public ICollection<Notification> SentNotifications { get; set; } = new List<Notification>();
+        public ICollection<Notification> ReceivedNotifications { get; set; } = new List<Notification>();
     }
 }

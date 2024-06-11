@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VehiclesForSale.Data;
 
@@ -11,9 +12,11 @@ using VehiclesForSale.Data;
 namespace VehiclesForSale.Data.Migrations
 {
     [DbContext(typeof(VehiclesDbContext))]
-    partial class VehiclesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240609145345_isReadPropertyOfNotification")]
+    partial class isReadPropertyOfNotification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,17 +234,17 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "23665293-3761-4876-ba8e-ae30fa8dd7fa",
+                            ConcurrencyStamp = "9057ce30-ca6f-484a-9d2d-049fb80f0621",
                             Email = "Pesho.peshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "PESHO.PESHEV@ABV.bg",
                             NormalizedUserName = "pesho",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOqyTGgiONoe4ebwl6mjcL31qCzhorUBhhBdrP9aSqnxyLnQa8qePlsTsFAOFUt/IQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENGVl8Ge3dp9sSXmecd4DvLfvWHsv4O8Wbwzs0ZrS5TxX2Y9EO18a4zPW/BLkZiqeA==",
                             PhoneNumber = "+359222222222",
                             PhoneNumberConfirmed = false,
-                            RegistrationDate = new DateTime(2024, 6, 10, 21, 41, 59, 541, DateTimeKind.Utc).AddTicks(7165),
-                            SecurityStamp = "29616d0b-da19-46ed-bcce-c0ce28681151",
+                            RegistrationDate = new DateTime(2024, 6, 9, 14, 53, 44, 107, DateTimeKind.Utc).AddTicks(8159),
+                            SecurityStamp = "30a7c568-3dc9-49fc-b921-e645c3ae8df3",
                             TwoFactorEnabled = false,
                             UserName = "Pesho"
                         },
@@ -249,17 +252,17 @@ namespace VehiclesForSale.Data.Migrations
                         {
                             Id = "a123as23-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8d7d2fd6-32e4-4eff-b6d4-03c8a44ac41c",
+                            ConcurrencyStamp = "ce9631fc-5038-4293-872e-8d0bce938fc1",
                             Email = "Gosho.goshev@abv.bg",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "GOSHO.GOSHEV@ABV.BG",
                             NormalizedUserName = "gosho",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFfIpExjXHzV8swvI5THmoXPZh48JLfdtOgtsC7R3XBfVE8daeWeWzlgAXnzPVc2VQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBzLLmVqOzV9TuGg6kJuzMVmioTrUuf63p341bK5wCf1Qw8rDrmATvlskJ7FKUEgMw==",
                             PhoneNumber = "+359111111111",
                             PhoneNumberConfirmed = false,
-                            RegistrationDate = new DateTime(2024, 6, 10, 21, 41, 59, 593, DateTimeKind.Utc).AddTicks(7651),
-                            SecurityStamp = "8a9cb240-1808-4823-a984-c92a759f6ab8",
+                            RegistrationDate = new DateTime(2024, 6, 9, 14, 53, 44, 170, DateTimeKind.Utc).AddTicks(1417),
+                            SecurityStamp = "992571db-c6ce-49bd-b235-4fdf02657e8f",
                             TwoFactorEnabled = false,
                             UserName = "Gosho"
                         });
@@ -307,7 +310,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.Property<string>("ReceiverId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SenderId")
                         .IsRequired()
@@ -317,8 +320,6 @@ namespace VehiclesForSale.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReceiverId");
 
                     b.HasIndex("SenderId");
 
@@ -7935,19 +7936,11 @@ namespace VehiclesForSale.Data.Migrations
 
             modelBuilder.Entity("VehiclesForSale.Data.Models.Notification", b =>
                 {
-                    b.HasOne("VehiclesForSale.Data.Models.ApplicationUser", "Receiver")
-                        .WithMany("ReceivedNotifications")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("VehiclesForSale.Data.Models.ApplicationUser", "Sender")
-                        .WithMany("SentNotifications")
+                        .WithMany("Notifications")
                         .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Receiver");
 
                     b.Navigation("Sender");
                 });
@@ -8124,9 +8117,7 @@ namespace VehiclesForSale.Data.Migrations
 
                     b.Navigation("Messages");
 
-                    b.Navigation("ReceivedNotifications");
-
-                    b.Navigation("SentNotifications");
+                    b.Navigation("Notifications");
 
                     b.Navigation("VehiclesCollectionForSale");
                 });

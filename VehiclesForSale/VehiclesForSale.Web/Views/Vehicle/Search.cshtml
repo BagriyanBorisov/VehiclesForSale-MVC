@@ -167,16 +167,16 @@
 
 
                                     <div class="row justify-content-sm-evenly">
-                                        <div class="col-sm-6 ms-md-2 ps-sm-3">Марка:@car.Make</div>
-                                        <div class="col-sm-5">Модел: @car.Model</div>
+                                        <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Марка: @car.Make</div>
+                                        <div class="col-sm-5 card-text">Модел: @car.Model</div>
                                     </div>
                                     <div class="row justify-content-sm-evenly">
-                                        <div class="col-sm-6 ms-md-2 ps-sm-3">Година: @car.Month, @car.Year</div>
-                                        <div class="col-sm-5">Пробег: @car.Mileage km</div>
+                                        <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Година: @car.Month, @car.Year</div>
+                                        <div class="col-sm-5 card-text">Пробег: @car.Mileage km</div>
                                     </div>
                                     <div class="row justify-content-sm-evenly pb-2">
-                                        <div class="col-sm-6 ms-md-2 ps-sm-3">Ск. кутия: @car.Transmission</div>
-                                        <div class="col-sm-5">Гориво: @car.FuelType</div>
+                                        <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Ск. кутия: @car.Transmission</div>
+                                        <div class="col-sm-5 card-text">Гориво: @car.FuelType</div>
                                     </div>
                                     <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Детайлна информация</a>
                                 </div>
