@@ -1,17 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
+
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-VehiclesForSale.Web-c9190d2b-7db8-40af-93b8-0f40fb3daf4b</UserSecretsId>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject></StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.20">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.15" />
+  </ItemGroup>
+
   <ItemGroup>
     <Folder Include="Areas\Identity\" />
     <Folder Include="wwwroot\lib\bootstrap\dist\" />
     <Folder Include="wwwroot\Uploads\" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\VehiclesForSale.Common\VehiclesForSale.Common.csproj" />
     <ProjectReference Include="..\VehiclesForSale.Core\VehiclesForSale.Core.csproj" />
@@ -19,12 +33,5 @@
     <ProjectReference Include="..\VehiclesForSale.Web.Infrastructure\VehiclesForSale.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\VehiclesForSale.Web.ViewModels\VehiclesForSale.Web.ViewModels.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
-  </ItemGroup>
+
 </Project>
