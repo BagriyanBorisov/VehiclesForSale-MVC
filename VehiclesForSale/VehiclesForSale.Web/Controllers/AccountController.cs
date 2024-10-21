@@ -5,7 +5,7 @@ namespace VehiclesForSale.Web.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using VehiclesForSale.Core.Contracts.Chat;
+
     using VehiclesForSale.Data.Models;
     using ViewModels.Account;
 
@@ -16,15 +16,12 @@ namespace VehiclesForSale.Web.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        private IChatService chatService;
-
         public AccountController(
             UserManager<ApplicationUser> _userManager,
-            SignInManager<ApplicationUser> _signInManager, IChatService chat)
+            SignInManager<ApplicationUser> _signInManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
-            chatService = chat;
         }
 
         
@@ -34,13 +31,13 @@ namespace VehiclesForSale.Web.Controllers
         public async Task<IActionResult> Profile()
         {
             var user = await userManager.GetUserAsync(User);
+            var model = new RegisterViewModel()
+            {
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                UserName = user.UserName,
+            };
 
-
-            var model = new ProfileViewModel();
-            model.Profile.PhoneNumber = user?.PhoneNumber!;
-            model.Profile.Email = user.Email;
-            model.Profile.UserName = user.UserName;
-            model.Notifications = await chatService.GetNotifications(user.Id);
             return View(model);
         }
 

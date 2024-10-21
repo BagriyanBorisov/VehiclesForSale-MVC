@@ -1,93 +1,58 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Mvc.TagHelpers
 
-@using VehiclesForSale.Core.Services.Chat
 @using VehiclesForSale.Data.Models
 @using static VehiclesForSale.Common.GeneralConstants;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-@inject ChatService ChatService
-
-@{
-    var userId = UserManager.GetUserId(User);
-    var unreadCount = 0;
-    var notifications = new List<NotificationViewModel>();
-    if (userId != null)
-    {
-        unreadCount = await ChatService.GetUnreadNotificationsCountAsync(userId);
-        notifications = await ChatService.GetNotifications(userId);
-    }
-}
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-
-        <li class="nav-item box border-start border-end border-radius border me-md-2">
-            <div class="collapse navbar-collapse nav-item dropdown stick-top" id="navbarNavDarkDropdown">
-                <a class="nav-link dropdown-toggle text-dark fw-bolder" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="icon-container">
-                        <i class="fas fa-comments fa-2x"></i>
-                        <span class="badge" id="notification-count">@unreadCount</span> Чатове
-                    </div>
-                </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                @foreach (var notification in notifications)
-                {
-                    <a class="dropdown-item" asp-area="" asp-action="Index" asp-controller="Chat" asp-route-receivingUserId="@notification.SenderId">@notification.SenderName</a>
-                }
-            </div>
-            </div>
-        </li>
-      
         if (User.IsInRole(AdminRoleName))
         {
-            <li class="nav-item box border-start border-end border-radius border me-md-2">
-            <div class="collapse navbar-collapse nav-item dropdown stick-top" id="navbarNavDarkDropdown">
-               
-                    
+            <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown box border-start">
                         <a class="nav-link dropdown-toggle text-dark fw-bolder" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Админ меню
+                            Administrator
                         </a>
                         <ul class="dropdown-menu dropdown" aria-labelledby="navbarDarkDropdownMenuLink">
-                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="Index" asp-controller="Admin">Админ меню</a></li>
-                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="MakesAndModels" asp-controller="Admin">Марки&Модели</a></li>
-                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="TypesCrud" asp-controller="Admin">Тип</a></li>
-                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="ExtrasCrud" asp-controller="Admin">Екстри</a></li>
-                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="Users" asp-controller="Admin">Потребители</a></li>
+                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="Index" asp-controller="Admin">Admin Home</a></li>
+                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="MakesAndModels" asp-controller="Admin">Makes Crud</a></li>
+                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="TypesCrud" asp-controller="Admin">Types Crud</a></li>
+                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="ExtrasCrud" asp-controller="Admin">Extras Crud</a></li>
+                            <li><a class="dropdown-item nav-link text-dark" asp-area="" asp-action="Users" asp-controller="Admin">Users Table</a></li>
                         </ul>
-
-                </div>
-            </li>
+                    </li>
+                </ul>
+            </div>
         }
-        <li class="nav-item box border-start border-end border-radius border ms-2">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Add">Добави обява <i class="fas fa-plus"></i> </a>
+        <li class="nav-item box border-start">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Vehicle" asp-action="Add">Publish a vehicle</a>
         </li>
 
 
-        <li class="nav-item box border-start border-end border-radius border ms-2">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Профил <i class="fas fa-user"></i></a>
+        <li class="nav-item box border-start">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">Your Profile</a>
         </li>
 
-        <li class="nav-item box border-start border-end border-radius border ms-2">
+        <li class="nav-item box border-start">
             <form class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
-                <button type="submit" class="nav-link btn btn-link text-dark">Излез <i class="fas fa-sign-out-alt"></i> </button>
+                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
     }
     else
     {
-        <li class="nav-item box border-start border-end border-radius border ms-2">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Регистрирай се  <i class="fas fa-user-plus"></i></a>
+        <li class="nav-item box border-start">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
         </li>
-        <li class="nav-item box border-start border-end border-radius border ms-2">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Влез  <i class="fas fa-sign-in-alt"></i></a>
+        <li class="nav-item box border-start">
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
         </li>
     }
 </ul>
-
-
 
 
