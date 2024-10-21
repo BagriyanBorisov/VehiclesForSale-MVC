@@ -6,13 +6,12 @@
 @inject UserManager<ApplicationUser> UserManager
 @{
     bool isFirst = true;
-    ViewData["Title"] = Model.Vehicle.Title + "- Details";
+    ViewData["Title"] = Model.Vehicle.Title + "- Подробна информация";
 
 }
-
-
-
-<div class="container">
+<div class="row mt-5"></div>
+<div class="row mt-5"></div>
+ <div class="container">
     <div class="row m-0">
         <div class="col-lg-8 pb-5 pe-lg-5">
             <div class="row">
@@ -56,7 +55,7 @@
                     </div>
                 </div>
 
-                <div class="row m-0 bg-light">
+                <div class="row m-0 details-container">
 
                     <div class="col-12 px-4">
                         <div class="d-flex align-items-end mt-4 mb-2">
@@ -126,7 +125,7 @@
                             @if (Model.Vehicle.IsInWatchList == true)
                             {
                                 <a asp-action="DeleteFromWatchList" asp-controller="Vehicle" asp-route-vehicleId="@Model.Vehicle.Id" class="btn btn-danger col-12">
-                                    Remove from watchlist
+                                    Премахни от запазени
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
                                         <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755-.165.165-.337.328-.517.486l.708.709z" />
                                         <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
@@ -137,7 +136,7 @@
                             else
                             {
                                 <a asp-action="AddToWatchList" asp-controller="Vehicle" asp-route-vehicleId="@Model.Vehicle.Id" class="btn btn-primary col-12">
-                                    Add to watchlist
+                                    Добави в запазени
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                         <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
                                         <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
@@ -150,69 +149,61 @@
             </div>
         </div>
         <div class="col-lg-4 p-0 my-5 ps-lg-4">
-            <div class="row m-0 bg-light ">
+            <div class="row m-0 details-container ">
                 <div class="col-12 px-0">
-                    <div class="row bg-light m-0">
-                        <div class="col-6 px-1 my-2 justify-content-center border-end border-dark">
-                            <p class="fw-bold m-2">Comfort</p>
+                    <div class="row m-0  details-container">
+                        <div class="col-6 p-2 justify-content-center border-end border-dark">
+                            <p class="fw-bold">Комфорт</p>
                             <ul>
                                
                                 @foreach (var comfExtra in Model.Vehicle.ComfortExtras)
                                 {
-                                    <li class="align-items-center py-2 m-0">
-                                        @comfExtra
-                                    </li>
+                                    <li class="text-size">@comfExtra</li>
                                 }
                             </ul>
                             </div>
-                        <div class="col-6 px-1 my-2 justify-content-center border-dark">
-                            <p class="fw-bold m-2">Safety</p>
+                        <div class="col-6 p-2 justify-content-center border-dark">
+                            <p class="fw-bold">Безопастност</p>
                             <ul>
 
                                 @foreach (var comfExtra in Model.Vehicle.SafetyExtras)
                                 {
-                                    <li class="align-items-center py-2 m-0">
-                                        @comfExtra
-                                    </li>
+                                    <li class="text-size">@comfExtra</li>
                                 }
                             </ul>
                         </div>
 
                         <div class="col-6 px-1 justify-content-center border-top border-end border-dark">
-                            <p class="fw-bold m-2">Interior</p>
+                            <p class="fw-bold m-2">Интериор</p>
                             <ul>
 
                                 @foreach (var comfExtra in Model.Vehicle.InteriorExtras)
                                 {
-                                    <li class="align-items-center py-2 m-0">
-                                        @comfExtra
-                                    </li>
+                                    <li class="text-size">@comfExtra</li>
                                 }
                             </ul>
                         </div>
                         <div class="col-6 px-1 border-top border-dark">
-                            <p class="fw-bold m-2">Exterior</p>
+                            <p class="fw-bold m-2">Екстериор</p>
                             <ul>
 
                                 @foreach (var comfExtra in Model.Vehicle.ExteriorExtras)
                                 {
-                                    <li class="h6 m-0">@comfExtra</li>
+                                    <li class="text-size">@comfExtra</li>
                                 }
                             </ul>
 
                         </div>
                       
                        
-                        
+     
                         <div class="col-12 px-0 my-0 border-top border-dark ">
-                            <p class="fw-bold m-2">Other</p>
+                            <p class="fw-bold m-2">Други</p>
                             <ul>
 
                                 @foreach (var comfExtra in Model.Vehicle.OtherExtras)
                                 {
-                                    <li class="py-2 m-0">
-                                        @comfExtra
-                                    </li>
+                                    <li class="text-size">@comfExtra</li>
                                 }
                             </ul>
                         </div>
@@ -221,37 +212,42 @@
             </div>
 
             <div class="col-12 px-0 my-5">
-                <div class="row bg-light m-0">
+                <div class="row m-0  details-container">
                     <div class="col-12 px-4 my-4">
-                        <p class="fw-bold">Seller details</p>
+                        <p class="fw-bold">Информация за продавача</p>
                     </div>
                     <div class="col-12 px-4">
                         <div class="d-flex w-100 flex-column mb-4">
-                            <p class="fw-bold">Owner's Name: @Model.Seller.Name</p>
+                            <p class="fw-bold">Име на продавача: @Model.Seller.Name</p>
                             <div class=" w-100 d-flex flex-column align-items-start">
-                                <p class="fw-bold">Phone number: @Model.Seller.PhoneNumber</p>
-                                <p class="text-muted">Vehicle's Location: @Model.Vehicle.Location </p>
-                                <p class="text-muted">In VehiclesForSale since: @Model.Seller.RegistrationMade</p>
+                                <p class="fw-bold">Телефонен номер: @Model.Seller.PhoneNumber</p>
+                                <p class="text-muted">Дата на регистрация в сайта: @Model.Seller.RegistrationMade</p>
+                                <p class="text-muted">Местоположение на автомобила: @Model.Vehicle.Location </p>
                             </div>
-                        </div>
+                           
                         <div class="w-100 d-flex flex-column align-items-center">
                             <div class="row m-0">
                                 <div class="col-12  mb-4 p-0">
                                     @if (Model.Seller.Id == UserManager.GetUserId(User))
                                     {
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12">
+                                            <div class="col-md-6 col-sm-12 mb-2">
                                              <a asp-action="Edit" asp-controller="Vehicle" asp-route-id="@Model.Vehicle.Id" class="btn btn-warning col-12">Edit</a>
                                          </div>
                                          <div class="col-md-6 col-sm-12">
-                                             <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@Model.Vehicle.Id" class="btn btn-danger col-12">Delete</a>
+                                             <a asp-action="Delete" asp-controller="Vehicle" asp-route-id="@Model.Vehicle.Id" class="btn btn-danger col-12 text-center">Delete</a>
                                          </div>
                                      </div>
                                     }
                                     else
-                                    {
+                                        {
+                                            <div class="row">
+                                                <div class="col-sm-12 mb-2">
+                                                    <a asp-action="Index" asp-controller="Chat" asp-route-receivingUserId="@Model.Seller.Id" class="btn btn-primary col-12">Chat with @Model.Seller.Name</a>
+                                                </div>
+                                            </div>
 
-                                        <a asp-action="SellerVehicles" asp-controller="Vehicle" asp-route-Id="@Model.Seller.Id" class="btn btn-success col-12 ">Seller other vehicles</a>
+                                        <a asp-action="SellerVehicles" asp-controller="Vehicle" asp-route-Id="@Model.Seller.Id" class="btn btn-success col-12 ">Други обяви на @Model.Seller.Name</a>
                                     }
                                    
                                 </div>

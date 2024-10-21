@@ -1,30 +1,45 @@
 ﻿@model LoginViewModel;
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Влизане";
 }
 
+<div class="row mt-5">
+    </div>
+<div class="row mt-5">
+    </div>
 
 <h1 class="text-center">@ViewData["Title"]</h1>
+<div class="row ms-1 me-1 pb-3">
+    <a class="col-md-4 offset-md-4">
+        <img src="~/Uploads/Rectangular_Car_Logo white.png" class="center-block card-img" alt="Продажба на коли">
+    </a>
+</div>
+     
 <div class="row">
-    <div class="col-md-4 offset-md-4">
+    <div class="col-md-4 offset-md-4 login-register-container">
         <section>
             <form id="account" method="post">
-                <hr />
+                        
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="text-center mb-3">
-                    <label asp-for="@Model.UserName" class="form-label">Username</label>
-                    <input asp-for="@Model.UserName" class="form-control" autocomplete="username" aria-required="true" />
+                <div class="text-center pt-3 mb-3 col-10 offset-1">
+                    <label asp-for="@Model.UserName" class="form-label">Наименование:</label>
+                    <input asp-for="@Model.UserName" class="form-control input-custom border-dark" autocomplete="username" aria-required="true" />
                     <span asp-validation-for="@Model.UserName" class="text-danger"></span>
                 </div>
-                <div class="text-center mb-3">
-                    <label asp-for="@Model.Password" class="form-label"></label>
-                    <input asp-for="@Model.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" />
+                <div class="text-center mb-3 col-10 offset-1">
+                    <label asp-for="@Model.Password" class="form-label">Парола:</label>
+                    <input asp-for="@Model.Password" type="password" class="form-control input-custom border-dark" autocomplete="current-password" aria-required="true" />
                     <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
-                <div class="text-center">
-                    <button id="login-submit" type="submit" class="btn btn-primary">Log in</button>
+                <div class="text-center pb-3">
+                    <button id="login-submit" type="submit" class="btn btn-primary">Влез</button>
                 </div>
             </form>
         </section>
     </div>
 </div>
+    <div class="row ms-1 me-1 pt-3 grid-row-end">
+        <a class="col-md-4 offset-md-4">
+            <img src="~/Uploads/Rectangular_Car_Logo white without car.png" class="center-block card-img" alt="Продажба на коли" style="height=30px; width=auto">
+        </a>
+    </div>

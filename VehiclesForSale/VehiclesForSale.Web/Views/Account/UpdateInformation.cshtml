@@ -1,44 +1,51 @@
 ﻿@model UpdateInformationViewModel;
 
 @{
-    ViewData["Title"] = "Update Information";
+    ViewData["Title"] = "Актуализиране на информация";
 }
-
+<div class="row mt-5">
+    </div>
+    <div class="row mt-5">
+        </div>
 <h1 class="text-center">@ViewData["Title"]</h1>
 
 
 <div class="row">
-    <div class="col-md-4 offset-md-4">
+    <div class="col-md-4 offset-md-4 login-register-container border-dark" id="profile-container">
         <form id="updateForm" method="post">
-            <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="text-center mb-3">
-                <label asp-for="@Model.UserName">Username</label>
-                <input class="form-control" placeholder="e.g. John Doe" autocomplete="username" aria-required="true" asp-for="@Model.UserName" />
+            <div class="text-center mb-3 pt-2">
+                <label asp-for="@Model.UserName">Наименование:</label>
+                <input class="form-control input-custom border-dark" placeholder="e.g. John Doe" autocomplete="username" aria-required="true" asp-for="@Model.UserName" />
                 <span asp-validation-for="@Model.UserName" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
-                <label asp-for="@Model.Email">Email</label>
-                <input class="form-control " placeholder="e.g. JohnDoe@@Gmail.com" autocomplete="username" aria-required="true" asp-for="@Model.Email" />
+                <label asp-for="@Model.Email">Електронна поща:</label>
+                <input class="form-control input-custom border-dark" placeholder="e.g. JohnDoe@@Gmail.com"  aria-required="true" asp-for="@Model.Email" />
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
 
             <div class="text-center mb-3">
-                <label asp-for="@Model.PhoneNumber">Phone number</label>
-                <input type="tel" class="form-control " placeholder="087-832-4567" autocomplete="username" aria-required="true" asp-for="@Model.PhoneNumber" />
+                <label asp-for="@Model.PhoneNumber">Тел. Номер:</label>
+                <input type="tel" class="form-control input-custom border-dark" placeholder="087-832-4567"  aria-required="true" asp-for="@Model.PhoneNumber" />
                 <span asp-validation-for="@Model.PhoneNumber" class="text-danger"></span>
             </div>
 
             <div class="text-center mb-3">
-                <label asp-for="@Model.Password">Password</label>
-                <input class="form-control" type="password" placeholder="********" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
+                <label asp-for="@Model.Password">Парола:</label>
+                <input class="form-control input-custom border-dark" type="password" placeholder="********" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
             </div>
-            <div class="text-center">
-                <button id="editInfo" type="submit" class="btn btn-warning">Update information</button>
+            <div class="text-center pb-3">
+                <button id="editInfo" type="submit" class="btn btn-warning">Обнови</button>
             </div>
         </form>
     </div>
+</div>
+<div class="row pt-3 grid-row-end">
+    <a class="col-md-4 offset-md-4">
+        <img src="~/Uploads/Rectangular_Car_Logo white without car.png" class="center-block card-img" alt="Продажба на коли" style="height=30px; width=auto">
+    </a>
 </div>
 
 @section Scripts {

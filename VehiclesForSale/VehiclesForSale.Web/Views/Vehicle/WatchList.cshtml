@@ -1,17 +1,18 @@
 ﻿@model PaginatedList<VehicleIndexViewModel>
 
 @{
-    ViewData["Title"] = "Your Watchlist";
+    ViewData["Title"] = "Запазени";
 }
-
-<h2 class="text-center mb-3">@ViewData["Title"]</h2>
+<div class="row mt-5"></div>
+<div class="row mt-5"></div>
+<h2 class="text-center mb-3">@ViewData["Title"] <i class="fas fa-eye"></i></h2>
 <hr />
 @if (!Model.Any())
 {
-    <h2 class="text-center mb-3">There are no added vehicle to Your Watchlist yet</h2>
+    <h3 class="text-center mb-3">Все още няма добавени превозни средства във Вашия списък за наблюдение.</h3>
 }
 
-   <div class="row">
+<div class="row">
     @foreach (var car in Model)
     {
         var checkImage = car.MainImage ?? "NoImage.jpg";
@@ -22,32 +23,30 @@
                         <div class="card-sl">
                             <div class="card-image">
                                 <img src="/Uploads/@checkImage" />
-
                             </div>
                             <div class="row justify-content-center card-heading">
                                 <div class="col-sm-6 col-lg-12 text-center">
                                     @car.Title
                                 </div>
                                 <div class="col-sm-6 col-lg-12 text-center">
-                                    Price: $@car.Price
+                                    Цена: @car.Price лв.
                                 </div>
                             </div>
 
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center">Make: @car.Make</div>
-                                <div class="col-md-6 text-center">Model: @car.Model</div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center">Year: @car.Month, @car.Year</div>
-                                <div class="col-md-6 text-center">Mileage: @car.Mileage km</div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center">Transmission: @car.Transmission</div>
-                                <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
-                            </div>
 
-                            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Check Details</a>
-
+                            <div class="row justify-content-sm-evenly">
+                                <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Марка: @car.Make</div>
+                                <div class="col-sm-5 card-text">Модел: @car.Model</div>
+                            </div>
+                            <div class="row justify-content-sm-evenly">
+                                <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Година: @car.Month, @car.Year</div>
+                                <div class="col-sm-5 card-text">Пробег: @car.Mileage km</div>
+                            </div>
+                            <div class="row justify-content-sm-evenly pb-2">
+                                <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Ск. кутия: @car.Transmission</div>
+                                <div class="col-sm-5 card-text">Гориво: @car.FuelType</div>
+                            </div>
+                            <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button">Детайлна информация</a>
                         </div>
                     </div>
                 </div>

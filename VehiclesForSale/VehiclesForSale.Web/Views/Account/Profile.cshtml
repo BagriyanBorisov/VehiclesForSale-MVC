@@ -1,39 +1,60 @@
-﻿@model RegisterViewModel;
+﻿@model ProfileViewModel;
 
 @{
-    ViewData["Title"] = "Your Profile";
+    ViewData["Title"] = "Вашият профил";
 }
+<div class="row mt-5">
+</div>
+<div class="row mt-5">
+</div>
+
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</head>
 
 <h1 class="text-center">@ViewData["Title"]</h1>
 
 <div class="row">
-    <div class="col-8 m-0 bg-light mx-auto text-center">
-       
-            <div class="d-flex align-items-end mt-4 mb-2">
+
+    <div class="col-8 mx-auto login-register-container" id="profile-container">
+            <div class="d-flex justify-content-center mt-4 mb-2">
                 <p class="h4 m-0">
-                    <span class="pe-1">Username: @Model.UserName</span>
+                    <span class="pe-1">Наименование: @Model.Profile.UserName</span>
                 </p>
             </div>
             <hr />
-            <div class="d-flex justify-content-start mb-3">
+            <div class="d-flex justify-content-center mb-3">
                 <div class="align-text-top">
-                    <span class="h4">Email: @Model.Email</span>
+                    <span class="h4">Електронна поща: @Model.Profile.Email</span>
                 </div>
 
             </div>
             <hr />
-            <div class="d-flex justify-content-start mb-3">
+            <div class="d-flex justify-content-center mb-3">
                 <div class="align-text-top">
-                    <span class="h4">Phone number: @Model.PhoneNumber</span>
+                    <span class="h4">Тел. Номер: @Model.Profile.PhoneNumber</span>
                 </div>
             </div>
             <hr />
-            <div class="text-center mb-2">
-                <a asp-action="UpdateInformation" asp-controller="Account" id="updateInfo" class="btn btn-primary">Update information</a>
-                <a asp-action="UpdatePassword" asp-controller="Account" id="updatePass" class="btn btn-warning">Update Password</a>
+            <div class="text-center mb-2 pb-2">
+                <a asp-action="UpdateInformation" asp-controller="Account" id="updateInfo" class="btn btn-primary">Обнови информация</a>
+                <a asp-action="UpdatePassword" asp-controller="Account" id="updatePass" class="btn btn-warning">Обнови парола</a>
             </div>
         </div>
     </div>
+<div class="row mt-1">
+    <a class="col-md-4 offset-md-4">
+        <img src="~/Uploads/Rectangular_Car_Logo white without car.png" class="center-block card-img" alt="Продажба на коли" style="height=30px; width:auto">
+    </a>
+</div>
+        <div class="row mt-1">
+            <a class="col-md-4 offset-md-4">
+                <img src="~/Uploads/Rectangular_Car_Logo white.png" class="center-block card-img" alt="Продажба на коли">
+            </a>
+        </div>
+
 
 
 
