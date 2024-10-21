@@ -1,26 +1,17 @@
 ﻿@model VehicleSearchViewModel;
 @{
-    ViewData["Title"] = "Търси";
+    ViewData["Title"] = "Search for vehicle";
 }
-<head>
-    <meta charset="UTF-8">
-    <title>@ViewData["Title"] - Коли.bg</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" href="~/css/site.css">
-</head>
-<div class="row mt-5"></div>
-<div class="row mt-5"></div>
 
- <div class="row">
-    <div class="col-md-4">
-        <form id="SearchVehicleForm" method="post">
-        <h1 class="text-center mb-lg-3 col-md-12">@ViewData["Title"]</h1>
-        <hr />
-        <div class="row ps-2 login-register-container">
-        <div class="row text-center">
-        <div class="text-center pt-2 mb-3 col-md-6">
-                            <label asp-for="@Model.MakeId" class="form-label-add-edit">Марка: </label>
-                            <select asp-for="@Model.MakeId" class="form-control input-custom border-dark" aria-required="true">
+    <div class="row">
+        <div class="col-md-4">
+            <form id="SearchVehicleForm" method="post">
+            <h1 class="text-center mb-lg-3 col-md-12">@ViewData["Title"]</h1>
+                    <hr />
+                    <div class="row text-center">
+                        <div class="text-center mb-3 col-md-6">
+                            <label asp-for="@Model.MakeId" class="form-label-add-edit">Make: </label>
+                            <select asp-for="@Model.MakeId" class="form-control" aria-required="true">
                                 @foreach (var make in Model.Makes)
                                 {
                                     <option value="@make.Id">@make.Name</option>
@@ -28,9 +19,9 @@
                             </select>
                             <span asp-validation-for="@Model.MakeId" class="text-danger"></span>
                         </div>
-                        <div class="text-center pt-2 mb-3 col-md-6 ">
-                            <label asp-for="@Model.ModelId" class="form-label-add-edit">Модел: </label>
-                            <select asp-for="@Model.ModelId" class="form-control input-custom border-dark" aria-required="true">
+                        <div class="text-center mb-3 col-md-6">
+                            <label asp-for="@Model.ModelId" class="form-label-add-edit">Model: </label>
+                            <select asp-for="@Model.ModelId" class="form-control" aria-required="true">
                                 @foreach (var mod in Model.Models)
                                 {
                                     <option value="@mod.Id">@mod.Name</option>
@@ -41,21 +32,19 @@
                     </div>
                     <div class="row text-center">
                         <div class="text-center mb-3 col-md-6">
-                    <label asp-for="@Model.PriceFrom" id="priceFromLabel">Цена От:</label>
-                            <input class="form-control input-custom border-dark" aria-required="true" type="hidden" id="priceFrom" name="PriceFrom" value="@Model.PriceFrom" asp-for="@Model.PriceFrom" />
-                            <div id="priceFromSlider"></div>
+                            <label asp-for="@Model.PriceFrom">Price Range From</label>
+                            <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.PriceFrom" />
                             <span asp-validation-for="@Model.PriceFrom" class="text-danger"></span>
                         </div>
                         <div class="text-center mb-3 col-md-6">
-                    <label asp-for="@Model.PriceTo" id="priceToLabel">Цена До:</label>
-                    <input class="form-control input-custom border-dark" aria-required="true" type="hidden" id="priceTo" name="PriceTo" value="@Model.PriceTo" asp-for="@Model.PriceTo" />
-                            <div id="priceToSlider"></div>
+                            <label asp-for="@Model.PriceTo">Price Range To</label>
+                            <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.PriceTo" />
                             <span asp-validation-for="@Model.PriceTo" class="text-danger"></span>
                         </div>
 
                         <div class="text-center mb-3 col-md-6">
-                    <label asp-for="@Model.SelectedYearFrom" class="form-label-add-edit" id="yearToLabel">Година От: </label>
-                            <select asp-for="@Model.SelectedYearFrom" class="form-control input-custom border-dark" aria-required="true">
+                            <label asp-for="@Model.SelectedYearFrom" class="form-label-add-edit">Year From: </label>
+                            <select asp-for="@Model.SelectedYearFrom" class="form-control" aria-required="true">
                                 <option value="">Select Year</option>
                                 @foreach (var year in Model.Years)
                                 {
@@ -66,8 +55,8 @@
                         </div>
 
                         <div class="text-center mb-3 col-md-6">
-                            <label asp-for="@Model.SelectedYearTo" class="form-label-add-edit">Година До: </label>
-                            <select asp-for="@Model.SelectedYearTo" class="form-control input-custom border-dark" aria-required="true">
+                            <label asp-for="@Model.SelectedYearTo" class="form-label-add-edit">Year To: </label>
+                            <select asp-for="@Model.SelectedYearTo" class="form-control" aria-required="true">
                                 <option value="">Select Year</option>
                                 @foreach (var year in Model.Years)
                                 {
@@ -80,8 +69,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="text-center mb-3 col-md-6">
-                            <label asp-for="@Model.TransmissionTypeId" class="form-label-add-edit">Скоростна Кутия: </label>
-                            <select asp-for="@Model.TransmissionTypeId" class="form-control input-custom border-dark" aria-required="true">
+                            <label asp-for="@Model.TransmissionTypeId" class="form-label-add-edit">Transmission: </label>
+                            <select asp-for="@Model.TransmissionTypeId" class="form-control" aria-required="true">
                                 @foreach (var tr in Model.TransmissionTypes)
                                 {
                                     <option value="@tr.Id">@tr.Name</option>
@@ -90,8 +79,8 @@
                             <span asp-validation-for="@Model.TransmissionTypeId" class="text-danger"></span>
                         </div>
                         <div class="text-center mb-3 col-md-6">
-                            <label asp-for="@Model.FuelTypeId" class="form-label-add-edit">Гориво: </label>
-                            <select asp-for="@Model.FuelTypeId" class="form-control input-custom border-dark" aria-required="true">
+                            <label asp-for="@Model.FuelTypeId" class="form-label-add-edit">Fuel type: </label>
+                            <select asp-for="@Model.FuelTypeId" class="form-control" aria-required="true">
                                 @foreach (var fuelType in Model.FuelTypes)
                                 {
                                     <option value="@fuelType.Id">@fuelType.Name</option>
@@ -101,8 +90,8 @@
                         </div>
 
                         <div class="text-center mb-3 col-md-6">
-                            <label asp-for="@Model.CategoryTypeId" class="form-label-add-edit">Тип: </label>
-                            <select asp-for="@Model.CategoryTypeId" class="form-control input-custom border-dark" aria-required="true">
+                            <label asp-for="@Model.CategoryTypeId" class="form-label-add-edit">Body type: </label>
+                            <select asp-for="@Model.CategoryTypeId" class="form-control" aria-required="true">
                                 @foreach (var categoryType in Model.Categories)
                                 {
                                     <option value="@categoryType.Id">@categoryType.Name</option>
@@ -111,8 +100,8 @@
                             <span asp-validation-for="@Model.CategoryTypeId" class="text-danger"></span>
                         </div>
                         <div class="text-center mb-3 col-md-6">
-                            <label asp-for="@Model.ColorId">Цвят: </label>
-                            <select asp-for="@Model.ColorId" class="form-control input-custom border-dark" aria-required="true">
+                            <label asp-for="@Model.ColorId">Color: </label>
+                            <select asp-for="@Model.ColorId" class="form-control" aria-required="true">
                                 @foreach (var color in Model.Colors)
                                 {
                                     <option value="@color.Id">@color.Name</option>
@@ -120,36 +109,40 @@
                             </select>
                             <span asp-validation-for="@Model.ColorId" class="text-danger"></span>
                         </div>
+                        <div class="text-center mb-3 col-md-6">
+                            <label asp-for="@Model.MileageTo">Mileage To: </label>
+                            <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.MileageTo" />
+                            <span asp-validation-for="@Model.MileageTo" class="text-danger"></span>
+                        </div>
                     </div>
                     <div class="row text-center">
                         <div class="text-center mb-3 col-md-6">
-                            <label asp-for="@Model.CubicCapacityTo">Кубатура:</label>
-                            <input class="form-control input-custom border-dark"  aria-required="true" asp-for="@Model.CubicCapacityTo" />
+                            <label asp-for="@Model.CubicCapacityTo">Cubic Capacity To:</label>
+                            <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.CubicCapacityTo" />
                             <span asp-validation-for="@Model.CubicCapacityTo" class="text-danger"></span>
                         </div>
                         <div class="text-center mb-3 col-md-6">
-                            <label asp-for="@Model.HorsePowerTo">Конски сили:</label>
-                            <input class="form-control input-custom border-dark" aria-required="true" asp-for="@Model.HorsePowerTo" />
+                            <label asp-for="@Model.HorsePowerTo">Horse Power To:</label>
+                            <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.HorsePowerTo" />
                             <span asp-validation-for="@Model.HorsePowerTo" class="text-danger"></span>
                         </div>
                     </div>
-                    <div class="row text-center ">
+                    <div class="row text-center">
                         <div class="mb-3 col-md-12 align-content-center">
-                            <input class="btn btn-primary mb-2 w-100 p-3 fw-bold" type="submit" value="Търси"/>
+                            <input class="btn btn-primary mb-2 w-100 p-3 fw-bold" type="submit" value="Search for vehicle" />
                         </div>
-                    </div>
                     </div>
             </form>
         </div>
         <div class="col-md-8">
-            <h1 class="text-center col-lg-12">Последно добавени обяви</h1>
+            <h1 class="text-center col-lg-12">Latest vehicles</h1>
             <hr />
-        <div class="row">
+        <div class="row text-center">
             @foreach (var car in Model.Vehicles.Take(4))
             {
                 var checkImage = car.MainImage ?? "NoImage.jpg";
                 <div class="col-md-6">
-                    <div class="container m-2">
+                    <div class="container m-1">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card-sl">
@@ -161,24 +154,24 @@
                                             @car.Title
                                         </div>
                                         <div class="col-sm-6 col-lg-12 text-center">
-                                            Цена: @car.Price лв.
+                                            Price: $@car.Price
                                         </div>
                                     </div>
 
 
-                                    <div class="row justify-content-sm-evenly">
-                                        <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Марка: @car.Make</div>
-                                        <div class="col-sm-5 card-text">Модел: @car.Model</div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6 text-center">Make: @car.Make</div>
+                                        <div class="col-md-6 text-center">Model: @car.Model</div>
                                     </div>
-                                    <div class="row justify-content-sm-evenly">
-                                        <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Година: @car.Month, @car.Year</div>
-                                        <div class="col-sm-5 card-text">Пробег: @car.Mileage km</div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6 text-center">Year: @car.Month, @car.Year</div>
+                                        <div class="col-md-6 text-center">Mileage: @car.Mileage km</div>
                                     </div>
-                                    <div class="row justify-content-sm-evenly pb-2">
-                                        <div class="col-sm-6 ms-md-2 ps-sm-3 card-text">Ск. кутия: @car.Transmission</div>
-                                        <div class="col-sm-5 card-text">Гориво: @car.FuelType</div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-6 text-center">Transmission: @car.Transmission</div>
+                                        <div class="col-md-6 text-center">Fuel: @car.FuelType</div>
                                     </div>
-                                    <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Детайлна информация</a>
+                                    <a asp-action="Details" asp-controller="Vehicle" asp-route-id="@car.Id" class="card-button"> Check Details</a>
                                 </div>
                             </div>
                         </div>
@@ -229,9 +222,4 @@
             });
         });
     </script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="~/js/site.js"></script>
 }
