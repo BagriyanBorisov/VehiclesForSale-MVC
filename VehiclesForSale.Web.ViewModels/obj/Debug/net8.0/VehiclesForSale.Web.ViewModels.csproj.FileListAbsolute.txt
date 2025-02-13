@@ -1,0 +1,17 @@
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\bin\Debug\net8.0\VehiclesForSale.Web.ViewModels.deps.json
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\bin\Debug\net8.0\VehiclesForSale.Web.ViewModels.dll
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\bin\Debug\net8.0\VehiclesForSale.Web.ViewModels.pdb
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\bin\Debug\net8.0\VehiclesForSale.Common.dll
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\bin\Debug\net8.0\VehiclesForSale.Data.dll
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\bin\Debug\net8.0\VehiclesForSale.Common.pdb
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\bin\Debug\net8.0\VehiclesForSale.Data.pdb
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\VehiclesForSale.Web.ViewModels.csproj.AssemblyReference.cache
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\VehiclesForSale.Web.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\VehiclesForSale.Web.ViewModels.AssemblyInfoInputs.cache
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\VehiclesForSale.Web.ViewModels.AssemblyInfo.cs
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\VehiclesForSale.Web.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\Vehicles.BF95776A.Up2Date
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\VehiclesForSale.Web.ViewModels.dll
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\refint\VehiclesForSale.Web.ViewModels.dll
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\VehiclesForSale.Web.ViewModels.pdb
+C:\Users\Bagri\source\repos\VehiclesForSale\VehiclesForSale.Web.ViewModels\obj\Debug\net8.0\ref\VehiclesForSale.Web.ViewModels.dll
